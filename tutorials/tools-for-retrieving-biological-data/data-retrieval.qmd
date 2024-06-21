@@ -1,0 +1,412 @@
+---
+title: "Tools for Retrieving Biological Data"
+description: "An overview of command line tools and APIs for automating data retrieval."
+author: "Jan Samson"
+date: "2024-06-20"
+categories:
+  - CLI
+  - data
+image: ../../assets/data-retrieval-icon.jpg
+format:
+  html:
+    theme: sandstone
+highlight-style: github
+code-annotations: hover
+code-overflow: scroll
+---
+
+## How to get genome data
+
+Data is distributed via various repositories. The most commonly used ones are:
+
+<center>
+
+```{mermaid}
+%%| fig-width: 100%
+flowchart LR
+  1A["`**NCBI**
+  Genbank/RefSeq`"]
+  1B["`Use numbers
+  **bio, efetch**`"]
+  
+  2A["`**Ensembl**
+  **UCSC**
+  **FlyBase, WormBase**
+  Releases`"]
+  2B["`Use URL
+  **curl, wget, aria2**
+  **genomepy, refgenie**`"]
+  
+  3A["`**NCBI Assemblies**
+  RefSeq genomes`"]
+  3B["`Use accession
+  **datasets**`"]
+  
+  4A["`**Independent
+  Data Tools**`"]
+  4B["`**genomepy**
+  **refgenie**`"]
+  
+  5["`**File Formats**
+  FASTA, GFF, GTF, BED`"]
+  
+  1A --> 1B --> 5
+  2A --> 2B --> 5
+  3A --> 3B --> 5
+  4A --> 4B --> 5
+```
+
+</center>
+
+In addition, there are software packages such as refgenie and genomepy that can be used to download and manage reference genomes.
+
+### Search for metadata
+
+If you have an NCBI-based accession number, you can use the `bio search` command to get information on it.
+
+```sh
+# Searches GenBank
+bio search AF086833
+
+# Searches SRA
+bio search SRR1553425
+
+# Searches NCBI Genomes
+bio search GCA_000005845
+
+# Also searches NCBI Genomes
+bio search ecoli
+```
+
+### How to access Genbank
+
+GenBank is the NIH genetic sequence database, an annotated collection of publicly available DNA sequences. If your data has a GenBank accession number such as `AF086833` use the `fetch` command from the `bio` module.
+
+```sh
+# Create a directory for reference-related data
+mkdir -p refs/
+
+# Accession to be downloaded
+ACC=AF086833
+
+# Retrieve FASTA file
+bio fetch ${ACC} --format fasta > refs/${ACC}.fa # <1>
+
+# Retrieve GFF file
+bio fetch ${ACC} --format gff > refs/${ACC}.gff  # <2>
+```
+1. Download the sequence file
+2. Download the annotation file
+
+### How to download via URL
+
+If you know the URL of a resource, you may use `wget` or `curl` to download the file.
+```sh
+# The URL of the file
+URL=http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz
+
+# Download with curl
+curl $URL > refs/chr22.fa.gz
+```
+
+  For large files, [aria2](https://aria2.github.io/) can do faster, multisegmented downloads that has the ability to restart interrupted downloads.
+  
+```sh
+# The URL of the file
+URL=http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz
+
+aria2 $URL > refs/chr22.fa.gz
+# Download with aria2
+```
+
+### How to use NCBI datasets
+
+[NCBI Datasets](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/) is a new resource designed by NCBI to gather data from across NCBI databases.
+
+It seems to be the direction that NCBI wants to shepherd users towards. It is a low more complicated and convoluted to use than all the other resources but it is what we got.
+
+```sh
+datasets summary genome taxon "king penguin" | jq | more
+```
+
+### How to access Ensembl
+
+Ensembl operates on numbered releases. For example, [release 104](http://ftp.ensembl.org/pub/release-104/) was published on March 30, 2021. Data can be retrieved by navigating the file tree in the provided FTP server. Alternatively, you can invoke `curl` or `wget` directly on each file.
+
+```sh
+# Get the FASTA file from chromosome 22 of the human genome
+URL=http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz
+
+# Use curl go download the data
+curl $URL | gunzip -c > refs/chr22.fa # <1>
+```
+1. Download from URL and decompress the FASTA file.
+
+## How to use refgenie
+
+Refgenie is a command-line tool that can be used to download and manage reference genomes, and to build and manage custom genome assets. It also provides a Python interface for programmatic access to genome assets.
+
+<center>
+
+```{mermaid}
+flowchart LR
+  list["`**refgenie**
+  list`"]
+  pull["`**refgenie**
+  pull`"]
+  seek["`**refgenie**
+  seek`"]
+  list --> pull --> seek
+```
+
+</center>
+
+### Installation
+
+Refgenie can be installed as a Python package using `pip`:
+
+```sh
+pip install --user refgenie
+
+# Use pipx instead of pip
+pipx install refgenie
+```
+
+or conda:
+
+```sh
+conda install -c conda-forge refgenie
+
+# Use mamba/micromamba instead of conda
+micromamba install refgenie
+```
+
+### Create a config file
+
+`refgenie` requires a configuration file that lists the resources in the form of a yaml file. For that you need to select a directory that will store the downloaded resources. The path to the config file is saved as the `REFGENIE` shell environment variable which will be used for initialization:
+
+```sh
+# Store path to config as an environment variable
+export REFGENIE=~/refs/config.yaml
+
+# Load the REFGENIE variable when launching a shell instance
+echo "export REFGENIE=~/refs/config.yml" >> ~/.bashrc
+source ~/.bashrc
+
+# Run initialization
+refgenie init
+```
+
+The `refgenie` tool is now ready to be used to download and manage reference genomes.
+
+### Using refgenie
+
+A list of pre-built assets from a remote server can be displayed with `listr`:
+
+```sh
+refgenie listr
+```
+
+Refrence genome data is fetched using the `pull` command and the path to the download is retrieved using the `seek` command.
+
+```sh
+# Downloads the hg38 bwa index
+refgenie pull hg38/bwa_index
+
+# Prints the path to the downloaded hg38 bwa index
+refgenie seek hg38/bwa_index
+```
+
+List local genome assets:
+
+```sh
+refgenie list
+```
+
+Use command substitution to store the genome path to a variable:
+
+```sh
+# Retrieve the human reference genome
+refgenie pull hg38/fasta
+
+# Save path of reference genome to a variable
+REF=$(refgenie seek hg38/fasta)
+```
+
+Then use the resulting path in downstream tools:
+
+```sh
+# Generate statistics for the human reference genome
+seqkit stats ${REF}
+```
+
+Subscribe to the iGenomes server which hosts additional reference genomes and genome assets.
+
+```sh
+refgenie subscribe -s http://igenomes.databio.org/
+```
+
+## Using genomepy
+
+### How to use genomepy
+
+`genomepy` is another tool designed for searching and downloading genomic data. It can be used to:
+
+1. search available data
+2. show the available metadata
+3. automatically download, preprocess
+4. generate optional aligned indexes
+
+Currently, `genomepy` supports Ensembl, UCSC, NCBI, and GENCODE.
+
+<center>
+
+```{mermaid}
+flowchart LR
+  genomepy["`**genomepy**`"]
+  commands{"`**search**
+  **install**
+  **annotation**`"}
+  storage["`files stored in
+  **$home/local/share/genomes**`"]
+  
+  genomepy --> commands --> storage
+```
+
+</center>
+
+See also: [genomepy documentation](https://github.com/vanheeringen-lab/genomepy)
+
+### Installation
+
+Install using micromamba:
+```sh
+micromamba install genomepy
+```
+
+Install using pip or pipx:
+```sh
+# Install pipx
+pip install pipx
+pipx ensurepath
+
+# Install genomepy with pipx
+pipx install genomepy
+```
+
+### Using genomepy
+
+Use the `search` command to query genomes by name or accession:
+```sh
+genomepy search ecoli > ecoli_query_results.txt
+```
+
+A genome index will be downloaded upon invoking the `search` command for the first time. Hence, the initial search may take a whil depending on your connection speed. 
+
+```md
+05:28:31 | INFO | Downloading assembly summaries from GENCODE
+05:29:54 | INFO | Downloading assembly summaries from UCSC
+05:30:05 | INFO | Downloading assembly summaries from Ensembl
+05:30:43 | INFO | Downloading assembly summaries from NCBI, this will take a while...
+genbank_historical: 73.0k genomes [00:06, 11.1k genomes/s]
+refseq_historical: 85.6k genomes [00:05, 16.6k genomes/s]
+genbank: 2.39M genomes [02:11, 18.1k genomes/s]
+refseq: 378k genomes [00:28, 13.0k genomes/s] 
+```
+
+The results look like so:
+```md
+name                 provider accession         tax_id annotation species                                  other_info                              
+                                                        n r e k   <- UCSC options (see help)                                                       
+EcoliT22_2.0         NCBI     GCF_000247665.3      562     ✓      Escherichia coli O157:H43 str. T22       BAYGEN                                  
+Ecoli.O104:H4.LB226692_2.0 NCBI     GCA_000215685.3      562     ✓      Escherichia coli O104:H4 str. LB226692   Life Technologies                       
+Ecoli.O104:H4.01-09591_1.0 NCBI     GCA_000221065.2      562     ✓      Escherichia coli O104:H4 str. 01-09591   Life Technologies                       
+Ecoli_C227-11_1.0    NCBI     GCA_000220805.2      562     ✓      Escherichia coli O104:H4 str. C227-11    PacBio                                  
+ecoli009             NCBI     GCA_900607665.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         
+ecoli006             NCBI     GCA_900607465.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         
+ecoli008             NCBI     GCA_900607535.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         
+ecoli017             NCBI     GCA_900608025.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         
+ecoli025             NCBI     GCA_900608175.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         
+ecoli022             NCBI     GCA_900608105.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         
+ecoli015             NCBI     GCA_900607975.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         
+ecoli013             NCBI     GCA_900607805.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL       
+```
+
+Entries under the `name` field can be used to download the genome:
+```sh
+genomepy install ecoli009
+```
+
+By default, the downloaded genomes will be found in the `~/.local/share/genomes` directory. For our example, the directory named `ecoli009` contains the genome data and other relevant files:
+
+```{python}
+!ls -al ~/.local/share/genomes/ecoli009
+```
+
+## How to get FASTQ data
+
+Published FASTQ files are stored in the Short Read Archive (SRA). Access to SRA can be diagrammed like so:
+
+<center>
+
+```{mermaid}
+flowchart LR
+  fq["`**FASTQ FILES**`"]
+  srr["`**SRR number**`"] --> srr2["`Find URL and metadata
+  web, **bio**, **ffq**`"]
+  sra["`**SRA**
+  Short Read Archive`"] --> sra2["`Use SRR number
+  **fastq-dump**`"] --> fq
+  ensembl["`**Ensembl**
+  Sequence archive`"] --> ensembl2["`Find URL
+  **curl**, **wget**, **aria2**`"]
+  com["`**Commercial**
+  Google, Amazon
+  Users pay to download`"] --> com2["`Custom tools
+  **gsutil**, **aws**`"] --> fq
+```
+
+</center>
+
+The sratools suite from NCBI provides `fastq-dump` and `fasterq-dump` to download read data from SRA accessions. In later versions of sratools, `fasterq-dump` is the preferred tool for fetching read data as demonstrated below:
+
+```sh
+# Store accession number and number of reads
+ACC=SRR1553425
+N=10000
+
+# Create reads directory
+mkdir reads
+
+# Fetch reads from accession
+fasterq-dump --split-3 -X $N -O reads $ACC
+```
+
+However this method is clunky and fragile, often failing to fetch the required data due to errors that are cryptically communicated to the user. An alternative method is to retrieve the URLs that point to the data and download locally using `wget`, `curl` or `aria2`. Use `bio search` to retrieve metadata on the SRA accession and parse using `jq`.
+
+```{python}
+!bio search SRR1553425 | jq -r '.[].fastq_url[]'
+```
+
+### Using the SRA Explorer
+
+The **SRA Explorer** is a web-based tool developed by [Phil Lewis](http://phil.ewels.co.uk/) aimed to make SRA data more accessible. It allows you to search for datasets and view metadata. The link can be accessed here:
+
+- https://sra-explorer.info/
+
+### Using the NCBI website
+
+You can also visit NCBI's SRA repository [here](https://sra-explorer.info/) to download sequencing read data. 
+
+### How to download multiple runs
+
+All data from a project can be queried using `bio search`, parsed using `csvcut`, and concurrently downloaded using `parallel` or `aria2c`:
+
+```sh
+# Access the project metadata and save as a CSV file
+bio search PRJNA257197 --csv > project.csv
+
+# Extract the first column and download concurrently using parallel
+cat project.csv | csvcut -c 1 | head -n 3 | \
+    parallel "fastq-dump -F --split-files -O data {}"
+```
