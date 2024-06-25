@@ -1,0 +1,63 @@
+## How to get genome data
+
+Data is distributed via various repositories. The most commonly used ones are:
+
+<center>
+
+```{mermaid}
+%%| fig-width: 100%
+flowchart LR
+  1A["`**NCBI**
+  Genbank/RefSeq`"]
+  1B["`Use numbers
+  **bio, efetch**`"]
+  
+  2A["`**Ensembl**
+  **UCSC**
+  **FlyBase, WormBase**
+  Releases`"]
+  2B["`Use URL
+  **curl, wget, aria2**
+  **genomepy, refgenie**`"]
+  
+  3A["`**NCBI Assemblies**
+  RefSeq genomes`"]
+  3B["`Use accession
+  **datasets**`"]
+  
+  4A["`**Independent
+  Data Tools**`"]
+  4B["`**genomepy**
+  **refgenie**`"]
+  
+  5["`**File Formats**
+  FASTA, GFF, GTF, BED`"]
+  
+  1A --> 1B --> 5
+  2A --> 2B --> 5
+  3A --> 3B --> 5
+  4A --> 4B --> 5
+```
+
+</center>
+
+In addition, there are software packages such as refgenie and genomepy that can be used to download and manage reference genomes.
+
+### Search for metadata
+
+If you have an NCBI-based accession number, you can use the `bio search` command to get information on it.
+
+```sh
+# Searches GenBank
+bio search AF086833
+
+# Searches SRA
+bio search SRR1553425
+
+# Searches NCBI Genomes
+bio search GCA_000005845
+
+# Also searches NCBI Genomes
+bio search ecoli
+```
+

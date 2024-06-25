@@ -1,0 +1,24 @@
+---
+title: "Tools for Retrieving Biological Data"
+author: "Jan Emmanuel Samson"
+date: "June 20, 2024"
+categories:
+  - CLI
+image: ../../assets/data-retrieval-icon.jpg
+---
+
+{{< include overview.qmd >}}
+
+{{< include genbank.qmd >}}
+
+{{< include url_download.qmd >}}
+
+{{< include ncbi_datasets.qmd >}}
+
+{{< include ensembl.qmd >}}
+
+{{< include refgenie.qmd >}}
+
+{{< include genomepy.qmd >}}
+
+{{< include retrieving_fastq.qmd >}}

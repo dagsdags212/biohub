@@ -1,0 +1,21 @@
+### How to download via URL
+
+If you know the URL of a resource, you may use `wget` or `curl` to download the file.
+```sh
+# The URL of the file
+URL=http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz
+
+# Download with curl
+curl $URL > refs/chr22.fa.gz
+```
+
+  For large files, [aria2](https://aria2.github.io/) can do faster, multisegmented downloads that has the ability to restart interrupted downloads.
+  
+```sh
+# The URL of the file
+URL=http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz
+
+aria2 $URL > refs/chr22.fa.gz
+# Download with aria2
+```
+
