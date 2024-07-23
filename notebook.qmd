@@ -2,7 +2,7 @@
 title: "Notebook"
 listing:
   contents: 
-    - "tutorials/*/*.qmd"
+    - "tutorials/retrieving-biological-data/index.qmd"
   type: default
   categories: true
   sort: "date desc"

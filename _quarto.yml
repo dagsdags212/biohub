@@ -8,10 +8,8 @@ website:
     background: dark
     foreground: light
     left:
-      - href: index.qmd
+      - href: notebook.qmd
         text: "Notebook"
-      # - href: about.qmd
-      #   text: "Author"
     tools:
       - icon: twitter
         href: https://x.com/dagsdags13
