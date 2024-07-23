@@ -1,9 +1,0 @@
-### How to use NCBI datasets
-
-[NCBI Datasets](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/) is a new resource designed by NCBI to gather data from across NCBI databases.
-
-It seems to be the direction that NCBI wants to shepherd users towards. It is a low more complicated and convoluted to use than all the other resources but it is what we got.
-
-```sh
-datasets summary genome taxon "king penguin" | jq | more
-```
