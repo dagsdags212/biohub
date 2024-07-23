@@ -10,8 +10,8 @@ website:
     left:
       - href: index.qmd
         text: "Notebook"
-      - href: about.qmd
-        text: "Author"
+      # - href: about.qmd
+      #   text: "Author"
     tools:
       - icon: twitter
         href: https://x.com/dagsdags13
@@ -19,9 +19,10 @@ website:
         href: https://github.com/dagsdags212
 format:
   html:
-    theme: cosmo
+    theme: sandstone
     css: styles.css
     toc: true
 
-
+code-annotations: hover
+code-overflow: scroll
 

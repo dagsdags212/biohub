@@ -19,5 +19,3 @@ about:
       text: Contact me
       href: mailto:jegsamson.dev@gmail.com
 ---
-
-About this site
