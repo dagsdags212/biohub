@@ -32,28 +32,23 @@ See also: [genomepy documentation](https://github.com/vanheeringen-lab/genomepy)
 ### Installation
 
 Install using micromamba:
-```sh
+```bash
 micromamba install genomepy
 ```
 
 Install using pip or pipx:
-```sh
-# Install pipx
-pip install pipx
-pipx ensurepath
-
-# Install genomepy with pipx
+```bash
 pipx install genomepy
 ```
 
 ### Using genomepy
 
 Use the `search` command to query genomes by name or accession:
-```sh
+```bash
 genomepy search ecoli > ecoli_query_results.txt
 ```
 
-A genome index will be downloaded upon invoking the `search` command for the first time. Hence, the initial search may take a whil depending on your connection speed. 
+A genome index will be downloaded upon invoking the `search` command for the first time. Hence, the initial search may take a while depending on your connection speed. As seen from the log below, assembly summaries are fetched from multiple databases (GENCODE, UCSC, Ensembl, NCBI).
 
 ```md
 05:28:31 | INFO | Downloading assembly summaries from GENCODE
@@ -85,13 +80,15 @@ ecoli013             NCBI     GCA_900607805.1      562     ✓      Escherichia 
 ```
 
 Entries under the `name` field can be used to download the genome:
-```sh
+```bash
 genomepy install ecoli009
 ```
 
 By default, the downloaded genomes will be found in the `~/.local/share/genomes` directory. For our example, the directory named `ecoli009` contains the genome data and other relevant files:
 
 ```{python}
-!ls -al ~/.local/share/genomes/ecoli009
-```
+#| echo: false
+#| eval: true
 
+! tree ~/.local/share/genomes
+```

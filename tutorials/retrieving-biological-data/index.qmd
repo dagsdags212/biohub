@@ -1,7 +1,8 @@
 ---
 title: "Retrieving Biological Data"
 author: "Jan Emmanuel Samson"
-date: "June 20, 2024"
+date: "July 23, 2024"
+description: "Tools for downloading genomic data using the command line."
 categories:
   - CLI
   - API

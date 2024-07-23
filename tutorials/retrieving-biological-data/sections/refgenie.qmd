@@ -21,10 +21,11 @@ flowchart LR
 
 Refgenie can be installed as a Python package using `pip`:
 
-```sh
-pip install --user refgenie
+```bash
+# Install using pip.
+pip install refgenie
 
-# Use pipx instead of pip
+# Install using pipx.
 pipx install refgenie
 ```
 
@@ -41,8 +42,8 @@ micromamba install refgenie
 
 `refgenie` requires a configuration file that lists the resources in the form of a yaml file. For that you need to select a directory that will store the downloaded resources. The path to the config file is saved as the `REFGENIE` shell environment variable which will be used for initialization:
 
-```sh
-# Store path to config as an environment variable
+```bash
+# Path pointing to refgenie config file.
 export REFGENIE=~/refs/config.yaml
 
 # Load the REFGENIE variable when launching a shell instance
@@ -59,29 +60,30 @@ The `refgenie` tool is now ready to be used to download and manage reference gen
 
 A list of pre-built assets from a remote server can be displayed with `listr`:
 
-```sh
-refgenie listr
+```{python}
+#| echo: true
+#| eval: true
+
+! refgenie listr
 ```
 
-Refrence genome data is fetched using the `pull` command and the path to the download is retrieved using the `seek` command.
-
-```sh
-# Downloads the hg38 bwa index
+Genome data is fetched using the `pull` command:
+```bash
 refgenie pull hg38/bwa_index
+```
 
-# Prints the path to the downloaded hg38 bwa index
+The `seek` command displays the path of the downloaded file:
+```bash
 refgenie seek hg38/bwa_index
 ```
 
 List local genome assets:
-
-```sh
+```bash
 refgenie list
 ```
 
 Use command substitution to store the genome path to a variable:
-
-```sh
+```bash
 # Retrieve the human reference genome
 refgenie pull hg38/fasta
 
@@ -90,7 +92,6 @@ REF=$(refgenie seek hg38/fasta)
 ```
 
 Then use the resulting path in downstream tools:
-
 ```sh
 # Generate statistics for the human reference genome
 seqkit stats ${REF}

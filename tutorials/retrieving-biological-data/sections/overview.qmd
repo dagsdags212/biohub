@@ -1,3 +1,19 @@
+## Sources of biological data
+
+**What are databases?**
+
+**Databases** are organized collections of structured information retrieved from various sources such as experiments, sensors, telemetry data and publications, to name a few. Information within the database is physically stored in computer systems and a set of programs manage how data flows in and out of the database. A **server** actively listens for *requests* sent by other computers to access the data. Upon validation, the server retrieves the data from the database and sends the data (*response*) to the requesting computer (or **client**).
+
+**Biological databases**
+
+In biology, high-throughput experiments had led to the generation of data in the scale of petabytes. An organizational scheme is needed to easily retrieve the data used for the generation of actionable insights, which is the ultimate goal of any analysis. **Biological databases** contain data generated from experiments in the fields as genomics, proteomics, metabolomics, epigenetics, and many more. Each data point reflects a particular attribute of a biological entity such as the function of a gene, structure of a protein, expression of a transcript, localization of mutation, etc.
+
+**Why should I care?**
+
+Prior to any analysis, data pertinent to the research question must first be collected in a useable form. Retrieving data may be as simple a going to NCBI, searching for a particular accession or query, and clicking a button to download a file in a specific format (e.g., FASTA, GFF). However, this approach is not scalable when attempting to process largescale data. As such, bioinformaticians have developed infrastructure for streamlining the process of data collection, allowing researchers from all backgrounds to retrieve the information they require in a straighforward manner.
+
+The aim of this write-up is to introduce you to a few command-line-based tools for downloading biological data. 
+
 ## How to get genome data
 
 Data is distributed via various repositories. The most commonly used ones are:
@@ -41,23 +57,43 @@ flowchart LR
 
 </center>
 
-In addition, there are software packages such as refgenie and genomepy that can be used to download and manage reference genomes.
+In addition, there are software packages such as `refgenie` and `genomepy` that can be used to download and manage reference genomes.
 
 ### Search for metadata
 
-If you have an NCBI-based accession number, you can use the `bio search` command to get information on it.
+The `bio` package is a CLI-based tool used for bioinformatics exploration. It contains commands for downloading, manipulating, and transforming sequence data. If you have an NCBI-based accession number, you can use the `bio search` command to get information on it.
 
 ```sh
-# Searches GenBank
-bio search AF086833
+# Use a GenBank accession
+bio search AF086833      # <1>
 
-# Searches SRA
-bio search SRR1553425
+# Use an SRA accession
+bio search SRR1553425    # <2>
 
-# Searches NCBI Genomes
-bio search GCA_000005845
+# Use a RefSeq assembly ID
+bio search GCA_000005845 # <3>
 
-# Also searches NCBI Genomes
-bio search ecoli
+# Use a query string
+bio search ecoli         # <3>
 ```
 
+1. Searches GenBank
+2. Searches SRA
+3. Searches NCBI Genome
+
+Running the `bio search` command will return a JSON-formatted string which contains the metadata for a particular record. Use the `--csv` flag to output the metadata in a comma-delimited format. Similarly, use the `--csv` if you want tab-delimited data. 
+
+Running `bio search SRR1553425` would produce the following:
+```{python}
+#| echo: false
+#| eval: true
+
+! micromamba run -n bioinfo bio search SRR1553425
+```
+
+We can then use the `jq` processing tool to extract fields of interest. Extract the `fastq_url` list by running:
+```{python}
+#| echo: true
+#| eval: true
+! bio search SRR1553425 | jq ".[].fastq_url[]"
+```
