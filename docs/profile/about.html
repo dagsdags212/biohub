@@ -6,11 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jan Samson">
-<meta name="dcterms.date" content="2024-06-24">
-<meta name="description" content="Learn about the fundamentals of UNIX and basic command line usage.">
 
-<title>BioHub - A Gentle Introduction to UNIX for Biologists</title>
+<title>BioHub - About Me</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -26,22 +23,21 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,22 +65,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">BioHub</span>
     </a>
   </div>
@@ -95,12 +88,8 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Notebook</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">Author</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -115,144 +104,42 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#introduction-to-unix" id="toc-introduction-to-unix" class="nav-link active" data-scroll-target="#introduction-to-unix">Introduction to UNIX</a>
-  <ul class="collapse">
-  <li><a href="#what-is-unix" id="toc-what-is-unix" class="nav-link" data-scroll-target="#what-is-unix">What is UNIX?</a></li>
-  <li><a href="#the-unix-operating-system" id="toc-the-unix-operating-system" class="nav-link" data-scroll-target="#the-unix-operating-system">The UNIX Operating System</a></li>
-  <li><a href="#files-and-processes" id="toc-files-and-processes" class="nav-link" data-scroll-target="#files-and-processes">Files and Processes</a></li>
-  <li><a href="#the-directory-structure" id="toc-the-directory-structure" class="nav-link" data-scroll-target="#the-directory-structure">The Directory Structure</a></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-about-jolla content">
+  <img src="assets/gradpic.jpg" class="about-image
+  round " style="height: 20em; width: 20em;">
+ <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A Gentle Introduction to UNIX for Biologists</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">CLI</div>
-    <div class="quarto-category">UNIX</div>
-  </div>
-  </div>
-
-<div>
-  <div class="description">
-    Learn about the fundamentals of UNIX and basic command line usage.
-  </div>
+<h1 class="title">About Me</h1>
 </div>
-
-
 <div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jan Samson </p>
-          </div>
   </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 24, 2024</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
+</header><main class="content" id="quarto-document-content">
 
 
-</header>
-
-
-<section id="introduction-to-unix" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-unix">Introduction to UNIX</h2>
-<section id="what-is-unix" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-unix">What is UNIX?</h3>
-<p>UNIX is an operating system (OS) originally developed at AT&amp;T’s Bell Labs research center in 1969. It is composed of a suite of programs that interfaces with hardware to make the computer work. Unix was also developed as a self-contained software system, comprising of the OS, development environment, utilities, documentation, and modifiable source code. In 1993, AT&amp;T sold the rights to the Unix operating system to Novell, Inc., which later sold the Unix trademark to the consortium that eventually became <strong>The Open Group</strong>.</p>
-<p>Operating systems that behave like Unix systems and provide similar utilities are coined as Unix-like systems. These include a wide variety of Linux distributions (e.g.&nbsp;Ubuntu, Debian, CentOS) and several descendants of the Berkeley Software Distribution OS (e.g.&nbsp;FreeBSD, OpenBSD, NetBSD).</p>
-<p>Unix-based systems run on a wide variety of digital artchitectures. Commonly uses include web servers, mainframes, and supercomputers. In recent years, smartphones, tablets, and personal computers running versions or variants of Unix have become increasingly popular.</p>
-</section>
-<section id="the-unix-operating-system" class="level3">
-<h3 class="anchored" data-anchor-id="the-unix-operating-system">The UNIX Operating System</h3>
-<p>The UNIX operating system is made up of three parts:</p>
-<ol type="1">
-<li>the kernel</li>
-<li>the shell</li>
-<li>th programs</li>
-</ol>
-<section id="kernel" class="level4">
-<h4 class="anchored" data-anchor-id="kernel">Kernel</h4>
-<p>The UNIX kernel allocates time and memory to programs invoked by the computer. It also handles the filestore and communications in response to system calls.</p>
-</section>
-<section id="shell" class="level4">
-<h4 class="anchored" data-anchor-id="shell">Shell</h4>
-<p>The shell acts as an interface between the user and the kernel. When a user logs in, the login program checks the username and password, and then starts another program called the shell. By default, the user is greeted by the <code>%</code> symbol which denotes the shell prompt. Programs are binary executables that can be specified after the prompt. For example, the <code>rm</code> is a command that searches for an executable of the same name. If present, the program is executed to perform a specific action, which in our case removes a specified file or directory in the system.</p>
-</section>
-</section>
-<section id="files-and-processes" class="level3">
-<h3 class="anchored" data-anchor-id="files-and-processes">Files and Processes</h3>
-<p>Everything in UNIX is either a file or a process.</p>
-<p>A process is an executing program idenfied by a unqiue PID (proceed identifier).</p>
-<p>A file is an organizes collection of data. They are created by users using text editors, running compilers, etc. Examples include text documents, programming scripts, manual pages, and directories.</p>
-</section>
-<section id="the-directory-structure" class="level3">
-<h3 class="anchored" data-anchor-id="the-directory-structure">The Directory Structure</h3>
-<center>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TD
-  root["/"]
-  home["home"]
-  bin["bin"]
-  etc["etc"]
-  dev["dev"]
-  mnt["mnt"]
-  lib["lib"]
-  tmp["tmp"]
-  usr["usr"]
-  usr_bin["bin"]
-  usr_include["include"]
-  usr_lib["lib"]
-  var["var"]
-
-  root --- bin
-  root --- dev
-  root --- etc
-  root --- home
-  root --- lib
-  root --- var
-  root --- mnt
-  root --- tmp
-  root --- usr
-
-  usr --- usr_bin
-  usr --- usr_include
-  usr --- usr_lib
-</pre>
-</div>
-<p></p></figure><p></p>
+</main> 
+  <hr class="about-sep">
+   <div class="about-links">
+  <a href="https://x.com/dagsdags13" class="about-link" rel="" target="">
+    <i class="bi bi-twitter"></i>
+     <span class="about-link-text">Twitter</span>
+  </a>
+  <a href="https://www.linkedin.com/in/jan-emmanuel-samson-888906202/" class="about-link" rel="" target="">
+    <i class="bi bi-linkedin"></i>
+     <span class="about-link-text">LinkedIn</span>
+  </a>
+  <a href="https://github.com/dagsdags212" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">GitHub</span>
+  </a>
+  <a href="mailto:jegsamson.dev@gmail.com" class="about-link" rel="" target="">
+    <i class="bi bi-envelope"></i>
+     <span class="about-link-text">Contact me</span>
+  </a>
 </div>
 </div>
-</div>
-<center>
-
-
-</center></center></section>
-</section>
-
-</main> <!-- /main -->
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -273,13 +160,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

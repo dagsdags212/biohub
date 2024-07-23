@@ -152,10 +152,6 @@ window.Quarto = {
     <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Notebook</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">Author</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -187,7 +183,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="CLI">CLI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="data">data <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="CLI">CLI <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -201,38 +197,35 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="CLI,data" data-listing-date-sort="1718812800000" data-listing-file-modified-sort="1719005247667" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2354">
+<div class="quarto-post image-right" data-index="0" data-categories="CLI" data-listing-date-sort="1718812800000" data-listing-file-modified-sort="1719278604808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="25">
 <div class="thumbnail">
-<p><a href="./tutorials/tools-for-retrieving-biological-data/data-retrieval.html" class="no-external"></a></p><a href="./tutorials/tools-for-retrieving-biological-data/data-retrieval.html" class="no-external">
-<p><img src="./assets/data-retrieval-icon.jpg" class="thumbnail-image"></p>
-</a><p><a href="./tutorials/tools-for-retrieving-biological-data/data-retrieval.html" class="no-external"></a></p>
+<p><a href="./tutorials/tools-for-retrieving-biological-data/index.html" class="no-external"></a></p><a href="./tutorials/tools-for-retrieving-biological-data/index.html" class="no-external">
+<p><img src="./tutorials/tools-for-retrieving-biological-data/cover.jpg" class="thumbnail-image"></p>
+</a><p><a href="./tutorials/tools-for-retrieving-biological-data/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./tutorials/tools-for-retrieving-biological-data/data-retrieval.html" class="no-external">Tools for Retrieving Biological Data</a>
+<a href="./tutorials/tools-for-retrieving-biological-data/index.html" class="no-external">Tools for Retrieving Biological Data</a>
 </h3>
 <div class="listing-subtitle">
-<a href="./tutorials/tools-for-retrieving-biological-data/data-retrieval.html" class="no-external"></a>
+<a href="./tutorials/tools-for-retrieving-biological-data/index.html" class="no-external"></a>
 </div>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('CLI'); return false;">
 CLI
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('data'); return false;">
-data
-</div>
 </div>
 <div class="listing-description">
-<a href="./tutorials/tools-for-retrieving-biological-data/data-retrieval.html" class="no-external">An overview of command line tools and APIs for automating data retrieval.</a>
+<a href="./tutorials/tools-for-retrieving-biological-data/index.html" class="no-external">Data is distributed via various repositories. The most commonly used ones are:</a>
 </div>
 </div>
 <div class="metadata">
-<a href="./tutorials/tools-for-retrieving-biological-data/data-retrieval.html" class="no-external">
+<a href="./tutorials/tools-for-retrieving-biological-data/index.html" class="no-external">
 <div class="listing-date">
 Jun 20, 2024
 </div>
 <div class="listing-author">
-Jan Samson
+Jan Emmanuel Samson
 </div>
 </a>
 </div>
@@ -592,25 +585,64 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       };
     }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
           }
-        });
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
       }
   const findCites = (el) => {
     const parentEl = el.parentElement;
