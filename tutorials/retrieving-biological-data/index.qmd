@@ -1,0 +1,25 @@
+---
+title: "Retrieving Biological Data"
+author: "Jan Emmanuel Samson"
+date: "June 20, 2024"
+categories:
+  - CLI
+  - API
+image: assets/cover.jpg
+---
+
+{{< include sections/overview.qmd >}}
+
+{{< include sections/genbank.qmd >}}
+
+{{< include sections/url_download.qmd >}}
+
+{{< include sections/ncbi_datasets.qmd >}}
+
+{{< include sections/ensembl.qmd >}}
+
+{{< include sections/refgenie.qmd >}}
+
+{{< include sections/genomepy.qmd >}}
+
+{{< include sections/retrieving_fastq.qmd >}}
