@@ -1,0 +1,14 @@
+---
+title: "Notebook"
+listing:
+  contents: 
+    - "tutorials/*.qmd"
+  type: default
+  categories: true
+  sort: "date desc"
+  max-items: 10
+  image-placeholder: assets/data-retrieval.jpg
+page-layout: full
+title-block-banner: true
+---
+  

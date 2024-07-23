@@ -6,7 +6,7 @@ date: "2024-06-20"
 categories:
   - CLI
   - data
-image: ../../assets/data-retrieval-icon.jpg
+image: ../assets/data-retrieval-icon.jpg
 format:
   html:
     theme: sandstone

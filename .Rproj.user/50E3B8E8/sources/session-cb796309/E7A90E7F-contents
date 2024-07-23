@@ -1,0 +1,33 @@
+project:
+  type: website
+
+website:
+  title: "BioHub"
+  navbar:
+    background: dark
+    foreground: light
+    left:
+      - href: index.qmd
+        text: "Notebook"
+      - href: about.qmd
+        text: "Author"
+    tools:
+      - icon: twitter
+        href: https://x.com/dagsdags13
+      - icon: github
+        href: https://github.com/dagsdags212
+  sidebar:
+    - title: "Tools for Retrieving Biological Data"
+      style: docked
+      background: dark
+      contents: 
+        - section: "Part 1"
+        - section: "Part 2"
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
