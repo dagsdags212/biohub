@@ -1,0 +1,21 @@
+---
+title: "About Me"
+image: assets/gradpic.jpg
+about:
+  template: jolla
+  image-width: 20em
+  image-shape: round
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://x.com/dagsdags13
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/jan-emmanuel-samson-888906202/
+    - icon: github
+      text: GitHub
+      href: https://github.com/dagsdags212
+    - icon: envelope
+      text: Contact me
+      href: mailto:jegsamson.dev@gmail.com
+---
