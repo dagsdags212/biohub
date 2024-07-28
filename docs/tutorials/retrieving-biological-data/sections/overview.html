@@ -264,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dl>
 <p>Running the <code>bio search</code> command will return a JSON-formatted string which contains the metadata for a particular record. Use the <code>--csv</code> flag to output the metadata in a comma-delimited format. Similarly, use the <code>--csv</code> if you want tab-delimited data.</p>
 <p>Running <code>bio search SRR1553425</code> would produce the following:</p>
-<div id="9db3bb52" class="cell" data-execution_count="1">
+<div id="74d0c4f2" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>[
     {
@@ -295,7 +295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We can then use the <code>jq</code> processing tool to extract fields of interest. Extract the <code>fastq_url</code> list by running:</p>
-<div id="f34568f5" class="cell" data-execution_count="2">
+<div id="6ee4c2ad" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="st">".[].fastq_url[]"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>"https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz"
