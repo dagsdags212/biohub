@@ -1,0 +1,63 @@
+---
+title: Transcribing DNA into RNA
+author: Jan Emmanuel Samson
+date: July 28, 2024
+categories:
+  - String Algorithms
+format: 
+  typst:
+    papersize: a4
+    margin: 
+      x: 5em
+      y: 5em
+---
+
+````{=typst}
+
+#set par(justify: true)
+#set list(indent: 1em)
+
+= Problem
+
+An RNA string is a string formed from the alphabet containing 'A', 'C', 'G', and 'U'.
+
+Given a DNA string _t_ corresponding to a coding strand, its transcribed RNA string _u_ is formed by replacing all occurrences of 'T' in _t_ with 'U' in _u_.
+
+- *Given*: A DNA string _t_ of length at most 1000 nt.
+
+- *Return*: The transcribed RNA string of _t_.
+
+\
+
+== Sample Dataset
+
+```typ
+GATGGAACTTGACTACGTAAATT
+```
+
+== Sample Output
+
+```typ
+GAUGGAACUUGACUACGUAAAUU
+```
+
+= Intuition
+
+The given string represents the coding DNA strand with 5' $arrow.r$ 3' directionality. Details of the transcription process can be demonstrated by first finding the DNA complement of the input strand, then finding the RNA complement of the resulting DNA complement. This is an unnecessary step as we only need to replace all occurrences of 'T' in the input strand with 'U'. 
+
+Iterate over each base of input string and check if the current base is a thymine ('T'). If so, replace the current base with uracil ('U'). Otherwise, continue scanning the string until the end is reached. To save memory, the input string is updated _in place_. 
+
+= Solution
+````
+
+```{python}
+def transcribe(seq: str, alphabet: str='ACGT') -> dict[str, int]:
+    """Convert the input DNA string to an RNA string."""
+    return seq.replace('T', 'U')
+```
+
+```{python}
+seq = "GATGGAACTTGACTACGTAAATT"
+result = transcribe(seq)
+print(result)
+```

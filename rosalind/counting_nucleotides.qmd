@@ -1,0 +1,63 @@
+---
+title: Counting DNA Nucleotides
+author: Jan Emmanuel Samson
+date: July 28, 2024
+categories:
+  - String Algorithms
+format: 
+  typst:
+    papersize: a4
+    margin: 
+      x: 5em
+      y: 5em
+---
+
+````{=typst}
+
+#set par(justify: true)
+#set list(indent: 1em)
+
+= Problem
+
+A string is simply an ordered collection of symbols selected from some *alphabet* and formed into a word; the *length* of a string is the number of symbols that it contains.
+
+An example if a length 21 DNA string (whose alphabet contains the symbols 'A', 'C', 'G', and 'T') is "ATGCTTCAGAAAGGTCTTACG."
+
+- *Given*: A DNA string _s_ of length at most 100 nt.
+
+- *Return*: Four integers (separated by spaces) counting the respective number of times that the symbol 'A', 'C', 'G', and 'T' occurs in _s_.
+
+== Sample Dataset
+
+```typ
+AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC
+```
+
+== Sample Output
+
+```typ
+20 12 17 21
+```
+
+= Intuition
+
+Represent the DNA sequence as a string and initialize an empty dictionary with unique bases as keys with a value of zero. Iterate over the sequence one base at a time. If the current base is not a dictionary key, then it is a non-canonical base which should be ignored. Otherwise, index the dictionary by the current base and increment its value by 1.
+
+= Solution
+````
+
+```{python}
+def count_nucleotides(seq: str, alphabet: str='ACGT') -> dict[str, int]:
+    """Return the counts of A, C, G, and T in a DNA sequence."""
+    counts = {base: 0 for base in alphabet}
+    for base in seq.upper():
+        if base in counts:
+            counts[base] += 1
+    return counts.values()
+```
+
+```{python}
+seq = "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"
+result = count_nucleotides(seq)
+print(*result)
+```

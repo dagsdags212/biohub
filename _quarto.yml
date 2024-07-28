@@ -10,6 +10,8 @@ website:
     left:
       - href: notebook.qmd
         text: "Notebook"
+      - href: rosalind.qmd
+        text: "Rosalind"
     tools:
       - icon: twitter
         href: https://x.com/dagsdags13
@@ -18,7 +20,6 @@ website:
 format:
   html:
     theme: sandstone
-    css: styles.css
     toc: true
 
 code-annotations: hover

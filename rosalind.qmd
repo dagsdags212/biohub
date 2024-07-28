@@ -1,0 +1,22 @@
+---
+title: "Rosalind Challenges"
+listing:
+  id: rosalind-challenges
+  contents: 
+    - rosalind/counting_nucleotides.qmd
+    - rosalind/transcription.qmd
+  type: table
+  categories: true
+  sort: "date desc"
+  max-items: 10
+  date-format: iso
+  image-placeholder: assets/rosalind-logo.jpg
+  table-hover: true
+page-layout: full
+title-block-banner: true
+---
+
+Code solution to Rosalind problems are listed below:  
+
+::: {#rosalind-challenges}
+:::
