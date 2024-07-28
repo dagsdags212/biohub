@@ -1,0 +1,63 @@
+---
+title: Complementing a Strand of DNA
+author: Jan Emmanuel Samson
+date: July 28, 2024
+categories:
+  - String Algorithms
+format: 
+  typst:
+    papersize: a4
+    margin: 
+      x: 5em
+      y: 5em
+---
+
+````{=typst}
+
+#set par(justify: true)
+#set list(indent: 1em)
+
+= Problem
+
+In DNA strings, symbols 'A' and 'T' are complements of each other, as are 'C' and 'G'.
+
+The reverse complement of a DNA string _s_ is the $s^c$ formed by reversing the symbols of _s_, then taking the complement of each symbol (e.g., the reverse complement of "GTCA" is "TGAC").
+
+- *Given*: A DNA string _s_ of length at most 1000 nt.
+
+- *Return*: The reverse complement $s^c$ of _s_.
+
+== Sample Dataset
+
+```typ
+AAAACCCGGT
+```
+
+== Sample Output
+
+```typ
+ACCGGGTTTT
+```
+
+= Intuition
+
+A straightforward approach is to use a dictionary that maps each base of the alphabet 'ACGT' to its complement. Create a new empty string _rc_ and iterate over the sequence. For each base, *prepend* the complement of the base to string _rc_. The base complement is added at the beginning of the string since we are interested in the _reverse complement_. Return string _rc_ once the loop has reached its end.
+
+= Solution
+````
+
+```{python}
+def reverse_complement(seq: str) -> str:
+    """Compute the reverse complement of a DNA string."""
+    rc = ""
+    complement_map = {'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G', 'N': 'N'}
+    for base in seq.upper():
+        rc = complement_map[base] + rc
+    return rc
+```
+
+```{python}
+seq = "AAAACCCGGT"
+result = reverse_complement(seq)
+print(result)
+```

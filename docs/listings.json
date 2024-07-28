@@ -4,5 +4,13 @@
     "items": [
       "/tutorials/retrieving-biological-data/index.html"
     ]
+  },
+  {
+    "listing": "/rosalind.html",
+    "items": [
+      "/rosalind/counting_nucleotides.pdf",
+      "/rosalind/transcription.pdf",
+      "/rosalind/replication.pdf"
+    ]
   }
 ]

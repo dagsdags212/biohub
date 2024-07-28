@@ -27,7 +27,7 @@ Given a DNA string _t_ corresponding to a coding strand, its transcribed RNA str
 
 - *Return*: The transcribed RNA string of _t_.
 
-\
+
 
 == Sample Dataset
 

@@ -20,59 +20,25 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -100,9 +66,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="../../../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../../../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -114,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">BioHub</span>
     </a>
   </div>
@@ -125,11 +88,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../notebook.html"> 
+    <a class="nav-link" href="../notebook.html"> 
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../rosalind.html"> 
+    <a class="nav-link" href="../rosalind.html"> 
 <span class="menu-text">Rosalind</span></a>
   </li>  
 </ul>
@@ -146,127 +109,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#how-to-use-genomepy" id="toc-how-to-use-genomepy" class="nav-link active" data-scroll-target="#how-to-use-genomepy">How to use genomepy</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#using-genomepy" id="toc-using-genomepy" class="nav-link" data-scroll-target="#using-genomepy">Using genomepy</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Using genomepy</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
-
-
-<section id="how-to-use-genomepy" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-use-genomepy">How to use genomepy</h3>
-<p><code>genomepy</code> is another tool designed for searching and downloading genomic data. It can be used to:</p>
-<ol type="1">
-<li>search available data</li>
-<li>show the available metadata</li>
-<li>automatically download, preprocess</li>
-<li>generate optional aligned indexes</li>
-</ol>
-<p>Currently, <code>genomepy</code> supports Ensembl, UCSC, NCBI, and GENCODE.</p>
-<center>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  genomepy["`**genomepy**`"]
-  commands{"`**search**
-  **install**
-  **annotation**`"}
-  storage["`files stored in
-  **$home/local/share/genomes**`"]
-  
-  genomepy --&gt; commands --&gt; storage
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</center>
-<p>See also: <a href="https://github.com/vanheeringen-lab/genomepy">genomepy documentation</a></p>
-</section>
-<section id="installation" class="level3">
-<h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Install using micromamba:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> install genomepy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Install using pip or pipx:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install genomepy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="using-genomepy" class="level3">
-<h3 class="anchored" data-anchor-id="using-genomepy">Using genomepy</h3>
-<p>Use the <code>search</code> command to query genomes by name or accession:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">genomepy</span> search ecoli <span class="op">&gt;</span> ecoli_query_results.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>A genome index will be downloaded upon invoking the <code>search</code> command for the first time. Hence, the initial search may take a while depending on your connection speed. As seen from the log below, assembly summaries are fetched from multiple databases (GENCODE, UCSC, Ensembl, NCBI).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>05:28:31 | INFO | Downloading assembly summaries from GENCODE</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>05:29:54 | INFO | Downloading assembly summaries from UCSC</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>05:30:05 | INFO | Downloading assembly summaries from Ensembl</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>05:30:43 | INFO | Downloading assembly summaries from NCBI, this will take a while...</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>genbank_historical: 73.0k genomes <span class="co">[</span><span class="ot">00:06, 11.1k genomes/s</span><span class="co">]</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>refseq_historical: 85.6k genomes <span class="co">[</span><span class="ot">00:05, 16.6k genomes/s</span><span class="co">]</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>genbank: 2.39M genomes <span class="co">[</span><span class="ot">02:11, 18.1k genomes/s</span><span class="co">]</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>refseq: 378k genomes <span class="co">[</span><span class="ot">00:28, 13.0k genomes/s</span><span class="co">]</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The results look like so:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>name                 provider accession         tax_id annotation species                                  other_info                              </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                                                        n r e k   &lt;- UCSC options (see help)                                                       </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>EcoliT22_2.0         NCBI     GCF_000247665.3      562     ✓      Escherichia coli O157:H43 str. T22       BAYGEN                                  </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>Ecoli.O104:H4.LB226692_2.0 NCBI     GCA_000215685.3      562     ✓      Escherichia coli O104:H4 str. LB226692   Life Technologies                       </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Ecoli.O104:H4.01-09591_1.0 NCBI     GCA_000221065.2      562     ✓      Escherichia coli O104:H4 str. 01-09591   Life Technologies                       </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>Ecoli_C227-11_1.0    NCBI     GCA_000220805.2      562     ✓      Escherichia coli O104:H4 str. C227-11    PacBio                                  </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>ecoli009             NCBI     GCA_900607665.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ecoli006             NCBI     GCA_900607465.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>ecoli008             NCBI     GCA_900607535.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>ecoli017             NCBI     GCA_900608025.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>ecoli025             NCBI     GCA_900608175.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>ecoli022             NCBI     GCA_900608105.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ecoli015             NCBI     GCA_900607975.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ecoli013             NCBI     GCA_900607805.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Entries under the <code>name</code> field can be used to download the genome:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">genomepy</span> install ecoli009</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>By default, the downloaded genomes will be found in the <code>~/.local/share/genomes</code> directory. For our example, the directory named <code>ecoli009</code> contains the genome data and other relevant files:</p>
-<div id="abaa2d82" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-stdout">
-<pre><code>/home/dagsdags/.local/share/genomes
-└── ecoli009
-    ├── assembly_report.txt
-    ├── ecoli009.fa
-    ├── ecoli009.fa.fai
-    ├── ecoli009.fa.sizes
-    ├── ecoli009.gaps.bed
-    └── README.txt
-
-1 directory, 6 files</code></pre>
-</div>
-</div>
-
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

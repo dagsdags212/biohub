@@ -5,6 +5,7 @@ listing:
   contents: 
     - rosalind/counting_nucleotides.qmd
     - rosalind/transcription.qmd
+    - rosalind/replication.qmd
   type: table
   categories: true
   sort: "date desc"
