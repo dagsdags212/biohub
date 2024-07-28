@@ -6,7 +6,7 @@ listing:
     - rosalind/counting_nucleotides.qmd
     - rosalind/transcription.qmd
     - rosalind/replication.qmd
-    - rosalind/recurrence-relations.qmd
+    - rosalind/recurrence_relations.qmd
   type: table
   categories: true
   sort: "date desc"
