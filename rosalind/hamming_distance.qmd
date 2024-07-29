@@ -1,0 +1,64 @@
+---
+title: Counting Point Mutations
+author: Jan Emmanuel Samson
+date: July 29, 2024
+categories:
+  - Alignment
+format: 
+  typst:
+    papersize: a4
+    margin: 
+      x: 5em
+      y: 5em
+---
+
+````{=typst}
+
+#set par(justify: true)
+#set list(indent: 1em)
+
+= Problem
+
+Given two strings _s_ and _t_ of equal length, the *Hamming distance* between _s_ and _t_, denoted $d_H (s,t)$, is the number of corresponding symbols that differ in _s_ and _t_.
+
+- *Given*: Two DNA strings _s_ and _t_ of equal length (not exceeding 1 kbp).
+
+- *Return*: The Hamming distance $d_H (s,t)$
+
+== Sample Dataset
+
+```typ
+GAGCCTACTAACGGGAT
+CATCGTAATGACGGCCT
+```
+
+== Sample Output
+
+```typ
+7
+```
+
+= Intuition
+
+The Hamming distance function requires two strings of equal length, thus we first assert that $|s| =|t|$ where $|s|$ denotes the length of string _s_ and $|t|$ the length of string _t_. We initialize a variable `mismatches` to zero; this will be used for keeping track of the number of mismatches as we compare the base of each string at a specific index. As with other string algorithms, we iterate over the indices from 0 up to (but not including) $|s|$. If $s_i = t_i$, the value of `mismatches` is incremented by one. Otherwise we proceed to the following index for the next comparison.
+
+= Solution
+````
+
+```{python}
+def hamming_distance(s: str, t: int) -> int:
+    """Compute the number of index-specific mismatches between two strings."""
+    assert len(s) == len(t), "Both strings must be of equal length"
+    mismatches = 0
+    for i in range(len(s)):
+        if s[i] != t[i]:
+            mismatches += 1
+    return mismatches
+```
+
+```{python}
+s = "GAGCCTACTAACGGGAT"
+t = "CATCGTAATGACGGCCT"
+result = hamming_distance(s, t)
+print(result)
+```

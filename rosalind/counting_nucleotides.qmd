@@ -19,9 +19,9 @@ format:
 
 = Problem
 
-A string is simply an ordered collection of symbols selected from some *alphabet* and formed into a word; the *length* of a string is the number of symbols that it contains.
+A string is simply an ordered collection of symbols selected from some *alphabet* and formed into a word; the *length* of a string is the number of symbols that it contains. The DNA alphabet can be represented as ${A,C,G,T}$. A string is a valid DNA sequence if each element of the string is a member of the DNA alphabet set.
 
-An example if a length 21 DNA string (whose alphabet contains the symbols 'A', 'C', 'G', and 'T') is "ATGCTTCAGAAAGGTCTTACG."
+An example of a length 21 DNA string is `ATGCTTCAGAAAGGTCTTACG`.
 
 - *Given*: A DNA string _s_ of length at most 100 nt.
 
@@ -47,7 +47,7 @@ Represent the DNA sequence as a string and initialize an empty dictionary with u
 ````
 
 ```{python}
-def count_nucleotides(seq: str, alphabet: str='ACGT') -> dict[str, int]:
+def count_nucleotides(seq: str, alphabet: set={'A','C','G','T'}) -> dict[str, int]:
     """Return the counts of A, C, G, and T in a DNA sequence."""
     counts = {base: 0 for base in alphabet}
     for base in seq.upper():

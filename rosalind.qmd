@@ -8,6 +8,7 @@ listing:
     - rosalind/replication.qmd
     - rosalind/recurrence_relations.qmd
     - rosalind/gc_content.qmd
+    - rosalind/hamming_distance.qmd
   type: table
   categories: true
   sort: "date desc"
@@ -17,9 +18,7 @@ listing:
   table-hover: true
 page-layout: full
 title-block-banner: true
----
-
-Code solution to Rosalind problems are listed below:  
+--- 
 
 ::: {#rosalind-challenges}
 :::
