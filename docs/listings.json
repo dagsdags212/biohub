@@ -1,19 +1,20 @@
 [
   {
-    "listing": "/notebook.html",
-    "items": [
-      "/tutorials/retrieving-biological-data/index.html"
-    ]
-  },
-  {
     "listing": "/rosalind.html",
     "items": [
       "/rosalind/recurrence_relations.pdf",
       "/rosalind/gc_content.pdf",
       "/rosalind/hamming_distance.pdf",
+      "/rosalind/mendelian_inheritance.pdf",
       "/rosalind/counting_nucleotides.pdf",
       "/rosalind/transcription.pdf",
       "/rosalind/replication.pdf"
+    ]
+  },
+  {
+    "listing": "/notebook.html",
+    "items": [
+      "/tutorials/retrieving-biological-data/index.html"
     ]
   }
 ]

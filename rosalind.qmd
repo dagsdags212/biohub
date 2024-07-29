@@ -9,6 +9,7 @@ listing:
     - rosalind/recurrence_relations.qmd
     - rosalind/gc_content.qmd
     - rosalind/hamming_distance.qmd
+    - rosalind/mendelian_inheritance.qmd
   type: table
   categories: true
   sort: "date desc"
