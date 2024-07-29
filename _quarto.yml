@@ -19,8 +19,8 @@ website:
         href: https://github.com/dagsdags212
 format:
   html:
-    theme: sandstone
-    toc: true
+    theme: cosmo
+    toc: false
 
 code-annotations: hover
 code-overflow: scroll
