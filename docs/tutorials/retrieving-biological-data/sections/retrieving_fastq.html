@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -145,17 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#using-the-sra-explorer" id="toc-using-the-sra-explorer" class="nav-link active" data-scroll-target="#using-the-sra-explorer">Using the SRA Explorer</a></li>
-  <li><a href="#using-the-ncbi-website" id="toc-using-the-ncbi-website" class="nav-link" data-scroll-target="#using-the-ncbi-website">Using the NCBI website</a></li>
-  <li><a href="#how-to-download-multiple-runs" id="toc-how-to-download-multiple-runs" class="nav-link" data-scroll-target="#how-to-download-multiple-runs">How to download multiple runs</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -217,10 +207,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch reads from accession</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">fasterq-dump</span> <span class="at">--split-3</span> <span class="at">-X</span> <span class="va">${N}</span> <span class="at">-O</span> reads <span class="va">${ACC}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>However this method is clunky and fragile, often failing to fetch the required data due to errors that are cryptically communicated to the user. An alternative method is to retrieve the URLs that point to the data and download locally using <code>wget</code>, <code>curl</code> or <code>aria2</code>. Use <code>bio search</code> to retrieve metadata on the SRA accession and parse using <code>jq</code>.</p>
-<div id="57ad9efd" class="cell" data-execution_count="1">
+<div id="422b85b7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="op">-</span>r <span class="st">'.[].fastq_url[]'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Error for https://www.ebi.ac.uk/ena/portal/api/filereport, {'accession': 'SRR1553425', 'fields': 'run_accession,sample_accession,sample_alias,sample_description,first_public,country,scientific_name,fastq_bytes,base_count,read_count,library_name,library_strategy,library_source,library_layout,instrument_platform,instrument_model,study_title,fastq_ftp', 'result': 'read_run'}: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))</code></pre>
+<pre><code>https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz
+https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz</code></pre>
 </div>
 </div>
 <section id="using-the-sra-explorer" class="level3">
@@ -241,9 +232,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the project metadata and save as a CSV file</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> search PRJNA257197 <span class="at">--csv</span> <span class="op">&gt;</span> project.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The truncated output is as follows:</p>
-<div id="04f06e22" class="cell" data-execution_count="2">
+<div id="e8199708" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
-<pre><code># Error for https://www.ebi.ac.uk/ena/portal/api/filereport, {'accession': 'PRJNA257197', 'fields': 'run_accession,sample_accession,sample_alias,sample_description,first_public,country,scientific_name,fastq_bytes,base_count,read_count,library_name,library_strategy,library_source,library_layout,instrument_platform,instrument_model,study_title,fastq_ftp', 'result': 'read_run'}: HTTPSConnectionPool(host='www.ebi.ac.uk', port=443): Max retries exceeded with url: /ena/portal/api/filereport?accession=PRJNA257197&amp;fields=run_accession%2Csample_accession%2Csample_alias%2Csample_description%2Cfirst_public%2Ccountry%2Cscientific_name%2Cfastq_bytes%2Cbase_count%2Cread_count%2Clibrary_name%2Clibrary_strategy%2Clibrary_source%2Clibrary_layout%2Cinstrument_platform%2Cinstrument_model%2Cstudy_title%2Cfastq_ftp&amp;result=read_run (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))</code></pre>
+<pre><code>SRR1553426,SAMN02951957,EM110,,2015-06-05,Sierra Leone,Zaire ebolavirus,156165683;174523161,494259458,2446829,EM110.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/006/SRR1553426/SRR1553426_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/006/SRR1553426/SRR1553426_2.fastq.gz']","156 MB, 175 MB files; 2.4 million reads; 494.3 million sequenced bases"
+SRR1553432,SAMN02951960,EM113,,2015-06-05,Sierra Leone,Zaire ebolavirus,36110922;36939803,97376524,482062,EM113.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/002/SRR1553432/SRR1553432_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/002/SRR1553432/SRR1553432_2.fastq.gz']","36 MB, 37 MB files; 0.5 million reads; 97.4 million sequenced bases"
+SRR1553453,SAMN02951971,G3676.2,,2015-06-05,Sierra Leone,Zaire ebolavirus,1103336;1123617,3329364,16482,G3676.2_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/003/SRR1553453/SRR1553453_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/003/SRR1553453/SRR1553453_2.fastq.gz']","1 MB, 1 MB files; 0.0 million reads; 3.3 million sequenced bases"
+SRR1553457,SAMN02951973,G3677.2,,2015-06-05,Sierra Leone,Zaire ebolavirus,804421;797003,2334110,11555,G3677.2_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/007/SRR1553457/SRR1553457_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/007/SRR1553457/SRR1553457_2.fastq.gz']","804 KB, 797 KB files; 0.0 million reads; 2.3 million sequenced bases"
+SRR1553469,SAMN02951979,G3687.1,,2015-06-05,Sierra Leone,Zaire ebolavirus,2227541;2317710,6095552,30176,G3687.1_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/009/SRR1553469/SRR1553469_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/009/SRR1553469/SRR1553469_2.fastq.gz']","2 MB, 2 MB files; 0.0 million reads; 6.1 million sequenced bases"</code></pre>
 </div>
 </div>
 <p>Only the accession numbers are needed to download the reads. From the project file, we extract the first column corresponding to the accession, and use this as input to <code>fastq-dump</code>. The <code>parallel</code> tool enables us to simultaneously download multiple accession at once.</p>

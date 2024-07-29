@@ -10,6 +10,7 @@ listing:
     - rosalind/gc_content.qmd
     - rosalind/hamming_distance.qmd
     - rosalind/mendelian_inheritance.qmd
+    - rosalind/translation.qmd
   type: table
   categories: true
   sort: "date desc"
