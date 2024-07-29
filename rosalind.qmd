@@ -11,6 +11,7 @@ listing:
     - rosalind/hamming_distance.qmd
     - rosalind/mendelian_inheritance.qmd
     - rosalind/translation.qmd
+    - rosalind/motif_finding.qmd
   type: table
   categories: true
   sort: "date desc"

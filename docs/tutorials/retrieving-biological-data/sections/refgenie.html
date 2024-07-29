@@ -221,67 +221,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="using-refgenie" class="level3">
 <h3 class="anchored" data-anchor-id="using-refgenie">Using refgenie</h3>
 <p>A list of pre-built assets from a remote server can be displayed with <code>listr</code>:</p>
-<div id="ad1db4a0" class="cell" data-execution_count="1">
+<div id="0eb478e7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> refgenie listr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                             Remote refgenie assets                             
-                   Server URL: http://refgenomes.databio.org                    
-┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ genome           ┃ assets                                                    ┃
-┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ rCRSd            │ fasta, bowtie2_index, bwa_index, star_index,              │
-│                  │ hisat2_index, bismark_bt2_index                           │
-│ hg38             │ fasta, gencode_gtf, refgene_anno, dbsnp, ensembl_gtf,     │
-│                  │ ensembl_rb, suffixerator_index, bwa_index, bowtie2_index, │
-│                  │ dbnsfp, star_index, fasta_txome, hisat2_index,            │
-│                  │ cellranger_reference, bismark_bt2_index,                  │
-│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
-│ human_repeats    │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ mouse_chrM2x     │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ hg18_cdna        │ fasta, kallisto_index                                     │
-│ hs38d1           │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ hg38_cdna        │ fasta, salmon_index, kallisto_index                       │
-│ rn6_cdna         │ fasta, salmon_index, kallisto_index                       │
-│ mm10_cdna        │ fasta, salmon_index, kallisto_index                       │
-│ hg19_cdna        │ fasta, salmon_index, kallisto_index                       │
-│ hg38_chr22       │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ hg19             │ fasta, gencode_gtf, refgene_anno, dbsnp, ensembl_gtf,     │
-│                  │ ensembl_rb, suffixerator_index, bowtie2_index, bwa_index, │
-│                  │ hisat2_index, fasta_txome, star_index,                    │
-│                  │ cellranger_reference, bismark_bt2_index,                  │
-│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
-│ hg18             │ fasta, gencode_gtf, bowtie2_index, suffixerator_index,    │
-│                  │ bwa_index, hisat2_index, fasta_txome, star_index,         │
-│                  │ cellranger_reference, bismark_bt2_index                   │
-│ human_alu        │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ hisat2_index, bismark_bt2_index                           │
-│ human_rDNA       │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ human_alphasat   │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ mm10             │ fasta, gencode_gtf, refgene_anno, ensembl_gtf,            │
-│                  │ ensembl_rb, suffixerator_index, bwa_index, bowtie2_index, │
-│                  │ hisat2_index, star_index, fasta_txome,                    │
-│                  │ cellranger_reference, bismark_bt2_index,                  │
-│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
-│ rn6              │ fasta, refgene_anno, ensembl_gtf, suffixerator_index,     │
-│                  │ bwa_index, bowtie2_index, hisat2_index, star_index,       │
-│                  │ fasta_txome, bismark_bt2_index, salmon_partial_sa_index,  │
-│                  │ tgMap, salmon_sa_index                                    │
-│ t7               │ fasta, bowtie2_index                                      │
-│ dm6              │ fasta, gencode_gtf, refgene_anno, ensembl_gtf,            │
-│                  │ bowtie2_index                                             │
-│ hg38_noalt_decoy │ fasta, suffixerator_index, bwa_index, bowtie2_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ mm10_primary     │ fasta, bowtie2_index, bwa_index                           │
-│ hg38_primary     │ fasta, bwa_index, bowtie2_index                           │
-│ hg38_mm10        │ fasta, bwa_index                                          │
-└──────────────────┴───────────────────────────────────────────────────────────┘
-             use refgenie listr -g &lt;genome&gt; for more detailed view              </code></pre>
+<pre><code>zsh:1: command not found: refgenie</code></pre>
 </div>
 </div>
 <p>Genome data is fetched using the <code>pull</code> command:</p>
