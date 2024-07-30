@@ -12,6 +12,7 @@ listing:
     - rosalind/mendelian_inheritance.qmd
     - rosalind/translation.qmd
     - rosalind/motif_finding.qmd
+    - rosalind/consensus_and_profile.qmd
   type: table
   categories: true
   sort: "date desc"

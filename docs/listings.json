@@ -3,6 +3,7 @@
     "listing": "/rosalind.html",
     "items": [
       "/rosalind/motif_finding.pdf",
+      "/rosalind/consensus_and_profile.pdf",
       "/rosalind/recurrence_relations.pdf",
       "/rosalind/gc_content.pdf",
       "/rosalind/hamming_distance.pdf",
