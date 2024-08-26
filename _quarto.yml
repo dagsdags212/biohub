@@ -21,7 +21,11 @@ format:
   html:
     theme: cosmo
     toc: false
+    css: styles.css
+    code-line-numbers: true
 
+
+highlight-style: kate
 code-annotations: hover
 code-overflow: scroll
 
