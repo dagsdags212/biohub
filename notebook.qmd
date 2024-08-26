@@ -3,6 +3,7 @@ title: "Notebook"
 listing:
   contents: 
     - "tutorials/retrieving-biological-data/index.qmd"
+    - "ideas/z-algorithm.qmd"
   type: default
   categories: true
   sort: "date desc"

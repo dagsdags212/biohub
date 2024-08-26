@@ -1,0 +1,71 @@
+:root {
+  --rosewater: #dc8a78;
+  --flamingo: #dd7878;
+  --red: #f38ba8;
+  --maroon: #eba0ac;
+  --blue: #89b4fa;
+  --yellow: #f9e2af;
+  --green: #a6e3a1;
+  --peach: #fab387;
+  --teal: #94e2d5;
+  --pink: #f5c2e7;
+  --text: #1e1e2e;
+  --text-light: #313244;
+}
+
+
+.center {
+  text-align: center;
+}
+
+.md {
+  font-size: 1.25em;
+}
+
+.lg {
+  font-size: 1.5em;
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.yellow {
+  color: var(--yellow);
+}
+
+.green {
+  color: var(--green);
+}
+
+.peach {
+  color: var(--peach);
+}
+
+.teal {
+  color: var(--teal);
+}
+
+.pink {
+  color: var(--pink);
+}
+
+.maroon {
+  color: var(--maroon);
+}
+
+.flamingo {
+  color: var(--flamingo);
+}
+
+.red {
+  color: var(--red);
+}
+
+.rosewater {
+  color: var(--rosewater);
+}
+
+.dark {
+  color: var(--text);
+}
