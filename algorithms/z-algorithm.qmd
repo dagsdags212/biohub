@@ -2,9 +2,10 @@
 title: The Z-Algorithm
 author: Jan Emmanuel Samson
 date: 2024/08/26
-description: Preprocess a string for efficient pattern matching.
+description: String preprocessing for efficient pattern matching.
 categories:
   - Algorithms
+  - Alignment
   - Data Structures
 image: ../assets/z_algorithm_cover.jpg
 execute:
@@ -254,3 +255,6 @@ def z(s):
 5. Case 2.
 6. Case 2a.
 7. Case 2b.
+
+::: {.refs}
+:::

@@ -2,7 +2,8 @@
   {
     "listing": "/notebook.html",
     "items": [
-      "/ideas/z-algorithm.html",
+      "/algorithms/sequence-alignment.html",
+      "/algorithms/z-algorithm.html",
       "/tutorials/retrieving-biological-data/index.html"
     ]
   },
@@ -11,6 +12,7 @@
     "items": [
       "/rosalind/motif_finding.pdf",
       "/rosalind/consensus_and_profile.pdf",
+      "/rosalind/recurrence_relations.pdf",
       "/rosalind/gc_content.pdf",
       "/rosalind/hamming_distance.pdf",
       "/rosalind/mendelian_inheritance.pdf",

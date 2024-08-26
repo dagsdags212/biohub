@@ -13,11 +13,17 @@
   --text-light: #313244;
 }
 
+/* MARGINS */
+mb-0 {
+  margin-bottom: 0;
+}
 
+/* ALIGNMENTS */
 .center {
   text-align: center;
 }
 
+/* FONT SIZES */
 .md {
   font-size: 1.25em;
 }
@@ -26,6 +32,11 @@
   font-size: 1.5em;
 }
 
+.wide {
+  letter-spacing: 0.2rem;
+}
+
+/* COLORS */
 .blue {
   color: var(--blue);
 }
