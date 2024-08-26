@@ -2,7 +2,7 @@
 
 A notebook-style website for all things bioinformatics.
 
-The [notebook](https://dagsdags212.github.io/biohub/) section is composed of articles that delve into a specific domain in bioinformatics. The included write-ups stem from perosonal interest. If you're interested in any of the following subjects listed below, take the time to go through the website:
+The [notebook](https://dagsdags212.github.io/biohub/notebook.html) section is composed of articles that delve into a specific domain in bioinformatics. The included write-ups stem from perosonal interest. If you're interested in any of the following subjects listed below, take the time to go through the website:
 
 ### Bioinformatics
 
