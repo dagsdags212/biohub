@@ -48,29 +48,6 @@ Express the recurrence relationship using an algebraic equation. In this case, a
 
 ````
 
-<center>
-
-```{mermaid}
-%%| fig-width: 5
-%%| fig-cap-location: bottom
-flowchart LR
-    A["F<sub>1</sub>"]:::child --> B("F<sub>1</sub>"):::adult
-    B --> C1a["F<sub>2a</sub>"]:::child --> C1b("F<sub>2a</sub>"):::adult
-    B --> C2a["F<sub>2b</sub>"]:::child --> C2b("F<sub>2b</sub>"):::adult
-    B ---> C3a["F<sub>2c</sub>"]:::child --> C3b("F<sub>2c</sub>"):::adult
-    B ---> C4a["F<sub>2d</sub>"]:::child --> C4b("F<sub>2d</sub>"):::adult
-    C1b --> D1a["F<sub>3a</sub>"]:::child
-    C1b --> D2a["F<sub>3b</sub>"]:::child
-    C2b --> D3a["F<sub>3c</sub>"]:::child
-    C2b --> D4a["F<sub>3d</sub>"]:::child
-    B ----> C5a["F<sub>2e</sub>"]:::child
-    B ----> C6a["F<sub>2f</sub>"]:::child
-
-    classDef child fill:#209fb5
-    classDef adult fill:#dc8a78
-```
-
-</center>
 
 ```{=typst}
 Each box represents a rabbit pair where blue corresponds to sexually-immature rabbit pairs and orange to sexually-mature rabbit pairs. Arrows connect parents to their offsprings.
