@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jan Emmanuel Samson">
 <meta name="dcterms.date" content="2024-08-27">
-<meta name="description" content="Techniques for finding highly conserved regions in biological strings.">
+<meta name="description" content="Find highly conserved regions in biological strings using techniques in dynamic programming.">
 
 <title>Local and Global Sequence Alignment – BioHub</title>
 <style>
@@ -151,6 +151,7 @@ window.Quarto = {
   <ul>
   <li><a href="#sequence-alignment" id="toc-sequence-alignment" class="nav-link active" data-scroll-target="#sequence-alignment">Sequence Alignment</a>
   <ul class="collapse">
+  <li><a href="#dynamic-programming" id="toc-dynamic-programming" class="nav-link" data-scroll-target="#dynamic-programming">Dynamic Programming</a></li>
   <li><a href="#local-alignment" id="toc-local-alignment" class="nav-link" data-scroll-target="#local-alignment">Local Alignment</a>
   <ul class="collapse">
   <li><a href="#smith-waterman" id="toc-smith-waterman" class="nav-link" data-scroll-target="#smith-waterman">Smith-Waterman</a></li>
@@ -177,7 +178,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Techniques for finding highly conserved regions in biological strings.
+    Find highly conserved regions in biological strings using techniques in dynamic programming.
   </div>
 </div>
 
@@ -277,6 +278,38 @@ Figure&nbsp;1
 </figure>
 </div>
 <p>The two types of alignment can be visualized in <a href="#fig-alignments" class="quarto-xref">Figure&nbsp;1</a>. A 2-dimensional matrix is generated from the bases that compose the two aligned strings. The x-axis contains the conitugous bases of string <em>S</em> while the y-axis stores that of string <em>T</em>. <span class="blue">Blue</span> highlights point to regions of similarity and the path(s) derived by connecting the blue points shows an optimal alignment between regions of the two strings.</p>
+<section id="dynamic-programming" class="level2">
+<h2 class="anchored" data-anchor-id="dynamic-programming">Dynamic Programming</h2>
+<p>Biological sequences can be represented as a series of characters thus we can interpret local alignment as a string comparison problem. A well-known approach in solving such problem us through the use of <strong>dynamic programming</strong> where we attempt to break down the task into smaller subproblems and build an optimal solution from smaller solutions. This approach is preferable when problems have:</p>
+<ol type="1">
+<li><dl>
+<dt>Optimal substructure</dt>
+<dd>
+The optimal solution to an instance of the problem contains optimal solutions to subproblems.
+</dd>
+</dl></li>
+<li><dl>
+<dt>Overlapping subproblems</dt>
+<dd>
+There are a limited number of subproblems thus ensuring tractability. Many, if not most, subproblems are repeated multiple times.
+</dd>
+</dl></li>
+</ol>
+<p>Like greedy algorithms, dynamic programming is used to solve optimization problems. Unlike greedy algorithms, dynamic programming works on a range of problems in which locally optimal choices do not necessarily produce globally optimal results. In practice, solving a problem using dynamic programming involves two main parts: (1) the setup portion followed by (2) performing computation. Setting up can be generalized in five steps:</p>
+<ol type="1">
+<li>Find a ‘matrix’ parameterization of the problem and determin the number of variables/dimensions.</li>
+<li>Ensure the subproblem space is polynomial, not exponential.</li>
+<li>Determine an effective traversal order by allowing easy access to the solutions of subproblems when needed.</li>
+<li>Identify a recursive formula and define its base case.</li>
+<li>Remember choices (solutions to subproblems).</li>
+</ol>
+<p>After the set-up is complete, we proceed to computation which is fairly straightforward:</p>
+<ul>
+<li>Systematically fill in the table of results and find an optimal score.</li>
+<li>Traceback from the optimal score through the pointers to determine an optimal solution.</li>
+</ul>
+<p>In the folllowing sections, we’ll illustrate dyanamic programming by exploring a few foundational alignment algorithms.</p>
+</section>
 <section id="local-alignment" class="level2">
 <h2 class="anchored" data-anchor-id="local-alignment">Local Alignment</h2>
 <p>Local alignment is usually done to compare highly conserved regions such as genes and motifs. These regions may indicate functional, structural, and/or evolutionary relationships between two biological sequences. One application of local alignment is the detection of chromosomal arrangements within the sequenced DNA sample.</p>
@@ -286,7 +319,6 @@ Figure&nbsp;1
 <figcaption>Local alignments to detect rearrangements.</figcaption>
 </figure>
 </div>
-<p>Biological sequences can be represented as a series of characters thus we can interpret local alignment as a string comparison operation. A well-known approach in solving such problem us through the use of <strong>dynamic programming</strong> where we attempt to break down the task into smaller subproblems and build an optimal solution from smaller solutions. We’ll illustrate dyanimc programming by exploring a few foundational algorithms.</p>
 <section id="smith-waterman" class="level3">
 <h3 class="anchored" data-anchor-id="smith-waterman">Smith-Waterman</h3>
 <p>First proposed in 1981, the Smith-Waterman algorithm performs local sequence alignment between two biological strings to find regions of similarity. This method can be outlined in four steps:</p>
@@ -382,15 +414,17 @@ Upon filling up the matrix with appropriate scores, we identify the element with
 </tbody>
 </table>
 <p>For amino acid substitutions, we often use the <a href="https://en.wikipedia.org/wiki/Point_accepted_mutation">PAM</a> and <a href="https://en.wikipedia.org/wiki/BLOSUM">BLOSUM</a> schemes.</p>
-<p>In addition to substitution pairs, we introduce a gap penalty for scoring the opening or extension of gaps (or indels). A <strong>linear</strong> gap penalty assigns gap openings and extensions with the same score. An <strong>affine</strong> gap penality uses different scores for gap openings and gap extensions. For the sake of simplicity, we will use a modified linear scheme based on the <a href="http://www.ebi.ac.uk/Tools/psa/emboss_water/">EMBOSS Water</a> tool where gaps are penalized by subtracting <strong>10</strong> from the score.</p>
+<p>In addition to substitution pairs, we introduce a gap penalty for scoring the opening or extension of gaps (or indels). A <strong>linear</strong> gap penalty assigns gap openings and extensions with the same score. An <strong>affine</strong> gap penality uses different scores for gap openings and gap extensions, imposing a larger initial cost for opening a gap and a small incremental cost for each gap extension. Additionally, a <strong>general</strong> gap penalty allow for any cost function while a <strong>frame-aware</strong> gap penalty takes into consideration disruptions to the coding frame when specifying the cost function.</p>
+<p>For the sake of simplicity, we will use a modified linear scheme based on the <a href="http://www.ebi.ac.uk/Tools/psa/emboss_water/">EMBOSS Water</a> tool where gaps are penalized by subtracting <strong>10</strong> from the score.</p>
 </section>
 <section id="step-2.-initializing-the-matrix." class="level4">
 <h4 class="anchored" data-anchor-id="step-2.-initializing-the-matrix.">Step 2. Initializing the matrix.</h4>
 <hr>
 <p>Generate an empty matrix <strong>M</strong> with <strong>(m+1) rows</strong> and <strong>(n+1) columns</strong> where <em>m</em> is the length of <em>S</em> and <em>n</em> is the length of <em>T</em>.</p>
-<p>An extra row/column is needed to represent the starting point where <span class="math inline">\(m=0\)</span>, <span class="math inline">\(n=0\)</span>, and <span class="math inline">\(s(S_0, T_0)=0\)</span>. After creating matrix <em>M</em>, set the value of each element of the first row AND column to 0. The starting matrix is illustrated below:</p>
+<p>An extra row/column is needed to represent the starting point where <span class="math inline">\(i=0\)</span>, <span class="math inline">\(j=0\)</span>, and <span class="math inline">\(F(i, j)=0\)</span>. After creating matrix <em>M</em>, set the value of each element of the first row and column to 0.</p>
+<p>More formally, given a gap penalty <em>d</em>, we set <span class="math inline">\(F_{i,0} = -i × d\)</span> and <span class="math inline">\(F_{0,j} = -j × d\)</span>. The starting matrix is illustrated below:</p>
 <div id="tbl-initial-matrix" class="cell anchored" data-tbl-cal="Initialized Matrix" data-execution_count="1">
-<div class="cell-output cell-output-display" data-execution_count="153">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -576,7 +610,26 @@ Upon filling up the matrix with appropriate scores, we identify the element with
 <section id="step-3.-compute-alignment-scores." class="level4">
 <h4 class="anchored" data-anchor-id="step-3.-compute-alignment-scores.">Step 3. Compute alignment scores.</h4>
 <hr>
-<p>We label the <strong>origin</strong> as the element located at (<span class="math inline">\(m=1\)</span>, <span class="math inline">\(n=1\)</span>).</p>
+<p>First label the <strong>origin</strong> as the element located at (<span class="math inline">\(i=1\)</span>, <span class="math inline">\(j=1\)</span>). Then consider the four possibilities when moving across the alignment:</p>
+<ul>
+<li>Sequence <em>S</em> has a gap at the current alignment position.</li>
+<li>Sequence <em>T</em> has a gap at the current alignment position.</li>
+<li>A nucleotide substitution has occured at the current position, resulting to a mismatch.</li>
+<li>There is a match at the current position.</li>
+</ul>
+<p>All four scenarios can be encapsulated in a single formula as stated below:</p>
+<p><span class="math display">\[
+\begin{equation}
+  F(i, j) = max
+  \left\{
+    \begin{array}{l}
+      F(i-1, j) - d, &amp;&amp; \text{insert gap in S} \\
+      F(i, j-1) - d, &amp;&amp; \text{insert gap in T} \\
+      F(i-1, j-1) + s(S_i, T_j), &amp;&amp; \text{base substitution} \\
+    \end{array}
+  \right.
+\end{equation}
+\]</span></p>
 <p>When traversing the matrix, a downwards movement would indicate a gap introduced at string <em>S</em> while a rightward movement would introduce a gap at string <em>T</em>. Hence, movement from either direction would incur a <strong>gap</strong> penalty. On the other hand, a diagonal movement would implicate either a <strong>match</strong> or a <strong>mismatch</strong>. For this, we consult our substitution matrix and update the score of the current element accordingly.</p>
 <p>For the first element at (1, 1), we compare the scores derived from moving downwards (<span class="math inline">\(↓\)</span>), rightwards (<span class="math inline">\(→\)</span>), and diagonally (<span class="math inline">\(↘\)</span>):</p>
 <ul>
@@ -586,14 +639,14 @@ Upon filling up the matrix with appropriate scores, we identify the element with
 </ul>
 <p>Decide which direction to follow by choosing that path that would yield the lowest penalty. By moving diagonally, we maximize the score by taking a ‘hit’ of -3 as compared to the alternative of -10. Take note that a score cannot go below 0, hence we take the maximum between the incurred penalty and zero. To illustrate this step, we update the score at position (1, 1) as follows:</p>
 <p><span class="math display">\[
-s_{\text{0,0}} = s(S_0, T_0) = 0
+F_{\text{0,0}} = F(0, 0) = 0
 \]</span></p>
 <p><span class="math display">\[
-s_{1,1} = min(0, s_{0,0} -3) = 0
+F_{1,1} = min(0, F_{0,0} -3) = 0
 \]</span></p>
 <p>Repeating the same logic for the first 3 rows and columns would yield the following matrix:</p>
-<div id="dab307dd" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="154">
+<div id="56670dd0" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -777,8 +830,8 @@ s_{1,1} = min(0, s_{0,0} -3) = 0
 </div>
 <p><br></p>
 <p>The completed matrix is shown below:</p>
-<div id="1ed64a78" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="155">
+<div id="60bca670" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -1014,8 +1067,8 @@ Backtracking always starts at the last element of the matrix. We only stop exten
 <h4 class="anchored" data-anchor-id="generating-matrix-and-computing-scores">Generating matrix and computing scores</h4>
 <hr>
 <p><strong>Using the reference strings and scoring schemes from the previous example, we generate a scoring matrix as follows:</strong></p>
-<div id="f5b8d380" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="156">
+<div id="5fbb3211" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 

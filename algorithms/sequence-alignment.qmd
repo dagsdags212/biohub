@@ -78,6 +78,39 @@ the y-axis stores that of string *T*. <span class="blue">Blue</span> highlights 
 and the path(s) derived by connecting the blue points shows an optimal alignment between regions of the 
 two strings.
 
+## Dynamic Programming
+
+Biological sequences can be represented as a series of characters thus we can interpret local alignment as a
+string comparison problem. A well-known approach in solving such problem us through the use of **dynamic
+programming** where we attempt to break down the task into smaller subproblems and build an optimal solution
+from smaller solutions. This approach is preferable when problems have:
+
+1. Optimal substructure
+: The optimal solution to an instance of the problem contains optimal solutions to subproblems.
+
+2. Overlapping subproblems
+: There are a limited number of subproblems thus ensuring tractability. Many, if not most, subproblems are
+repeated multiple times.
+
+Like greedy algorithms, dynamic programming is used to solve optimization problems. Unlike greedy algorithms,
+dynamic programming works on a range of problems in which locally optimal choices do not necessarily produce
+globally optimal results. In practice, solving a problem using dynamic programming involves two main parts: 
+(1) the setup portion followed by (2) performing computation. Setting up can be generalized in five steps:
+
+1. Find a 'matrix' parameterization of the problem and determin the number of variables/dimensions.
+2. Ensure the subproblem space is polynomial, not exponential.
+3. Determine an effective traversal order by allowing easy access to the solutions of subproblems when needed.
+4. Identify a recursive formula and define its base case.
+5. Remember choices (solutions to subproblems).
+
+After the set-up is complete, we proceed to computation which is fairly straightforward:
+
+- Systematically fill in the table of results and find an optimal score.
+- Traceback from the optimal score through the pointers to determine an optimal solution.
+
+In the folllowing sections, we'll illustrate dyanamic programming by exploring a few foundational alignment
+algorithms.
+
 ## Local Alignment
 
 Local alignment is usually done to compare highly conserved regions such as genes and motifs. These regions
@@ -86,10 +119,6 @@ One application of local alignment is the detection of chromosomal arrangements 
 
 ![Local alignments to detect rearrangements.](https://bio.libretexts.org/@api/deki/files/28303/page66image65205664.png?revision=1)
 
-Biological sequences can be represented as a series of characters thus we can interpret local alignment as a
-string comparison operation. A well-known approach in solving such problem us through the use of **dynamic
-programming** where we attempt to break down the task into smaller subproblems and build an optimal solution
-from smaller solutions. We'll illustrate dyanimc programming by exploring a few foundational algorithms.
 
 
 ### Smith-Waterman
@@ -157,9 +186,12 @@ and [BLOSUM](https://en.wikipedia.org/wiki/BLOSUM) schemes.
 
 In addition to substitution pairs, we introduce a gap penalty for scoring the opening or extension of gaps 
 (or indels). A **linear** gap penalty assigns gap openings and extensions with the same score. An **affine** 
-gap penality uses different scores for gap openings and gap extensions. For the sake of simplicity, we will 
-use a modified linear scheme based on the [EMBOSS Water](http://www.ebi.ac.uk/Tools/psa/emboss_water/) tool
-where gaps are penalized by subtracting **10** from the score.
+gap penality uses different scores for gap openings and gap extensions, imposing a larger initial cost for 
+opening a gap and a small incremental cost for each gap extension. Additionally, a **general** gap penalty
+allow for any cost function while a **frame-aware** gap penalty takes into consideration disruptions to the
+coding frame when specifying the cost function.
+
+For the sake of simplicity, we will use a modified linear scheme based on the [EMBOSS Water](http://www.ebi.ac.uk/Tools/psa/emboss_water/) tool where gaps are penalized by subtracting **10** from the score.
 
 #### Step 2. Initializing the matrix.
 
@@ -168,9 +200,11 @@ where gaps are penalized by subtracting **10** from the score.
 Generate an empty matrix **M** with **(m+1) rows** and **(n+1) columns** where *m* is the length of *S* and *n*
 is the length of *T*. 
 
-An extra row/column is needed to represent the starting point where $m=0$, $n=0$, and $s(S_0, T_0)=0$. After
-creating matrix *M*, set the value of each element of the first row AND column to 0. The starting matrix is
-illustrated below:
+An extra row/column is needed to represent the starting point where $i=0$, $j=0$, and $F(i, j)=0$. After
+creating matrix *M*, set the value of each element of the first row and column to 0. 
+
+More formally, given a gap penalty *d*, we set $F_{i,0} = -i × d$ and $F_{0,j} = -j × d$. The starting matrix 
+is illustrated below:
 
 ```{python}
 #| label: tbl-initial-matrix
@@ -190,15 +224,36 @@ df.iloc[:, 0] = 0
 df
 ```
 
-
 #### Step 3. Compute alignment scores.
 
 ---
 
-We label the **origin** as the element located at ($m=1$, $n=1$). 
+First label the **origin** as the element located at ($i=1$, $j=1$). Then consider the four possibilities when
+moving across the alignment:
 
-When traversing the matrix, a downwards movement would indicate a gap introduced at string *S* while a 
-rightward movement would introduce a gap at string *T*. Hence, movement from either direction would incur a 
+- Sequence *S* has a gap at the current alignment position.
+- Sequence *T* has a gap at the current alignment position.
+- A nucleotide substitution has occured at the current position, resulting to a mismatch.
+- There is a match at the current position.
+
+All four scenarios can be encapsulated in a single formula as stated below:
+
+
+$$
+\begin{equation}
+  F(i, j) = max 
+  \left\{
+    \begin{array}{l}
+      F(i-1, j) - d, && \text{insert gap in S} \\ 
+      F(i, j-1) - d, && \text{insert gap in T} \\ 
+      F(i-1, j-1) + s(S_i, T_j), && \text{base substitution} \\ 
+    \end{array}
+  \right.
+\end{equation}
+$$
+
+When traversing the matrix, a downwards shift would indicate a gap introduced at string *S* while a 
+rightward shift would introduce a gap at string *T*. Hence, movement from either direction would incur a 
 **gap** penalty. On the other hand, a diagonal movement would implicate either a **match** or a **mismatch**.
 For this, we consult our substitution matrix and update the score of the current element accordingly.
 
@@ -216,11 +271,11 @@ step, we update the score at position (1, 1) as follows:
 
 
 $$
-s_{\text{0,0}} = s(S_0, T_0) = 0
+F_{\text{0,0}} = F(0, 0) = 0
 $$
 
 $$
-s_{1,1} = min(0, s_{0,0} -3) = 0
+F_{1,1} = min(0, F_{0,0} -3) = 0
 $$
 
 Repeating the same logic for the first 3 rows and columns would yield the following matrix:
@@ -280,6 +335,11 @@ Following the path would lead to the following alignment:
 <p class="wide">T: <i><span class="blue">TAG</span><span class="red">-</span><span class="blue">CCCCAC</span></i></p>
 
 :::
+
+### Implementing Smith-Waterman
+
+```{}
+
 
 ## Global Alignment
 
