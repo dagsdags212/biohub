@@ -2,10 +2,11 @@
 title: Modeling Evolutionary Relationships
 author: Jan Emmanuel Samson
 date: 2024-08-28
+description: Build trees to infer phylogenetic relationships across species.
 categories:
   - Phylogeny and Evolution
   - Alignment
-image: ../assets/msa-cover.png
+image: ../assets/phylogenetic-tree-cover.png
 toc: true
 ---
 
