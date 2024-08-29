@@ -2,6 +2,7 @@
   {
     "listing": "/notebook.html",
     "items": [
+      "/algorithms/phylogenetic-tree.html",
       "/algorithms/sequence-alignment.html",
       "/algorithms/z-algorithm.html",
       "/tutorials/retrieving-biological-data/index.html"
