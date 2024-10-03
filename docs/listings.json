@@ -2,6 +2,7 @@
   {
     "listing": "/notebook.html",
     "items": [
+      "/tutorials/micromamba/index.html",
       "/algorithms/phylogenetic-tree.html",
       "/algorithms/sequence-alignment.html",
       "/algorithms/z-algorithm.html",

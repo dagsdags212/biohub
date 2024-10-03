@@ -19,14 +19,15 @@ website:
         href: https://github.com/dagsdags212
 format:
   html:
-    theme: cosmo
+    theme: 
+      - cosmo
+      - custom.scss 
     toc: false
     css: styles.css
-    code-line-numbers: true
 
 
 bibliography: references.bib
-highlight-style: kate
+highlight-style: monokai
 code-annotations: hover
 code-overflow: scroll
 

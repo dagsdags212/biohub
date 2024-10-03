@@ -3,6 +3,7 @@ title: "Notebook"
 listing:
   contents: 
     - "tutorials/retrieving-biological-data/index.qmd"
+    - "tutorials/micromamba/index.qmd"
     - "algorithms/*.qmd"
   type: default
   categories: true
