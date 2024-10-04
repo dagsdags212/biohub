@@ -13,7 +13,7 @@ toc: true
 
 ## What is Micromamba?
 
-[Micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html) is a package manager used to install programs in their own isolated environments. It is a standalone version of **Mamba** written purely in.
+[Micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html) is a package manager used to install programs in their own isolated environments. It is a light-weight, standalone version of **Mamba** written purely in C++. Upon installation, the main executable can be accessed by running the `micromamba` command.
 
 ## A Primer on Using Micromamba
 
@@ -190,6 +190,19 @@ For the second hands-on session, we would need the following programs:
 |SnpEff|5.2|Variant Annotation|https://pcingola.github.io/SnpEff/|
 
 : {.hover}
+
+:::
+
+
+::: {.grid .text-center .list}
+
+::: {.g-col-4}
+1/3 of the page
+:::
+
+::: {.g-col-8}
+This column takes 2/3 of the page
+:::
 
 :::
 
