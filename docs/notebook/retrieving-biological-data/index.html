@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jan Emmanuel Samson">
+<meta name="dcterms.date" content="2024-07-23">
+<meta name="description" content="Tools for downloading genomic data using the command line.">
+
+<title>Retrieving Biological Data – BioHub</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">BioHub</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../notebook.html"> 
+<span class="menu-text">Notebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../concepts.html"> 
+<span class="menu-text">Concepts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../algorithms.html"> 
+<span class="menu-text">Algorithms</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../rosalind.html"> 
+<span class="menu-text">Rosalind</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://x.com/dagsdags13" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
+    <a href="https://github.com/dagsdags212" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sources-of-biological-data" id="toc-sources-of-biological-data" class="nav-link active" data-scroll-target="#sources-of-biological-data">Sources of biological data</a></li>
+  <li><a href="#how-to-get-genome-data" id="toc-how-to-get-genome-data" class="nav-link" data-scroll-target="#how-to-get-genome-data">How to get genome data</a>
+  <ul class="collapse">
+  <li><a href="#search-for-metadata" id="toc-search-for-metadata" class="nav-link" data-scroll-target="#search-for-metadata">Search for metadata</a></li>
+  <li><a href="#accessing-genbank" id="toc-accessing-genbank" class="nav-link" data-scroll-target="#accessing-genbank">Accessing Genbank</a></li>
+  <li><a href="#download-via-url" id="toc-download-via-url" class="nav-link" data-scroll-target="#download-via-url">Download via URL</a></li>
+  <li><a href="#how-to-use-ncbi-datasets" id="toc-how-to-use-ncbi-datasets" class="nav-link" data-scroll-target="#how-to-use-ncbi-datasets">How to use NCBI datasets</a></li>
+  <li><a href="#how-to-access-ensembl" id="toc-how-to-access-ensembl" class="nav-link" data-scroll-target="#how-to-access-ensembl">How to access Ensembl</a></li>
+  </ul></li>
+  <li><a href="#how-to-use-refgenie" id="toc-how-to-use-refgenie" class="nav-link" data-scroll-target="#how-to-use-refgenie">How to use refgenie</a>
+  <ul class="collapse">
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#create-a-config-file" id="toc-create-a-config-file" class="nav-link" data-scroll-target="#create-a-config-file">Create a config file</a></li>
+  <li><a href="#using-refgenie" id="toc-using-refgenie" class="nav-link" data-scroll-target="#using-refgenie">Using refgenie</a></li>
+  </ul></li>
+  <li><a href="#using-genomepy" id="toc-using-genomepy" class="nav-link" data-scroll-target="#using-genomepy">Using genomepy</a>
+  <ul class="collapse">
+  <li><a href="#how-to-use-genomepy" id="toc-how-to-use-genomepy" class="nav-link" data-scroll-target="#how-to-use-genomepy">How to use genomepy</a></li>
+  <li><a href="#installation-1" id="toc-installation-1" class="nav-link" data-scroll-target="#installation-1">Installation</a></li>
+  <li><a href="#using-genomepy-1" id="toc-using-genomepy-1" class="nav-link" data-scroll-target="#using-genomepy-1">Using genomepy</a></li>
+  </ul></li>
+  <li><a href="#how-to-get-fastq-data" id="toc-how-to-get-fastq-data" class="nav-link" data-scroll-target="#how-to-get-fastq-data">How to get FASTQ data</a>
+  <ul class="collapse">
+  <li><a href="#using-the-sra-explorer" id="toc-using-the-sra-explorer" class="nav-link" data-scroll-target="#using-the-sra-explorer">Using the SRA Explorer</a></li>
+  <li><a href="#using-the-ncbi-website" id="toc-using-the-ncbi-website" class="nav-link" data-scroll-target="#using-the-ncbi-website">Using the NCBI website</a></li>
+  <li><a href="#how-to-download-multiple-runs" id="toc-how-to-download-multiple-runs" class="nav-link" data-scroll-target="#how-to-download-multiple-runs">How to download multiple runs</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Retrieving Biological Data</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">CLI</div>
+    <div class="quarto-category">API</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Tools for downloading genomic data using the command line.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jan Emmanuel Samson </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 23, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sources-of-biological-data" class="level2">
+<h2 class="anchored" data-anchor-id="sources-of-biological-data">Sources of biological data</h2>
+<p><strong>What are databases?</strong></p>
+<p><strong>Databases</strong> are organized collections of structured information retrieved from various sources such as experiments, sensors, telemetry data and publications, to name a few. Information within the database is physically stored in computer systems and a set of programs manage how data flows in and out of the database. A <strong>server</strong> actively listens for <em>requests</em> sent by other computers to access the data. Upon validation, the server retrieves the data from the database and sends the data (<em>response</em>) to the requesting computer (or <strong>client</strong>).</p>
+<p><strong>Biological databases</strong></p>
+<p>In biology, high-throughput experiments had led to the generation of data in the scale of petabytes. An organizational scheme is needed to easily retrieve the data used for the generation of actionable insights, which is the ultimate goal of any analysis. <strong>Biological databases</strong> contain data generated from experiments in the fields as genomics, proteomics, metabolomics, epigenetics, and many more. Each data point reflects a particular attribute of a biological entity such as the function of a gene, structure of a protein, expression of a transcript, localization of mutation, etc.</p>
+<p><strong>Why should I care?</strong></p>
+<p>Prior to any analysis, data pertinent to the research question must first be collected in a useable form. Retrieving data may be as simple a going to NCBI, searching for a particular accession or query, and clicking a button to download a file in a specific format (e.g., FASTA, GFF). However, this approach is not scalable when attempting to process largescale data. As such, bioinformaticians have developed infrastructure for streamlining the process of data collection, allowing researchers from all backgrounds to retrieve the information they require in a straighforward manner.</p>
+<p>The aim of this write-up is to introduce you to a few command-line-based tools for downloading biological data.</p>
+</section>
+<section id="how-to-get-genome-data" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-get-genome-data">How to get genome data</h2>
+<p>Data is distributed via various repositories. The most commonly used ones are:</p>
+<center>
+<div class="cell" data-fig-width="100%" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  1A["`**NCBI**
+  Genbank/RefSeq`"]
+  1B["`Use numbers
+  **bio, efetch**`"]
+  
+  2A["`**Ensembl**
+  **UCSC**
+  **FlyBase, WormBase**
+  Releases`"]
+  2B["`Use URL
+  **curl, wget, aria2**
+  **genomepy, refgenie**`"]
+  
+  3A["`**NCBI Assemblies**
+  RefSeq genomes`"]
+  3B["`Use accession
+  **datasets**`"]
+  
+  4A["`**Independent
+  Data Tools**`"]
+  4B["`**genomepy**
+  **refgenie**`"]
+  
+  5["`**File Formats**
+  FASTA, GFF, GTF, BED`"]
+  
+  1A --&gt; 1B --&gt; 5
+  2A --&gt; 2B --&gt; 5
+  3A --&gt; 3B --&gt; 5
+  4A --&gt; 4B --&gt; 5
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</center>
+<p>In addition, there are software packages such as <code>refgenie</code> and <code>genomepy</code> that can be used to download and manage reference genomes.</p>
+<section id="search-for-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="search-for-metadata">Search for metadata</h3>
+<p>The <code>bio</code> package is a CLI-based tool used for bioinformatics exploration. It contains commands for downloading, manipulating, and transforming sequence data. If you have an NCBI-based accession number, you can use the <code>bio search</code> command to get information on it.</p>
+<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode sh code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a GenBank accession</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> search AF086833</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use an SRA accession</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> search SRR1553425</span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a RefSeq assembly ID</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-8" class="code-annotation-target"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> search GCA_000005845</span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a query string</span></span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> search ecoli</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="1">Searches GenBank</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="5" data-code-annotation="2">Searches SRA</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="8,11" data-code-annotation="3">Searches NCBI Genome</span>
+</dd>
+</dl>
+<p>Running the <code>bio search</code> command will return a JSON-formatted string which contains the metadata for a particular record. Use the <code>--csv</code> flag to output the metadata in a comma-delimited format. Similarly, use the <code>--csv</code> if you want tab-delimited data.</p>
+<p>Running <code>bio search SRR1553425</code> would produce the following:</p>
+<div id="100fd588" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-stdout">
+<pre><code>[
+    {
+        "run_accession": "SRR1553425",
+        "sample_accession": "SAMN02951957",
+        "sample_alias": "EM110",
+        "sample_description": "Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone",
+        "first_public": "2015-06-05",
+        "country": "Sierra Leone",
+        "scientific_name": "Zaire ebolavirus",
+        "fastq_bytes": "111859282;119350609",
+        "base_count": "360534650",
+        "read_count": "1784825",
+        "library_name": "EM110_r1.ADXX",
+        "library_strategy": "RNA-Seq",
+        "library_source": "TRANSCRIPTOMIC",
+        "library_layout": "PAIRED",
+        "instrument_platform": "ILLUMINA",
+        "instrument_model": "Illumina HiSeq 2500",
+        "study_title": "Zaire ebolavirus Genome sequencing",
+        "fastq_url": [
+            "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz",
+            "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz"
+        ],
+        "info": "112 MB, 119 MB files; 1.8 million reads; 360.5 million sequenced bases"
+    }
+]</code></pre>
+</div>
+</div>
+<p>We can then use the <code>jq</code> processing tool to extract fields of interest. Extract the <code>fastq_url</code> list by running:</p>
+<div id="7fa67009" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="st">".[].fastq_url[]"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>"https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz"
+"https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz"</code></pre>
+</div>
+</div>
+</section>
+<section id="accessing-genbank" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-genbank">Accessing Genbank</h3>
+<p>GenBank is the NIH genetic sequence database, an annotated collection of publicly available DNA sequences. If your data has a GenBank accession number such as <code>AF086833</code>, use the <code>bio fetch</code> command. By default, data is printed to stdout. Override this behavior by specifying the output filename with the <code>-o</code> flag or redirect the output to a file with the <code>&gt;</code> operator.</p>
+<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Accession id pointing to the record.</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="va">ACC</span><span class="op">=</span>AF086833</span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify output with a flag.</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2">2</button><span id="annotated-cell-3-5" class="code-annotation-target"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> fetch <span class="va">${ACC}</span> <span class="at">--format</span> fasta <span class="at">-o</span> <span class="va">${ACC}</span>.fa</span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-7"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Redirect the output to a file.</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3">3</button><span id="annotated-cell-3-8" class="code-annotation-target"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> fetch <span class="va">${ACC}</span> <span class="at">--format</span> gff <span class="op">&gt;</span> <span class="va">${ACC}</span>.gff</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="2" data-code-annotation="1">Store accesssion ID as a variable.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="5" data-code-annotation="2">Download the sequence (FASTA) file.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="8" data-code-annotation="3">Download the annotation (GFF) file.</span>
+</dd>
+</dl>
+<p>Let us verify the download by viewing the first ten lines of the annotation file:</p>
+<div id="6da6eafe" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-stdout">
+<pre><code>##gff-version 3
+#!gff-spec-version 1.21
+#!processor NCBI annotwriter
+##sequence-region AF086833.2 1 18959
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=128952
+AF086833.2  Genbank region  1   18959   .   +   .   ID=AF086833.2:1..18959;Dbxref=taxon:128952;gb-acronym=EBOV-May;gbkey=Src;mol_type=viral cRNA;strain=Mayinga
+AF086833.2  Genbank five_prime_UTR  1   55  .   +   .   ID=id-AF086833.2:1..55;Note=putative leader region;function=regulation or initiation of RNA replication;gbkey=5'UTR
+AF086833.2  Genbank gene    56  3026    .   +   .   ID=gene-NP;Name=NP;gbkey=Gene;gene=NP;gene_biotype=protein_coding
+AF086833.2  Genbank mRNA    56  3026    .   +   .   ID=rna-NP;Parent=gene-NP;gbkey=mRNA;gene=NP;product=nucleoprotein
+AF086833.2  Genbank exon    56  3026    .   +   .   ID=exon-NP-1;Parent=rna-NP;gbkey=mRNA;gene=NP;product=nucleoprotein</code></pre>
+</div>
+</div>
+</section>
+<section id="download-via-url" class="level3">
+<h3 class="anchored" data-anchor-id="download-via-url">Download via URL</h3>
+<p>If you know the URL of a resource, you may use <code>wget</code> or <code>curl</code> to download the file. First, save the URL to a variable for referencing:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">URL</span><span class="op">=</span>http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Use <code>curl</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="va">${URL}</span> <span class="at">-o</span> chr22.fa.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Or use <code>wget</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> <span class="va">${URL}</span> <span class="at">-o</span> chr22.fa.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>-nc</code> flag would skip the download altogether if the file already exists. Use this flag to ensure that large files are not overwritten.</p>
+<p>For large files, <a href="https://aria2.github.io/">aria2</a> can be used for faster, multi-segmented downloads. The tool also supports checkpoints which allow you to restart interrupted downloads. Download aria2 from their website or use <code>conda</code> to install in an environment.</p>
+<div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aria2c</span> <span class="va">${URL}</span> <span class="dt">\ </span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-2" class="code-annotation-target"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">-x</span> 5 <span class="dt">\</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2">2</button><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> chr22.fa.gz</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="1">Connect to the server with x connections.</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="2">Save the output to a file.</span>
+</dd>
+</dl>
+</section>
+<section id="how-to-use-ncbi-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-use-ncbi-datasets">How to use NCBI datasets</h3>
+<p><a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/">NCBI Datasets</a> is a new resource designed by NCBI to gather data from across NCBI databases. The main entry point of the tool is the <code>datasets</code> command. Subcommands such as <code>download</code> or <code>summary</code> is then specified, followed by more subcommands to specify your query.</p>
+<p>It seems to be the direction that NCBI wants to shepherd users towards. However, the nested structure of running the tool makes its use complicated and convoluted compared to other resources. NCBI is kind enough to give us a diagram for navigating the subcommands:</p>
+<center>
+<p><img src="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/datasets_schema_taxonomy.svg" class="img-fluid"></p>
+</center>
+<p>Swiftwater hydra (<em>Hydra vulgaris</em>) has a taxonomy id of <code>6087</code> and RefSeq id of <code>GCF_038396675.1</code>. We can download its genome by running the following:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datasets</span> download genome accession GCF_038396675.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>By default, genome is downloaded as a zipped file named <strong>ncbi_dataset</strong>. The structure of the directory is seen below.</p>
+<pre><code>ncbi_dataset
+└── data
+    ├── assembly_data_report.jsonl
+    ├── dataset_catalog.json
+    └── GCF_038396675.1
+        └── GCF_038396675.1_HydraT2T_AEP_genomic.fn</code></pre>
+</section>
+<section id="how-to-access-ensembl" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-access-ensembl">How to access Ensembl</h3>
+<p>Ensembl operates on numbered releases. For example, <a href="http://ftp.ensembl.org/pub/release-104/">release 104</a> was published on March 30, 2021. Data can be retrieved by navigating the file tree in the provided FTP server. Alternatively, you can invoke <code>curl</code>, <code>wget</code>, or <code>aria2c</code> directly on each file.</p>
+<div class="sourceCode" id="annotated-cell-10"><pre class="sourceCode sh code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-10-1"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the FASTA file from chromosome 22 of the human genome</span></span>
+<span id="annotated-cell-10-2"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a><span class="va">URL</span><span class="op">=</span>http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz</span>
+<span id="annotated-cell-10-3"><a href="#annotated-cell-10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-10-4"><a href="#annotated-cell-10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use curl go download the data</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-5" class="code-annotation-target"><a href="#annotated-cell-10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="va">${URL}</span> <span class="kw">|</span> <span class="fu">gunzip</span> <span class="at">-c</span> <span class="op">&gt;</span> refs/chr22.fa</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-10" data-code-lines="5" data-code-annotation="1">Download from URL and decompress the FASTA file.</span>
+</dd>
+</dl>
+</section>
+</section>
+<section id="how-to-use-refgenie" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-use-refgenie">How to use refgenie</h2>
+<p>Refgenie is a command-line tool that can be used to download and manage reference genomes, and to build and manage custom genome assets. It also provides a Python interface for programmatic access to genome assets.</p>
+<center>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  list["`**refgenie**
+  list`"]
+  pull["`**refgenie**
+  pull`"]
+  seek["`**refgenie**
+  seek`"]
+  list --&gt; pull --&gt; seek
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</center>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<p>Refgenie can be installed as a Python package using <code>pip</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install using pip.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install refgenie</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install using pipx.</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install refgenie</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or conda:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge refgenie</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use mamba/micromamba instead of conda</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> install refgenie</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="create-a-config-file" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-config-file">Create a config file</h3>
+<p><code>refgenie</code> requires a configuration file that lists the resources in the form of a yaml file. For that you need to select a directory that will store the downloaded resources. The path to the config file is saved as the <code>REFGENIE</code> shell environment variable which will be used for initialization:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Path pointing to refgenie config file.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">REFGENIE</span><span class="op">=</span>~/refs/config.yaml</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the REFGENIE variable when launching a shell instance</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"export REFGENIE=~/refs/config.yml"</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run initialization</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>refgenie</code> tool is now ready to be used to download and manage reference genomes.</p>
+</section>
+<section id="using-refgenie" class="level3">
+<h3 class="anchored" data-anchor-id="using-refgenie">Using refgenie</h3>
+<p>A list of pre-built assets from a remote server can be displayed with <code>listr</code>:</p>
+<div id="64be62a8" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> refgenie listr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                             Remote refgenie assets                             
+                   Server URL: http://refgenomes.databio.org                    
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ genome           ┃ assets                                                    ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ rCRSd            │ fasta, bowtie2_index, bwa_index, star_index,              │
+│                  │ hisat2_index, bismark_bt2_index                           │
+│ hg38             │ fasta, gencode_gtf, refgene_anno, dbsnp, ensembl_gtf,     │
+│                  │ ensembl_rb, suffixerator_index, bwa_index, bowtie2_index, │
+│                  │ dbnsfp, star_index, fasta_txome, hisat2_index,            │
+│                  │ cellranger_reference, bismark_bt2_index,                  │
+│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
+│ human_repeats    │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
+│                  │ star_index, hisat2_index, bismark_bt2_index               │
+│ mouse_chrM2x     │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
+│                  │ star_index, hisat2_index, bismark_bt2_index               │
+│ hg18_cdna        │ fasta, kallisto_index                                     │
+│ hs38d1           │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
+│                  │ star_index, hisat2_index, bismark_bt2_index               │
+│ hg38_cdna        │ fasta, salmon_index, kallisto_index                       │
+│ rn6_cdna         │ fasta, salmon_index, kallisto_index                       │
+│ mm10_cdna        │ fasta, salmon_index, kallisto_index                       │
+│ hg19_cdna        │ fasta, salmon_index, kallisto_index                       │
+│ hg38_chr22       │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
+│                  │ star_index, hisat2_index, bismark_bt2_index               │
+│ hg19             │ fasta, gencode_gtf, refgene_anno, dbsnp, ensembl_gtf,     │
+│                  │ ensembl_rb, suffixerator_index, bowtie2_index, bwa_index, │
+│                  │ hisat2_index, fasta_txome, star_index,                    │
+│                  │ cellranger_reference, bismark_bt2_index,                  │
+│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
+│ hg18             │ fasta, gencode_gtf, bowtie2_index, suffixerator_index,    │
+│                  │ bwa_index, hisat2_index, fasta_txome, star_index,         │
+│                  │ cellranger_reference, bismark_bt2_index                   │
+│ human_alu        │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
+│                  │ hisat2_index, bismark_bt2_index                           │
+│ human_rDNA       │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
+│                  │ star_index, hisat2_index, bismark_bt2_index               │
+│ human_alphasat   │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
+│                  │ star_index, hisat2_index, bismark_bt2_index               │
+│ mm10             │ fasta, gencode_gtf, refgene_anno, ensembl_gtf,            │
+│                  │ ensembl_rb, suffixerator_index, bwa_index, bowtie2_index, │
+│                  │ hisat2_index, star_index, fasta_txome,                    │
+│                  │ cellranger_reference, bismark_bt2_index,                  │
+│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
+│ rn6              │ fasta, refgene_anno, ensembl_gtf, suffixerator_index,     │
+│                  │ bwa_index, bowtie2_index, hisat2_index, star_index,       │
+│                  │ fasta_txome, bismark_bt2_index, salmon_partial_sa_index,  │
+│                  │ tgMap, salmon_sa_index                                    │
+│ t7               │ fasta, bowtie2_index                                      │
+│ dm6              │ fasta, gencode_gtf, refgene_anno, ensembl_gtf,            │
+│                  │ bowtie2_index                                             │
+│ hg38_noalt_decoy │ fasta, suffixerator_index, bwa_index, bowtie2_index,      │
+│                  │ star_index, hisat2_index, bismark_bt2_index               │
+│ mm10_primary     │ fasta, bowtie2_index, bwa_index                           │
+│ hg38_primary     │ fasta, bwa_index, bowtie2_index                           │
+│ hg38_mm10        │ fasta, bwa_index                                          │
+└──────────────────┴───────────────────────────────────────────────────────────┘
+             use refgenie listr -g &lt;genome&gt; for more detailed view              </code></pre>
+</div>
+</div>
+<p>Genome data is fetched using the <code>pull</code> command:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> pull hg38/bwa_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>seek</code> command displays the path of the downloaded file:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> seek hg38/bwa_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>List local genome assets:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Use command substitution to store the genome path to a variable:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the human reference genome</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> pull hg38/fasta</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save path of reference genome to a variable</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="va">REF</span><span class="op">=</span><span class="va">$(</span><span class="ex">refgenie</span> seek hg38/fasta<span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then use the resulting path in downstream tools:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate statistics for the human reference genome</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> stats <span class="va">${REF}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Subscribe to the iGenomes server which hosts additional reference genomes and genome assets.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> subscribe <span class="at">-s</span> http://igenomes.databio.org/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="using-genomepy" class="level2">
+<h2 class="anchored" data-anchor-id="using-genomepy">Using genomepy</h2>
+<section id="how-to-use-genomepy" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-use-genomepy">How to use genomepy</h3>
+<p><code>genomepy</code> is another tool designed for searching and downloading genomic data. It can be used to:</p>
+<ol type="1">
+<li>search available data</li>
+<li>show the available metadata</li>
+<li>automatically download, preprocess</li>
+<li>generate optional aligned indexes</li>
+</ol>
+<p>Currently, <code>genomepy</code> supports Ensembl, UCSC, NCBI, and GENCODE.</p>
+<center>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  genomepy["`**genomepy**`"]
+  commands{"`**search**
+  **install**
+  **annotation**`"}
+  storage["`files stored in
+  **$home/local/share/genomes**`"]
+  
+  genomepy --&gt; commands --&gt; storage
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</center>
+<p>See also: <a href="https://github.com/vanheeringen-lab/genomepy">genomepy documentation</a></p>
+</section>
+<section id="installation-1" class="level3">
+<h3 class="anchored" data-anchor-id="installation-1">Installation</h3>
+<p>Install using micromamba:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> install genomepy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Install using pip or pipx:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install genomepy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="using-genomepy-1" class="level3">
+<h3 class="anchored" data-anchor-id="using-genomepy-1">Using genomepy</h3>
+<p>Use the <code>search</code> command to query genomes by name or accession:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">genomepy</span> search ecoli <span class="op">&gt;</span> ecoli_query_results.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A genome index will be downloaded upon invoking the <code>search</code> command for the first time. Hence, the initial search may take a while depending on your connection speed. As seen from the log below, assembly summaries are fetched from multiple databases (GENCODE, UCSC, Ensembl, NCBI).</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>05:28:31 | INFO | Downloading assembly summaries from GENCODE</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>05:29:54 | INFO | Downloading assembly summaries from UCSC</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>05:30:05 | INFO | Downloading assembly summaries from Ensembl</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>05:30:43 | INFO | Downloading assembly summaries from NCBI, this will take a while...</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>genbank_historical: 73.0k genomes <span class="co">[</span><span class="ot">00:06, 11.1k genomes/s</span><span class="co">]</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>refseq_historical: 85.6k genomes <span class="co">[</span><span class="ot">00:05, 16.6k genomes/s</span><span class="co">]</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>genbank: 2.39M genomes <span class="co">[</span><span class="ot">02:11, 18.1k genomes/s</span><span class="co">]</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>refseq: 378k genomes <span class="co">[</span><span class="ot">00:28, 13.0k genomes/s</span><span class="co">]</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The results look like so:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>name                 provider accession         tax_id annotation species                                  other_info                              </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                                                        n r e k   &lt;- UCSC options (see help)                                                       </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>EcoliT22_2.0         NCBI     GCF_000247665.3      562     ✓      Escherichia coli O157:H43 str. T22       BAYGEN                                  </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>Ecoli.O104:H4.LB226692_2.0 NCBI     GCA_000215685.3      562     ✓      Escherichia coli O104:H4 str. LB226692   Life Technologies                       </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>Ecoli.O104:H4.01-09591_1.0 NCBI     GCA_000221065.2      562     ✓      Escherichia coli O104:H4 str. 01-09591   Life Technologies                       </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>Ecoli_C227-11_1.0    NCBI     GCA_000220805.2      562     ✓      Escherichia coli O104:H4 str. C227-11    PacBio                                  </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>ecoli009             NCBI     GCA_900607665.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>ecoli006             NCBI     GCA_900607465.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>ecoli008             NCBI     GCA_900607535.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>ecoli017             NCBI     GCA_900608025.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>ecoli025             NCBI     GCA_900608175.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>ecoli022             NCBI     GCA_900608105.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>ecoli015             NCBI     GCA_900607975.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>ecoli013             NCBI     GCA_900607805.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Entries under the <code>name</code> field can be used to download the genome:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">genomepy</span> install ecoli009</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>By default, the downloaded genomes will be found in the <code>~/.local/share/genomes</code> directory. For our example, the directory named <code>ecoli009</code> contains the genome data and other relevant files:</p>
+<div id="eec0bb5a" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/dagsdags/.local/share/genomes
+└── ecoli009
+    ├── assembly_report.txt
+    ├── ecoli009.fa
+    ├── ecoli009.fa.fai
+    ├── ecoli009.fa.sizes
+    ├── ecoli009.gaps.bed
+    └── README.txt
+
+1 directory, 6 files</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="how-to-get-fastq-data" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-get-fastq-data">How to get FASTQ data</h2>
+<p>Publibashed FASTQ files are stored in the bashort Read Archive (SRA). Access to SRA can be diagrammed like so:</p>
+<center>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  fq["`**FASTQ FILES**`"]
+  srr["`**SRR number**`"] --&gt; srr2["`Find URL and metadata
+  web, **bio**, **ffq**`"]
+  sra["`**SRA**
+  bashort Read Archive`"] --&gt; sra2["`Use SRR number
+  **fastq-dump**`"] --&gt; fq
+  ensembl["`**Ensembl**
+  Sequence archive`"] --&gt; ensembl2["`Find URL
+  **curl**, **wget**, **aria2**`"]
+  com["`**Commercial**
+  Google, Amazon
+  Users pay to download`"] --&gt; com2["`Custom tools
+  **gsutil**, **aws**`"] --&gt; fq
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</center>
+<p>The sratools suite from NCBI provides <code>fastq-dump</code> and <code>fasterq-dump</code> to download read data from SRA accessions. In later versions of sratools, <code>fasterq-dump</code> is the preferred tool for fetching read data as demonstrated below:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Store accession number and number of reads</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="va">ACC</span><span class="op">=</span>SRR1553425</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="va">N</span><span class="op">=</span>10000</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create reads directory</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> reads</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch reads from accession</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="ex">fasterq-dump</span> <span class="at">--split-3</span> <span class="at">-X</span> <span class="va">${N}</span> <span class="at">-O</span> reads <span class="va">${ACC}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>However this method is clunky and fragile, often failing to fetch the required data due to errors that are cryptically communicated to the user. An alternative method is to retrieve the URLs that point to the data and download locally using <code>wget</code>, <code>curl</code> or <code>aria2</code>. Use <code>bio search</code> to retrieve metadata on the SRA accession and parse using <code>jq</code>.</p>
+<div id="76f06f1b" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="op">-</span>r <span class="st">'.[].fastq_url[]'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz
+https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz</code></pre>
+</div>
+</div>
+<section id="using-the-sra-explorer" class="level3">
+<h3 class="anchored" data-anchor-id="using-the-sra-explorer">Using the SRA Explorer</h3>
+<p>The <strong>SRA Explorer</strong> is a web-based tool developed by <a href="http://phil.ewels.co.uk/">Phil Lewis</a> aimed to make SRA data more accessible. It allows you to search for datasets and view metadata. The link can be accessed here:</p>
+<ul>
+<li>https://sra-explorer.info/</li>
+</ul>
+</section>
+<section id="using-the-ncbi-website" class="level3">
+<h3 class="anchored" data-anchor-id="using-the-ncbi-website">Using the NCBI website</h3>
+<p>You can also visit NCBI’s SRA repository <a href="https://sra-explorer.info/">here</a> to download sequencing read data.</p>
+</section>
+<section id="how-to-download-multiple-runs" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-download-multiple-runs">How to download multiple runs</h3>
+<p>All data from a project can be queried using <code>bio search</code>, parsed using <code>csvcut</code>, and concurrently downloaded using <code>parallel</code> or <code>aria2c</code>:</p>
+<p>The project id encapsulates all the details in a sequencing experiment. Pass the project id as an argument to the <code>bio search</code> command to view the SRR accessions.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the project metadata and save as a CSV file</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> search PRJNA257197 <span class="at">--csv</span> <span class="op">&gt;</span> project.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The truncated output is as follows:</p>
+<div id="1219ea26" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-stdout">
+<pre><code>SRR1553416,SAMN02951952,EM095B,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,75343412;82686811,204989600,1014800,EM095_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/006/SRR1553416/SRR1553416_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/006/SRR1553416/SRR1553416_2.fastq.gz']","75 MB, 83 MB files; 1.0 million reads; 205.0 million sequenced bases"
+SRR1553417,SAMN02951951,EM095,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,142031647;152472244,376904730,1865865,EM095.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/007/SRR1553417/SRR1553417_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/007/SRR1553417/SRR1553417_2.fastq.gz']","142 MB, 152 MB files; 1.9 million reads; 376.9 million sequenced bases"
+SRR1553418,SAMN02951953,EM096,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,1307005;1336226,3701246,18323,EM096_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/008/SRR1553418/SRR1553418_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/008/SRR1553418/SRR1553418_2.fastq.gz']","1 MB, 1 MB files; 0.0 million reads; 3.7 million sequenced bases"
+SRR1553419,SAMN02951953,EM096,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,21244723;23562643,56849264,281432,EM096.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/009/SRR1553419/SRR1553419_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/009/SRR1553419/SRR1553419_2.fastq.gz']","21 MB, 24 MB files; 0.3 million reads; 56.8 million sequenced bases"
+SRR1553420,SAMN02951954,EM098,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,16892437;19247731,45087612,223206,EM098.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/000/SRR1553420/SRR1553420_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/000/SRR1553420/SRR1553420_2.fastq.gz']","17 MB, 19 MB files; 0.2 million reads; 45.1 million sequenced bases"</code></pre>
+</div>
+</div>
+<p>Only the accession numbers are needed to download the reads. From the project file, we extract the first column corresponding to the accession, and use this as input to <code>fastq-dump</code>. The <code>parallel</code> tool enables us to simultaneously download multiple accession at once.</p>
+<div class="sourceCode" id="annotated-cell-30"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-30-1"><a href="#annotated-cell-30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the first column and download concurrently using parallel</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="1">1</button><span id="annotated-cell-30-2" class="code-annotation-target"><a href="#annotated-cell-30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> project.csv <span class="kw">|</span> <span class="dt">\</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="2">2</button><span id="annotated-cell-30-3" class="code-annotation-target"><a href="#annotated-cell-30-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">csvcut</span> <span class="at">-c</span> 1 <span class="kw">|</span> <span class="dt">\</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="3">3</button><span id="annotated-cell-30-4" class="code-annotation-target"><a href="#annotated-cell-30-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span> <span class="at">-n</span> 3 <span class="kw">|</span> <span class="dt">\</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="4">4</button><span id="annotated-cell-30-5" class="code-annotation-target"><a href="#annotated-cell-30-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">parallel</span> <span class="st">"fastq-dump -F --split-files -O data {}"</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-30" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="2" data-code-annotation="1">Print to standard output.</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="3" data-code-annotation="2">Filter only the first column.</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="4" data-code-annotation="3">Filter first three rows.</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="5" data-code-annotation="4">Download reads for each of the three accessions.</span>
+</dd>
+</dl>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,14 @@
+---
+title: Variant Calling
+author: Jan Emmanuel Samson
+email: jgsamson@up.edu.ph
+date: 2024/10/03
+last-modified: 2024/10/10
+description: "Setting up local environments to support reproducible workflows in Bioinformatics."
+categories:
+  - CLI
+  - Containerization
+image: ../../assets/mamba-logo.png
+toc: true
+draft: true
+---

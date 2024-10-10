@@ -1,0 +1,25 @@
+### Accessing Genbank
+
+GenBank is the NIH genetic sequence database, an annotated collection of publicly available DNA sequences. If your data has a GenBank accession number such as `AF086833`, use the `bio fetch` command. By default, data is printed to stdout. Override this behavior by specifying the output filename with the `-o` flag or redirect the output to a file with the `>` operator.
+
+```bash
+# Accession id pointing to the record.
+ACC=AF086833                                # <1>
+
+# Specify output with a flag.
+bio fetch ${ACC} --format fasta -o ${ACC}.fa # <2>
+
+# Redirect the output to a file.
+bio fetch ${ACC} --format gff > ${ACC}.gff  # <3>
+```
+1. Store accesssion ID as a variable.
+2. Download the sequence (FASTA) file.
+3. Download the annotation (GFF) file.
+
+Let us verify the download by viewing the first ten lines of the annotation file:
+```{python}
+#| echo: false
+#| eval: true
+
+! bio fetch AF086833 --format gff | head -n 10
+```

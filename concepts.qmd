@@ -1,0 +1,13 @@
+---
+title: "Concepts"
+listing:
+  contents: 
+    - "concepts/*.qmd"
+  type: default
+  categories: true
+  sort: "date desc"
+  max-items: 10
+  image-align: right
+page-layout: full
+title-block-banner: false
+---

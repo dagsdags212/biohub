@@ -2,11 +2,8 @@
   {
     "listing": "/notebook.html",
     "items": [
-      "/tutorials/micromamba/index.html",
-      "/algorithms/phylogenetic-tree.html",
-      "/algorithms/sequence-alignment.html",
-      "/algorithms/z-algorithm.html",
-      "/tutorials/retrieving-biological-data/index.html"
+      "/notebook/micromamba/index.html",
+      "/notebook/retrieving-biological-data/index.html"
     ]
   },
   {
@@ -22,6 +19,23 @@
       "/rosalind/counting_nucleotides.pdf",
       "/rosalind/transcription.pdf",
       "/rosalind/replication.pdf"
+    ]
+  },
+  {
+    "listing": "/sections/notebook.html",
+    "items": []
+  },
+  {
+    "listing": "/algorithms.html",
+    "items": [
+      "/algorithms/z-algorithm.html"
+    ]
+  },
+  {
+    "listing": "/concepts.html",
+    "items": [
+      "/concepts/phylogenetic-tree.html",
+      "/concepts/sequence-alignment.html"
     ]
   }
 ]

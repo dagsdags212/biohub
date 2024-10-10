@@ -137,7 +137,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -159,6 +159,16 @@ window.Quarto = {
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../concepts.html"> 
+<span class="menu-text">Concepts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../algorithms.html"> 
+<span class="menu-text">Algorithms</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
     <a class="nav-link" href="../rosalind.html"> 
 <span class="menu-text">Rosalind</span></a>
   </li>  
@@ -175,7 +185,21 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#string-preprocessing" id="toc-string-preprocessing" class="nav-link active" data-scroll-target="#string-preprocessing">String Preprocessing</a>
+  <ul class="collapse">
+  <li><a href="#terminology" id="toc-terminology" class="nav-link" data-scroll-target="#terminology">Terminology</a></li>
+  <li><a href="#the-z-box" id="toc-the-z-box" class="nav-link" data-scroll-target="#the-z-box">The Z-box</a></li>
+  <li><a href="#computing-z_i" id="toc-computing-z_i" class="nav-link" data-scroll-target="#computing-z_i">Computing <span class="math inline">\(Z_i\)</span></a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -370,45 +394,45 @@ l = k
 </section>
 <section id="implementation" class="level2">
 <h2 class="anchored" data-anchor-id="implementation">Implementation</h2>
-<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1"></a><span class="kw">def</span> z(s):</span>
-<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2"></a>  <span class="co">"""Use Z-algorithm to preprocess a given string."""</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3"></a>  L <span class="op">=</span> <span class="bu">len</span>(s)</span>
-<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4"></a>  Z <span class="op">=</span> [L] <span class="op">+</span> [<span class="dv">0</span>] <span class="op">*</span> L</span>
-<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5"></a></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, L):</span>
-<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7"></a>    <span class="cf">if</span> s[i] <span class="op">==</span> s[i<span class="op">-</span><span class="dv">1</span>]:</span>
-<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8"></a>      Z[<span class="dv">1</span>] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9"></a>    <span class="cf">else</span>:</span>
-<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10"></a>      <span class="cf">break</span></span>
-<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11"></a></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-12" class="code-annotation-target"><a href="#annotated-cell-1-12"></a>  r, l <span class="op">=</span> <span class="dv">0</span>, <span class="dv">0</span></span>
-<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13"></a>  <span class="cf">if</span> Z[<span class="dv">1</span>] <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14"></a>    r, l <span class="op">=</span> Z[<span class="dv">1</span>], <span class="dv">1</span></span>
-<span id="annotated-cell-1-15"><a href="#annotated-cell-1-15"></a></span>
-<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16"></a>  <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, L):</span>
-<span id="annotated-cell-1-17"><a href="#annotated-cell-1-17"></a>    <span class="cf">assert</span> Z[k] <span class="op">==</span> <span class="dv">0</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4">4</button><span id="annotated-cell-1-18" class="code-annotation-target"><a href="#annotated-cell-1-18"></a>    <span class="cf">if</span> k <span class="op">&gt;</span> r:</span>
-<span id="annotated-cell-1-19"><a href="#annotated-cell-1-19"></a>      <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k, <span class="bu">len</span>(s)):</span>
-<span id="annotated-cell-1-20"><a href="#annotated-cell-1-20"></a>        <span class="cf">if</span> s[i] <span class="op">==</span> s[i<span class="op">-</span>k]:</span>
-<span id="annotated-cell-1-21"><a href="#annotated-cell-1-21"></a>          Z[k] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="annotated-cell-1-22"><a href="#annotated-cell-1-22"></a>        <span class="cf">else</span>:</span>
-<span id="annotated-cell-1-23"><a href="#annotated-cell-1-23"></a>          <span class="cf">break</span></span>
-<span id="annotated-cell-1-24"><a href="#annotated-cell-1-24"></a>      r, l <span class="op">=</span> k <span class="op">+</span> Z[k] <span class="op">-</span> <span class="dv">1</span>, k</span>
-<span id="annotated-cell-1-25"><a href="#annotated-cell-1-25"></a>    <span class="cf">else</span>:</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5">5</button><span id="annotated-cell-1-26" class="code-annotation-target"><a href="#annotated-cell-1-26"></a>      n_beta <span class="op">=</span> r <span class="op">-</span> k <span class="op">+</span> <span class="dv">1</span></span>
-<span id="annotated-cell-1-27"><a href="#annotated-cell-1-27"></a>      Zkp <span class="op">=</span> Z[k<span class="op">-</span>l]</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="6">6</button><span id="annotated-cell-1-28" class="code-annotation-target"><a href="#annotated-cell-1-28"></a>      <span class="cf">if</span> n_beta <span class="op">&gt;</span> Zkp:</span>
-<span id="annotated-cell-1-29"><a href="#annotated-cell-1-29"></a>        Z[k] <span class="op">=</span> Zkp</span>
-<span id="annotated-cell-1-30"><a href="#annotated-cell-1-30"></a>      <span class="cf">else</span>:</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="7">7</button><span id="annotated-cell-1-31" class="code-annotation-target"><a href="#annotated-cell-1-31"></a>        n_match <span class="op">=</span> <span class="dv">0</span></span>
-<span id="annotated-cell-1-32"><a href="#annotated-cell-1-32"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(r<span class="op">+</span><span class="dv">1</span>, <span class="bu">len</span>(s)):</span>
-<span id="annotated-cell-1-33"><a href="#annotated-cell-1-33"></a>          <span class="cf">if</span> s[i ] <span class="op">==</span> s[i<span class="op">-</span>k]:</span>
-<span id="annotated-cell-1-34"><a href="#annotated-cell-1-34"></a>            n_match <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="annotated-cell-1-35"><a href="#annotated-cell-1-35"></a>          <span class="cf">else</span>:</span>
-<span id="annotated-cell-1-36"><a href="#annotated-cell-1-36"></a>            <span class="cf">break</span></span>
-<span id="annotated-cell-1-37"><a href="#annotated-cell-1-37"></a>        l, r <span class="op">=</span> k, r <span class="op">+</span> n_match</span>
-<span id="annotated-cell-1-38"><a href="#annotated-cell-1-38"></a>        Z[k] <span class="op">=</span> r <span class="op">-</span> k <span class="op">+</span> <span class="dv">1</span></span>
-<span id="annotated-cell-1-39"><a href="#annotated-cell-1-39"></a>  <span class="cf">return</span> Z</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> z(s):</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Use Z-algorithm to preprocess a given string."""</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>  L <span class="op">=</span> <span class="bu">len</span>(s)</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>  Z <span class="op">=</span> [L] <span class="op">+</span> [<span class="dv">0</span>] <span class="op">*</span> L</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, L):</span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s[i] <span class="op">==</span> s[i<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>      Z[<span class="dv">1</span>] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-12" class="code-annotation-target"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>  r, l <span class="op">=</span> <span class="dv">0</span>, <span class="dv">0</span></span>
+<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> Z[<span class="dv">1</span>] <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a>    r, l <span class="op">=</span> Z[<span class="dv">1</span>], <span class="dv">1</span></span>
+<span id="annotated-cell-1-15"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, L):</span>
+<span id="annotated-cell-1-17"><a href="#annotated-cell-1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> Z[k] <span class="op">==</span> <span class="dv">0</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4">4</button><span id="annotated-cell-1-18" class="code-annotation-target"><a href="#annotated-cell-1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> k <span class="op">&gt;</span> r:</span>
+<span id="annotated-cell-1-19"><a href="#annotated-cell-1-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k, <span class="bu">len</span>(s)):</span>
+<span id="annotated-cell-1-20"><a href="#annotated-cell-1-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> s[i] <span class="op">==</span> s[i<span class="op">-</span>k]:</span>
+<span id="annotated-cell-1-21"><a href="#annotated-cell-1-21" aria-hidden="true" tabindex="-1"></a>          Z[k] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="annotated-cell-1-22"><a href="#annotated-cell-1-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="annotated-cell-1-23"><a href="#annotated-cell-1-23" aria-hidden="true" tabindex="-1"></a>          <span class="cf">break</span></span>
+<span id="annotated-cell-1-24"><a href="#annotated-cell-1-24" aria-hidden="true" tabindex="-1"></a>      r, l <span class="op">=</span> k <span class="op">+</span> Z[k] <span class="op">-</span> <span class="dv">1</span>, k</span>
+<span id="annotated-cell-1-25"><a href="#annotated-cell-1-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5">5</button><span id="annotated-cell-1-26" class="code-annotation-target"><a href="#annotated-cell-1-26" aria-hidden="true" tabindex="-1"></a>      n_beta <span class="op">=</span> r <span class="op">-</span> k <span class="op">+</span> <span class="dv">1</span></span>
+<span id="annotated-cell-1-27"><a href="#annotated-cell-1-27" aria-hidden="true" tabindex="-1"></a>      Zkp <span class="op">=</span> Z[k<span class="op">-</span>l]</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="6">6</button><span id="annotated-cell-1-28" class="code-annotation-target"><a href="#annotated-cell-1-28" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> n_beta <span class="op">&gt;</span> Zkp:</span>
+<span id="annotated-cell-1-29"><a href="#annotated-cell-1-29" aria-hidden="true" tabindex="-1"></a>        Z[k] <span class="op">=</span> Zkp</span>
+<span id="annotated-cell-1-30"><a href="#annotated-cell-1-30" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span>:</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="7">7</button><span id="annotated-cell-1-31" class="code-annotation-target"><a href="#annotated-cell-1-31" aria-hidden="true" tabindex="-1"></a>        n_match <span class="op">=</span> <span class="dv">0</span></span>
+<span id="annotated-cell-1-32"><a href="#annotated-cell-1-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(r<span class="op">+</span><span class="dv">1</span>, <span class="bu">len</span>(s)):</span>
+<span id="annotated-cell-1-33"><a href="#annotated-cell-1-33" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> s[i ] <span class="op">==</span> s[i<span class="op">-</span>k]:</span>
+<span id="annotated-cell-1-34"><a href="#annotated-cell-1-34" aria-hidden="true" tabindex="-1"></a>            n_match <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="annotated-cell-1-35"><a href="#annotated-cell-1-35" aria-hidden="true" tabindex="-1"></a>          <span class="cf">else</span>:</span>
+<span id="annotated-cell-1-36"><a href="#annotated-cell-1-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="annotated-cell-1-37"><a href="#annotated-cell-1-37" aria-hidden="true" tabindex="-1"></a>        l, r <span class="op">=</span> k, r <span class="op">+</span> n_match</span>
+<span id="annotated-cell-1-38"><a href="#annotated-cell-1-38" aria-hidden="true" tabindex="-1"></a>        Z[k] <span class="op">=</span> r <span class="op">-</span> k <span class="op">+</span> <span class="dv">1</span></span>
+<span id="annotated-cell-1-39"><a href="#annotated-cell-1-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Z</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
