@@ -1,28 +1,42 @@
 project:
   type: website
   output-dir: docs
+  execute-dir: project
 
 website:
   title: "BioHub"
+  page-navigation: true
+  back-to-top-navigation: true
+  page-footer: © 2024, Jan Samson
   navbar:
     background: dark
     foreground: light
+    pinned: true
     left:
       - href: notebook.qmd
         text: "Notebook"
+      - href: concepts.qmd
+        text: "Concepts"
+      - href: algorithms.qmd
+        text: "Algorithms"
       - href: rosalind.qmd
         text: "Rosalind"
+    right:
+      - href: about.qmd
+        text: "Author"
     tools:
       - icon: twitter
         href: https://x.com/dagsdags13
       - icon: github
         href: https://github.com/dagsdags212
+
 format:
   html:
     theme: 
       - cosmo
       - custom.scss 
-    toc: false
+    toc: true
+    toc-location: left
     css: styles.css
 
 

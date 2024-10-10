@@ -21,7 +21,7 @@ listing:
   image-placeholder: assets/rosalind-logo.jpg
   table-hover: true
 page-layout: full
-title-block-banner: true
+title-block-banner: false
 --- 
 
 ::: {#rosalind-challenges}

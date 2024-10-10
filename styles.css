@@ -13,6 +13,10 @@
   --text-light: #313244;
 }
 
+p {
+  text-align: justify;
+}
+
 /* MARGINS */
 mb-0 {
   margin-bottom: 0;
