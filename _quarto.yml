@@ -21,9 +21,6 @@ website:
         text: "Algorithms"
       - href: rosalind.qmd
         text: "Rosalind"
-    right:
-      - href: about.qmd
-        text: "Author"
     tools:
       - icon: twitter
         href: https://x.com/dagsdags13

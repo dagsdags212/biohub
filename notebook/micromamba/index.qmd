@@ -95,13 +95,13 @@ For a full list of available tools hosted in bioconda, consult the following sit
 
 Run the following two commands:
 ```bash
-micromamba config --add channels bioconda
-micromamba config --add channels conda-forge
+micromamba config append channels bioconda
+micromamba config append channels conda-forge
 ```
 
 Next, we will tell micromamba to first look at the bioconda channel before querying the conda-forge channel when downloading packages:
 ```bash
-micromamba config --set channel_priority strict
+micromamba config set channel_priority strict
 ```
 
 We can view our current configuration as follows:

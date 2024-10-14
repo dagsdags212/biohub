@@ -2,6 +2,7 @@
   {
     "listing": "/notebook.html",
     "items": [
+      "/notebook/motif-finding/index.html",
       "/notebook/micromamba/index.html",
       "/notebook/retrieving-biological-data/index.html"
     ]
