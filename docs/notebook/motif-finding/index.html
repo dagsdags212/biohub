@@ -61,6 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
@@ -161,10 +162,6 @@ window.Quarto = {
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../concepts.html"> 
-<span class="menu-text">Concepts</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../../algorithms.html"> 
 <span class="menu-text">Algorithms</span></a>
   </li>  
@@ -196,8 +193,8 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#including-reverse-complements" id="toc-including-reverse-complements" class="nav-link" data-scroll-target="#including-reverse-complements">Including Reverse Complements</a></li>
   <li><a href="#pattern-matching" id="toc-pattern-matching" class="nav-link" data-scroll-target="#pattern-matching">Pattern Matching</a></li>
-  </ul></li>
   <li><a href="#verifying-with-other-bacterial-genomes" id="toc-verifying-with-other-bacterial-genomes" class="nav-link" data-scroll-target="#verifying-with-other-bacterial-genomes">Verifying with Other Bacterial Genomes</a></li>
+  </ul></li>
   <li><a href="#clump-finding" id="toc-clump-finding" class="nav-link" data-scroll-target="#clump-finding">Clump Finding</a></li>
   <li><a href="#gc-skew" id="toc-gc-skew" class="nav-link" data-scroll-target="#gc-skew">GC Skew</a>
   <ul class="collapse">
@@ -273,7 +270,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="genome-data">Genome Data</h2>
 <p>The genome for <em>Vibrio cholerae</em> can be downloaded <a href="https://bioinformaticsalgorithms.com/data/realdatasets/Replication/Vibrio_cholerae.txt">here</a>.</p>
 <p>Load and inspect the genome:</p>
-<div id="b1e07057" class="cell" data-execution_count="2">
+<div id="f9132dda" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>filepath <span class="op">=</span> <span class="st">"assets/vibrio-cholerae.txt"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(filepath, <span class="st">"r"</span>) <span class="im">as</span> handle:</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  genome <span class="op">=</span> handle.read().strip()</span>
@@ -303,7 +300,7 @@ ATGGTCTGTCTAAATTTTTGATGGGGAACGTCTCTGACCGTTCTAACCCGCGCTACTTTCTGAGTGCAGGTCTACTCCTT
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      count <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A more generalized approach is to set the <em>k</em> parameter and count all k-mers in the query sequence. We then extract the most frequent k-mer by filtering for the substring with the highest count.</p>
-<div id="41475cbc" class="cell" data-execution_count="3">
+<div id="fcaee2dc" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> frequency_table(text: <span class="bu">str</span>, k: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">int</span>]:</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Returns a frequency table containing all k-mer counts."""</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  kmer_counts <span class="op">=</span> {}</span>
@@ -339,14 +336,14 @@ ATGGTCTGTCTAAATTTTTGATGGGGAACGTCTCTGACCGTTCTAACCCGCGCTACTTTCTGAGTGCAGGTCTACTCCTT
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>tccttaaccctctattttttacggaagaatgatcaagctgctgctcttgatcatcgtttc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let us find the most frequent frequent k-mers in the range <span class="math inline">\(k = 3\)</span> and <span class="math inline">\(k = 9\)</span>:</p>
-<div id="f1101dbf" class="cell" data-execution_count="5">
+<div id="845a44c3" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>k_list <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">10</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>kmer_counts <span class="op">=</span> {}</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> k_list:</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  freq_map <span class="op">=</span> frequency_table(ori, k)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  kmer_counts[k] <span class="op">=</span> get_most_frequent_kmer(freq_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="f1853247" class="cell" data-execution_count="6">
+<div id="a36a6640" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>{25: 'TGA', 12: 'ATGA', 8: 'TGATCA', 5: 'ATGATCA', 4: 'ATGATCAA', 3: 'ATGATCAAG, CTCTTGATC, TCTTGATCA, CTTGATCAT'}</code></pre>
 </div>
@@ -357,7 +354,7 @@ ATGGTCTGTCTAAATTTTTGATGGGGAACGTCTCTGACCGTTCTAACCCGCGCTACTTTCTGAGTGCAGGTCTACTCCTT
 <section id="including-reverse-complements" class="level3">
 <h3 class="anchored" data-anchor-id="including-reverse-complements">Including Reverse Complements</h3>
 <p>We can update our couting function to collapse a k-mer and its reverse complement to a single count. First, we write a subroutine for getting the reverse complement of an input sequence.</p>
-<div id="99c05eee" class="cell" data-execution_count="7">
+<div id="32844271" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rev_comp(seq: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Computes the reverse complement of a given DNA sequence."""</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  rc <span class="op">=</span> <span class="st">""</span></span>
@@ -369,7 +366,7 @@ ATGGTCTGTCTAAATTTTTGATGGGGAACGTCTCTGACCGTTCTAACCCGCGCTACTTTCTGAGTGCAGGTCTACTCCTT
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> rc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When counting k-mers we will only keep the sequence that comes first when ordered lexicographically. For example, the 4-mer AGTC is the reverse complement of GACT. Since AGTC comes before GACT lexicographyically, we will store only the count of AGTC.</p>
-<div id="3a345a9a" class="cell" data-execution_count="8">
+<div id="da22cacf" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> frequent_kmers_with_rc(text: <span class="bu">str</span>, k: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">set</span>:</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Returns a frequency table containing counts of all k-mers and </span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">  their reverse complement."""</span></span>
@@ -392,7 +389,7 @@ ATGGTCTGTCTAAATTTTTGATGGGGAACGTCTCTGACCGTTCTAACCCGCGCTACTTTCTGAGTGCAGGTCTACTCCTT
 <section id="pattern-matching" class="level3">
 <h3 class="anchored" data-anchor-id="pattern-matching">Pattern Matching</h3>
 <p>Aside from computing the k-mer frequencies, we are also interested in knowning where common k-mers are located in the genome. Given an input pattern or k-mer, we keep a running list of indices at which the pattern occurs as a substring of the genome.</p>
-<div id="03c78f2c" class="cell" data-execution_count="9">
+<div id="3607553a" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pattern_matching(pattern: <span class="bu">str</span>, genome: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">list</span>[<span class="bu">int</span>]:</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Find all occurrences of a pattern in a genome.</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns a list of indices that indicate the start of each match."""</span></span>
@@ -404,16 +401,15 @@ ATGGTCTGTCTAAATTTTTGATGGGGAACGTCTCTGACCGTTCTAACCCGCGCTACTTTCTGAGTGCAGGTCTACTCCTT
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> matches</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Running the <code>pattern_matching</code> function to search all occurrences of <code>ATGATCAAG</code> in the <em>V. cholerae</em> genome would yield the following positions:</p>
-<div id="e04c14d3" class="cell" data-execution_count="10">
+<div id="5922a97d" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>116556 149355 151913 152013 152394 186189 194276 200076 224527 307692 479770 610980 653338 679985 768828 878903 985368</code></pre>
 </div>
 </div>
 <p>Our motif <code>ATGATCAAG</code> appears 17 times in the bacterial genome. Is this sufficient evidence to confirm that this region represents a signal to bind DnaA for initiating replication?</p>
 </section>
-</section>
-<section id="verifying-with-other-bacterial-genomes" class="level2">
-<h2 class="anchored" data-anchor-id="verifying-with-other-bacterial-genomes">Verifying with Other Bacterial Genomes</h2>
+<section id="verifying-with-other-bacterial-genomes" class="level3">
+<h3 class="anchored" data-anchor-id="verifying-with-other-bacterial-genomes">Verifying with Other Bacterial Genomes</h3>
 <p>We can validate our hypothesis by checking if the same motif appears in known <em>ori</em> regions from other bacteria. This verifies that the clumping of <code>ATGATCAAG</code>/<code>CTTGATCAT</code> is not merely a result of circumstance.</p>
 <p>Let us check the proposed <em>ori</em> region of <em>Thermotoga petrophila</em>, an extremophile that lives in very hot environments:</p>
 <div class="center">
@@ -427,7 +423,7 @@ ATGGTCTGTCTAAATTTTTGATGGGGAACGTCTCTGACCGTTCTAACCCGCGCTACTTTCTGAGTGCAGGTCTACTCCTT
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>agttgcagacattattaaaaacctcatcagaagcttgttcaaaaatttcaatactcgaaa</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>cctaccacctgcgtcccctattatttactactactaataatagcagtataattgatctga</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="2d3a79b8" class="cell" data-execution_count="11">
+<div id="1adec15c" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>t_petrophila_ori <span class="op">=</span> load_text(<span class="st">"assets/thermotoga_petrophila_ori.txt"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>v_cholerae_motifs <span class="op">=</span> [<span class="st">"ATGATCAAG"</span>, <span class="st">"CTTGATCAT"</span>]</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> motif <span class="kw">in</span> v_cholerae_motifs:</span>
@@ -436,6 +432,7 @@ ATGGTCTGTCTAAATTTTTGATGGGGAACGTCTCTGACCGTTCTAACCCGCGCTACTTTCTGAGTGCAGGTCTACTCCTT
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Upon checking, neither <code>ATGATCAGG</code> nor its reverse complement appear once in the <em>ori</em> site of <em>T. petrophila</em>. One possible explanation is that different motifs are responsible for initiating replicaton in different bacteria.</p>
+</section>
 </section>
 <section id="clump-finding" class="level2">
 <h2 class="anchored" data-anchor-id="clump-finding">Clump Finding</h2>
@@ -458,7 +455,7 @@ Clump Finding Problem
 </ul>
 </div>
 </div>
-<div id="69028c8e" class="cell" data-execution_count="12">
+<div id="d656df94" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_clumps(text: <span class="bu">str</span>, k: <span class="bu">int</span>, L: <span class="bu">int</span>, t: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">list</span>[<span class="bu">str</span>]:</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Return a list of k-mers that occur at least t times in a region of length L."""</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  patterns <span class="op">=</span> <span class="bu">set</span>()</span>
@@ -471,7 +468,7 @@ Clump Finding Problem
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">list</span>(patterns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s find (500,3)-clumps with a k-mer size of 9 in the genome of <em>V cholerae</em>:</p>
-<div id="9951439f" class="cell" data-execution_count="13">
+<div id="42cb997a" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># clumps = find_clumps(genome, 9, 500, 3)</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># print(clumps)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -535,7 +532,7 @@ Clump Finding Problem
 \end{equation}
 \]</span></p>
 <p>Based on our rules, the first five elements of the skew array can be computed as [-1, -1, -1, 0, 1]. The code implementation is provided below.</p>
-<div id="22f6ec86" class="cell" data-execution_count="14">
+<div id="476aa624" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> skew_array(text: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">list</span>[<span class="bu">int</span>]:</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Computes the total count difference of G and C."""</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  skew_values <span class="op">=</span> [<span class="dv">0</span>]</span>
@@ -1055,7 +1052,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","loop":false,"descPosition":"bottom","openEffect":"zoom"});
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -134,10 +134,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Algorithms</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../concepts.html"> 
-<span class="menu-text">Concepts</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../../../rosalind.html"> 
 <span class="menu-text">Rosalind</span></a>
   </li>  
@@ -153,8 +149,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#using-the-sra-explorer" id="toc-using-the-sra-explorer" class="nav-link active" data-scroll-target="#using-the-sra-explorer">Using the SRA Explorer</a></li>
+  <li><a href="#using-the-ncbi-website" id="toc-using-the-ncbi-website" class="nav-link" data-scroll-target="#using-the-ncbi-website">Using the NCBI website</a></li>
+  <li><a href="#how-to-download-multiple-runs" id="toc-how-to-download-multiple-runs" class="nav-link" data-scroll-target="#how-to-download-multiple-runs">How to download multiple runs</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -216,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch reads from accession</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">fasterq-dump</span> <span class="at">--split-3</span> <span class="at">-X</span> <span class="va">${N}</span> <span class="at">-O</span> reads <span class="va">${ACC}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>However this method is clunky and fragile, often failing to fetch the required data due to errors that are cryptically communicated to the user. An alternative method is to retrieve the URLs that point to the data and download locally using <code>wget</code>, <code>curl</code> or <code>aria2</code>. Use <code>bio search</code> to retrieve metadata on the SRA accession and parse using <code>jq</code>.</p>
-<div id="4ff792b4" class="cell" data-execution_count="1">
+<div id="6164ad0f" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="op">-</span>r <span class="st">'.[].fastq_url[]'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz
@@ -241,7 +250,7 @@ https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the project metadata and save as a CSV file</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> search PRJNA257197 <span class="at">--csv</span> <span class="op">&gt;</span> project.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The truncated output is as follows:</p>
-<div id="4fdf9539" class="cell" data-execution_count="2">
+<div id="6774b872" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>SRR1553416,SAMN02951952,EM095B,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,75343412;82686811,204989600,1014800,EM095_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/006/SRR1553416/SRR1553416_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/006/SRR1553416/SRR1553416_2.fastq.gz']","75 MB, 83 MB files; 1.0 million reads; 205.0 million sequenced bases"
 SRR1553417,SAMN02951951,EM095,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,142031647;152472244,376904730,1865865,EM095.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/007/SRR1553417/SRR1553417_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/007/SRR1553417/SRR1553417_2.fastq.gz']","142 MB, 152 MB files; 1.9 million reads; 376.9 million sequenced bases"
@@ -278,7 +287,7 @@ SRR1553420,SAMN02951954,EM098,Zaire ebolavirus genome sequencing from 2014 outbr
 
 </section>
 
-</main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -739,6 +748,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>© 2024, Jan Samson</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

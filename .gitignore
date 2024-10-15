@@ -1,4 +1,5 @@
-personal_website.Rproj
+.Rproj*
+*.Rhistory
 .env
 _site
 

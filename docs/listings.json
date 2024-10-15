@@ -2,8 +2,11 @@
   {
     "listing": "/notebook.html",
     "items": [
+      "/notebook/sequence-assembly/index.html",
       "/notebook/motif-finding/index.html",
       "/notebook/micromamba/index.html",
+      "/notebook/phylogenetic-analysis/index.html",
+      "/notebook/sequence-alignment/index.html",
       "/notebook/retrieving-biological-data/index.html"
     ]
   },
@@ -23,20 +26,9 @@
     ]
   },
   {
-    "listing": "/sections/notebook.html",
-    "items": []
-  },
-  {
     "listing": "/algorithms.html",
     "items": [
       "/algorithms/z-algorithm.html"
-    ]
-  },
-  {
-    "listing": "/concepts.html",
-    "items": [
-      "/concepts/phylogenetic-tree.html",
-      "/concepts/sequence-alignment.html"
     ]
   }
 ]
