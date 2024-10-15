@@ -11,12 +11,10 @@ website:
   navbar:
     background: dark
     foreground: light
-    pinned: true
+    pinned: false
     left:
       - href: notebook.qmd
         text: "Notebook"
-      - href: concepts.qmd
-        text: "Concepts"
       - href: algorithms.qmd
         text: "Algorithms"
       - href: rosalind.qmd
@@ -29,9 +27,7 @@ website:
 
 format:
   html:
-    theme: 
-      - cosmo
-      - custom.scss 
+    theme: [cosmo, custom.scss]
     toc: true
     toc-location: left
     css: styles.css

@@ -1,0 +1,386 @@
+---
+title: Modeling Evolutionary Relationships
+author: Jan Emmanuel Samson
+date: 2024-08-28
+description: Build trees to infer phylogenetic relationships across species.
+categories:
+  - Phylogeny and Evolution
+  - Alignment
+image: ../../ssets/phylogenetic-tree-cover.png
+toc: true
+---
+
+::: {.callout-note}
+
+This article is inspired by a lecture series from Prof. Greg Kellog. Full playlist can be accessed [here](https://www.youtube.com/playlist?list=PLjPAsbaa7pgGOrSPNBojU6lFCsJj7pvdJ).
+
+:::
+
+## Evolution
+
+### What drives change?
+Mutations in the genome create new alleles and change allele frequencies in a population, and as such drive
+the process of evolution. A simplified model of evolution has two rules:
+
+1. Mutations that confer a fitness advantage are maintained and inherited across generations.
+2. Mutations that deter fitness are selected against and purged from the population.
+
+This simplified model does not account for population dynamics and environmental factors that may possible
+affect the overall fitness of a population. From previous studies, we know that there are plenty of other 
+factors that drive evolution such as:
+
+- Negative selection
+- Positive selection
+- Genetic drift
+- Genetic expansion (duplication)
+- Genetic loss (deletions)
+- Horizontal gene transfer
+
+Negative Selection
+: The natural selection *against* deleterious mutations, preserving functionally important sites.
+
+Postive Selection
+: The process of Darwinian selection by which *new, advantageous* variants sweep a population.
+
+Genetic Drift
+: Most mutations the occurred within a population are selectively *neutral* (Neutral Theory by Kimura).
+
+
+### How do we observe selection?
+
+Simplify the model by enforcing a few assumptions:
+
+- Some changes are not subject to selection (neutral mutations)
+- Non-synonymous mutations in amino acids are subjected to greater selection pressure
+- The overall rate of synonymous mutation is a good approximation of neutral mutations
+
+Selection in protein-coding regions is then infered by:
+
+$$
+\frac{\text{non-synonymous mutation rate}}{\text{synonymous mutation rate}}
+$$ 
+
+### Synonymous vs. non-synonymous mutations
+
+- The degeneracy of th genetic code means some nucleotide mutations will not lead to protein change.
+- Transition/transversion occur at unequal rates
+- Positive selection protein sequences can be inferred from elevated rate of non-synonymous mutations
+over a neutral model
+
+## Phylogenetics
+
+The study of evolutionary relationships using genetic data, quantitative traits, characters, and morphological
+data matrices. The subfield of **molecular phylogenetics** focuses on the use of molecular data such as DNA
+and protein sequences to infer phylogenies. The end result of doing this type of analysis is usually a 
+**phylogenetic tree** which is a branching diagram showing inferred evolutionary relationships between samples
+and species.
+
+A phylogenetic tree is composed of:
+
+1. **Internal nodes** to represent ancestor species;
+2. **External nodes** (or leaves) to represent extant, known species; and
+3. **Branches** whose lengths represent the evolutionary distance between species
+
+![Components of a Phylogenetic Tree.](https://www.yourgenome.org/wp-content/uploads/2023/11/1171-2022-10-03_phylogenetic-tree-diagram-yourgenome_CS_ES.png.webp)
+
+::: {.column-margin}
+Retrieved from [Your Genome](https://www.yourgenome.org/theme/what-is-phylogenetics).
+:::
+
+### Rooted and unrooted trees
+
+- If a tree is rooted, the nodes repreent inferred *most recent common ancestor*
+- Sometimes, the lengths of branches on a rooted tree can be meaningful
+  - In a **Phylogram**, length represents the amount of character change
+  - In a **Chronogram**, length represents evolutionary time
+- unrooted trees may *look* rooted because of they way they are displayed
+
+A tree is deemed **bifurcating** if two descendants arise from every interior node in a phylogenetic tree,
+akin to the structure of binary trees. A more general term for diagrams that illustrate evolutionary 
+relationships is the **dendogram**. All trees are dendograms, but not all dendograms are trees.
+
+### How do we generate a tree?
+
+#### 1. Decide what sequences to include in the tree
+
+  - This is the task of deciding the tips of the trees
+  - It if often the most time-consuming
+  - Think about the question your are trying to answer
+  - Perform queries using BLAST
+
+#### 2. Align the sequences using an MSA tool.
+
+  - Use tools like CLUSTAL, MUSCLE, T-Coffee, etc.
+  - There are scenarios where produced alignments need to be edited (e.g. end trimming) due to how
+  tree inference algorithms work.
+
+#### 3. Estimate the tree.
+
+  Distance-based method
+  : After alignment, aligned sequences are converted into *distances* representing pairwise differences between
+  sequences. A distance matix yields a single tree.
+
+  Character-based method
+  : After alignment, each position in the alignment is compared. Homologous positions must be aligned. Multiple
+  trees are generated and compared.
+  
+#### 4. Root the tree if possible.
+
+| Method   | Description |
+| -------- | ----------- |
+| Outgroup | Place root between distant sequence and the rest of the tree |
+| Midpoint | Place root at midpoint of longest path between two leaves    |
+| Gene duplication | Place root bewteen paralogous gene copies |
+| UPGMA | Assume a molecular clocl |
+
+
+#### 5. Draw the tree to allow interpretation.
+
+### Substitution Models
+
+Attempts to estimate the evolutionary divergence from observed substitutions.
+
+- Each such model forms a Markov process (similar to PAM), with two components:
+  + A stationary distribution of nucleotide frequencies, $\pi_A$, $\pi_G$, $\pi_C$, $\pi_T$, $\sum_\pi = 1$
+  + A transition rate matrix $Q$ that represent transtions that would occur by substitution
+- A substitution model can be used to estimate evolutionary distance between two sequences.
+- A substitution model can also be used to simulate divergence.
+- Nucleotide substitution models range widely in complexity.
+- Phylogenetic tools may provide statistical tests (based on nucleotide sequence alignments and simulations)
+to help determine the most appropriate substitution model.
+
+#### **Jukes-Cantor Model**
+
+- All mutations are equal with an overall mutation rate $α$.
+- Nucleotide frequencies are equally distributed, i.e., $\pi_A$ = $\pi_G$ = $\pi_C$ = $\pi_T$ = 0.25
+- Considers one parameters: $α$.
+
+::: {.columns .center}
+::: {.column width="50%"}
+
+**Mutation probability matrix**
+
+\begin{matrix}
+  \quad & A & G & C & T \\
+  A & 1-3α & α & α & α \\
+  G & α & 1-3α & α & α \\
+  C & α & α & 1-3α & α \\
+  T & α & α & α & 1-3α \\
+\end{matrix}
+
+:::
+::: {.column width="50%"}
+
+**Transition rate matrix**
+
+\begin{matrix}
+  \quad & A & G & C & T \\
+  A & -3α & α & α & α \\
+  G & α & -3α & α & α \\
+  C & α & α & -3α & α \\
+  T & α & α & α & -3α \\
+\end{matrix}
+
+:::
+:::
+
+Evolutionary distance can be computed as:
+
+$$
+D_{xy} = -\frac{3}{4} ln(1-\frac{4}{3}p)
+$$
+
+where $D_{xy}$ is the distance between sequences $x$ and $y$ in terms of number of changes per site, an $p$
+is the *observed* proportion of sites that differ between them.
+
+#### **Kimura Two-Parameter Model**
+
+::: {.columns}
+::: {.column width="50%"}
+
+
+- Assigned different mutation rates for transitions and transversions
+  + $α$ for transitions 
+  + $β$ for transversions
+- all base frequencies are equal 
+  + i.e., $\pi_A$ = $\pi_G$ = $\pi_C$ = $\pi_T$ = 0.25
+
+:::
+::: {.column width="50%" .center}
+
+**K2P Transition rate matrix**
+
+\begin{matrix}
+  \quad & A & G & C & T \\
+  A & -α-2β & α & α & α \\
+  G & α & -α-2β & α & α \\
+  C & α & α & -α-2β & α \\
+  T & α & α & α & -α-2β \\
+\end{matrix}
+
+:::
+:::
+
+#### **Falsenstein-Tajima-Nei Model**
+
+- Instead of varying transition/transversion rates, Falsenstein allowed varying nucleotide frequences:
+
+$$π_A \ne π_G \ne π_C \ne π_T, \sum_{\pi} = 1$$
+
+- The relative probability of mutating to a particular base $i$ was given by its frequence $\pi_i$.
+- Introduced a maximum likelihood method for inferring phylogenies.
+
+
+#### **Hasegawa, Kishino, and Yano 1985**
+
+- Combined K2P ($α$ and $β$) with Felsenstein (varying $π$)
+
+#### **Other Models**
+
+- More complicated models up to allowing all substitution frequencies and nucleotide frequencies (i.e., 
+Generalized Time-Reversible) can be derived (Tavare et al. 1986)
+- It is also possible to have different base rates at different positions (which might be expected in 
+coding sequnces) with a different estimator $γ$.
+- More complicated models have more parameters.
+- The more complicated models do not necessarily perform better. The most appropriate model may be assessed
+by simulation of different models and statistical tests to compare them.
+- Goal is to choose the model that is most appropriate for the data.
+
+
+## Distance-based Methods
+
+When aligning sequence $S_i$ with sequence $S_j$,
+
+- Calculate a *dissimilarity* matrix that has some measure of *distance* between sequences. 
+  We call this $D_{ij}$.
+- For $D_{ij}$ in guide tree construction, we often use the % mismatch between $S_i$ and $S_j$ at aligned 
+  positions.
+- For $D_{ij}$ in phylogenetics, we may estimate a distance from the observed differences and a substitution
+  model.
+
+Metric distances always object the triangle inequality formula:
+
+$$ D_{ik} \le D_{ij} + D_{jk} $$
+
+A uniform molecular clock assumes an *ultrametic* distance:
+
+$$ D_{ik} \le \text{max}(D_{ij}, D_{jk}) $$
+
+### UPGMA
+
+**Unweighted Pair Group Mean Average**
+
+1. The pair (row and column) with the smallest distance in the matrix is joined.
+2. The pair becomes a cluster, with an interior node positioned halfway between the entries.
+3. A new distance matrix is calculated with the cluster replacing the individual entries using an average of 
+   all contributing pairs
+4. Repeat until done.
+
+The algorithm runs at $O(n^2 \log n)$ time complexity and produces a unique, rooted tree.
+
+::: {.panel-tabset}
+
+## Intro
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma01.PNG)
+
+## 1a
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma02.PNG)
+
+## 1b
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma03.PNG)
+
+## 2a
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma04.PNG)
+
+## 2b
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma05.PNG)
+
+## 2c
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma06.PNG)
+
+## 3a
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma07.PNG)
+
+## 3b
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma08.PNG)
+
+## 3c
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma09.PNG)
+
+## 4a
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma10.PNG)
+
+## 4b
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma11.PNG)
+
+## 5
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma12.PNG)
+
+## 6
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma13.PNG)
+
+## End
+![](http://www.slimsuite.unsw.edu.au/teaching/upgma/upgma14.PNG)
+
+:::
+
+### Neighbour Joining
+
+Neighbour joining is guaranteed to yield a unique tree from a set of additive distances. The model does not
+assume equal rates of evolution on all lineages and thus leads to an unrooted tree. Its goal is to minimize
+the total branch length of a tree using an objective function. 
+
+The steps of the algorithm are as follows:
+
+1. Start with a distance matrix $D$ among sequences.
+2. Calculate the net divergence $Q_{ij}$ of each taxon pair among the $n$ sequences:
+
+::: {.column-margin}
+$$R_i = \sum_{k=1}^{n} D_{ik}$$
+
+where $R_i$ is the total distance from a sequence $S_i$ to all others.
+:::
+
+$$ Q_{ij} = (n-2)D_{ij} - R_i - R_j $$
+
+3. Compute the distances between the two points ($f$ and $g$) and a new node labeled as $u$.
+
+
+$$ δ(f,u) = \frac{1}{2} D_{fg} + \frac{1}{2(n-2)} [R_f - R_g] $$
+
+$$ δ(g,u) = δ(f,g) - δ(f,u) $$
+
+
+4. Compute the distance between $u$ and the remaining nodes $k$.
+
+$$ D_{uk} = \frac{1}{2}[D_{fk} + D_{gk} - D_{fg}] $$
+
+5. Recompute the distance matrix and repeat until done.
+
+
+## Character-based Methods
+
+Looks at each column in the alignment. 
+
+### Parsimony 
+
+- Seeks the minimum number of changes and often results in several equivalent trees.
+- Found in a variety of computer science algorithms:
+  + heuristic methods
+  + branch and bound
+  + nearest neighbor interchange
+
+#### What happens when a character evolves rapidly?
+
+- in DNA, a rapidly evolving site might be inferred to be unchanged, when in reality it will have changed twice
+  + A → C → A
+- This can lead to statistically inconsistent results
+- Maximum Parsimony is particularly prone to this behavior
+- The more data, the more likely to be wrong
+- Various detection and solution methods, all imperfect
+
+### Maximum Likelihood
+
+- Under a model of evolution, generates a tree that maximizes the likelihood of observing the data.
+- Produces different trees with varying likelihood (measured as $L$).
+
