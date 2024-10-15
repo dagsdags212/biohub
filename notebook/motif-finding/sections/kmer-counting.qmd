@@ -1,0 +1,199 @@
+```{python}
+#| echo: false
+def load_text(filepath: str) -> str:
+  txt = ""
+  with open(filepath, "r") as file:
+    for line in file.readlines():
+      txt += line.strip().upper()
+  return txt
+
+ori = load_text("assets/vcholerae_ori.txt")
+genome = load_text("assets/vibrio-cholerae.txt")
+```
+
+## K-mer Counting
+
+A **k-mer** is a string of length _k_. It is a substring derived from a longer sequence. For example, the string _AGTAGT_ has three unique 3-mers: AGT, GTA, and TAG. The 3-mer AGT occurs twice in the sequence while the rest are only found once.
+
+A simple way to check for motifs is to find frequently-occurring k-mers in a region of the genome. If the count of a particular k-mer is surprisingly large, we can argue that the k-mer pattern may be of biological significance. 
+
+To count the frequency of a particular k-mer, we can create a window of size _k_ and slide it across a query sequence. At each position, we compare the the current window with the k-mer and increment a counter if they match.
+
+```python
+def pattern_count(text: str, pattern: str) -> int:
+  """Counts the number of times `pattern` occurs as a substring of `text`."""
+  count: int = 0
+  k = len(pattern)
+  for i in range(len(text)-k+1):
+    if text[i:i+k] == pattern:
+      count += 1
+  return count
+```
+
+A more generalized approach is to set the _k_ parameter and count all k-mers in the query sequence. We then extract the most frequent k-mer by filtering for the substring with the highest count.
+
+```{python}
+def frequency_table(text: str, k: int) -> dict[str, int]:
+  """Returns a frequency table containing all k-mer counts."""
+  kmer_counts = {}
+  for i in range(len(text)-k+1):
+    kmer = text[i:i+k]
+    if kmer in kmer_counts:
+      kmer_counts[kmer] += 1
+    else:
+      kmer_counts[kmer] = 1
+  # Return all k-mers sorted by count
+  return kmer_counts
+
+def get_most_frequent_kmer(freq_map: dict[str, int]) -> tuple[int, list[str]]:
+  """Returns the most frequent k-mer and its counts from a frequency table. 
+  If there are multiple most-frequent k-mers, return them in a list."""
+  max_count = max(freq_map.values())
+  most_freq_kmers = []
+  for kmer, count in freq_map.items():
+    if count == max_count:
+      most_freq_kmers.append(kmer)
+  return (max_count, most_freq_kmers)
+
+```
+
+Using the _V. cholerae_ origin of replication:
+
+::: {.center}
+```markdown
+atcaatgatcaacgtaagcttctaagcatgatcaaggtgctcacacagtttatccacaac
+ctgagtggatgacatcaagataggtcgttgtatctccttcctctcgtactctcatgacca
+cggaaagatgatcaagagaggatgatttcttggccatatcgcaatgaatacttgtgactt
+gtgcttccaattgacatcttcagcgccatattgcgctggccaaggtgacggagcgggatt
+acgaaagcatgatcatggctgttgttctgtttatcttgttttgactgagacttgttagga
+tagacggtttttcatcactgactagccaaagccttactctgcctgacatcgaccgtaaat
+tgataatgaatttacatgcttccgcgacgatttacctcttgatcatcgatccgattgaag
+atcttcaattgttaattctcttgcctcgactcatagccatgatgagctcttgatcatgtt
+tccttaaccctctattttttacggaagaatgatcaagctgctgctcttgatcatcgtttc
+```
+:::
+
+Let us find the most frequent frequent k-mers in the range $k = 3$ and $k = 9$:
+
+
+```{python}
+k_list = list(range(3, 10))
+kmer_counts = {}
+for k in k_list:
+  freq_map = frequency_table(ori, k)
+  kmer_counts[k] = get_most_frequent_kmer(freq_map)
+```
+
+```{python}
+#| echo: false
+import pandas as pd
+
+header = []
+data = {}
+for k, v in kmer_counts.items():
+  header.append(k)
+  data[v[0]] = ", ".join(v[1])
+
+print(data)
+```
+
+The 3-mer **TGA** is observed in 25 unique positions of the bacterial genome. Is this a suprising observation? 
+
+Assuming that the occurrence of a nucleotide at a given position is independent of all other position, we can expect the frequency of a k-mer to decrease as _k_ increases. Given our frequency table, it is a bit surprising that four 9-mers occur three times within a 500-bp window. Furthermore, it seems that the the 9-mers `ATGATCAAG` and `CTTGATCAT` are reverse complements of each other.
+
+Since DNA has a sense of directionality, a protein factor may bind to either forward or reverse strand of a regulatory region. In this case, `ATGATCAAG` and `CTTGATCAT` may represent the same protein binding site. Finding a 9-mer that appears six times in a DNA string of length 500 is far more surprising than finding a 9-mer that appears three time, thus supporting the working hypothesis that this region represents the _DnaA_ box in _V. cholerae_.
+
+### Including Reverse Complements
+
+We can update our couting function to collapse a k-mer and its reverse complement to a single count. First, we write a subroutine for getting the reverse complement of an input sequence.
+
+```{python}
+def rev_comp(seq: str) -> str:
+  """Computes the reverse complement of a given DNA sequence."""
+  rc = ""
+  # Map N to N to deal with invalid base calls
+  comp_map = {"A": "T", "T": "A", "G": "C", "C": "G", "N": "N"}
+  # Prepend the complement for each base.
+  for base in seq:
+    rc = comp_map["base"] + rc
+  return rc
+```
+
+When counting k-mers we will only keep the sequence that comes first when ordered lexicographically. For example, the 4-mer AGTC is the reverse complement of GACT. Since AGTC comes before GACT lexicographyically, we will store only the count of AGTC.
+
+```{python}
+def frequent_kmers_with_rc(text: str, k: int) -> set:
+  """Returns a frequency table containing counts of all k-mers and 
+  their reverse complement."""
+  kmer_counts = {}
+  for i in range(len(text)-k+1):
+    kmer = text[i:i+k]
+    kmer_rc = rev_comp(kmer)
+    # Only add kmer_ref to the dictionary
+    kmer_ref = None
+    if kmer > kmer_rc:
+      kmer_ref = kmer
+    if (kmer in kmer_counts) or (kmer_rc in kmer_counts):
+      kmer_counts[kmer_ref] += 1
+    else:
+      kmer_counts[kmer_ref] = 1
+  # Return all k-mers sorted by count
+  return kmer_counts
+```
+
+### Pattern Matching
+
+Aside from computing the k-mer frequencies, we are also interested in knowning where common k-mers are located in the genome. Given an input pattern or k-mer, we keep a running list of indices at which the pattern occurs as a substring of the genome.
+
+```{python}
+def pattern_matching(pattern: str, genome: str) -> list[int]:
+  """Find all occurrences of a pattern in a genome.
+  Returns a list of indices that indicate the start of each match."""
+  matches = []
+  k = len(pattern)
+  for i in range(len(genome)-k+1):
+    if genome[i:i+k] == pattern:
+      matches.append(i)
+  return matches
+```
+
+Running the `pattern_matching` function to search all occurrences of `ATGATCAAG` in the _V. cholerae_ genome would yield the following positions:
+
+```{python}
+#| echo: false
+result = pattern_matching("ATGATCAAG", genome)
+print(*result)
+```
+
+Our motif `ATGATCAAG` appears 17 times in the bacterial genome. Is this sufficient evidence to confirm that this region represents a signal to bind DnaA for initiating replication?
+
+### Verifying with Other Bacterial Genomes
+
+We can validate our hypothesis by checking if the same motif appears in known _ori_ regions from other bacteria. This verifies that the clumping of `ATGATCAAG`/`CTTGATCAT` is not merely a result of circumstance. 
+
+Let us check the proposed _ori_ region of _Thermotoga petrophila_, an extremophile that lives in very hot environments:
+ 
+::: {.center}
+```markdown
+aactctatacctcctttttgtcgaatttgtgtgatttatagagaaaatcttattaactga
+aactaaaatggtaggtttggtggtaggttttgtgtacattttgtagtatctgatttttaa
+ttacataccgtatattgtattaaattgacgaacaattgcatggaattgaatatatgcaaa
+acaaacctaccaccaaactctgtattgaccattttaggacaacttcagggtggtaggttt
+ctgaagctctcatcaatagactattttagtctttacaaacaatattaccgttcagattca
+agattctacaacgctgttttaatgggcgttgcagaaaacttaccacctaaaatccagtat
+ccaagccgatttcagagaaacctaccacttacctaccacttacctaccacccgggtggta
+agttgcagacattattaaaaacctcatcagaagcttgttcaaaaatttcaatactcgaaa
+cctaccacctgcgtcccctattatttactactactaataatagcagtataattgatctga
+```
+:::
+
+```{python}
+t_petrophila_ori = load_text("assets/thermotoga_petrophila_ori.txt")
+v_cholerae_motifs = ["ATGATCAAG", "CTTGATCAT"]
+for motif in v_cholerae_motifs:
+  result = pattern_matching(motif, t_petrophila_ori)
+  if result:
+    print(result)
+```
+
+Upon checking, neither `ATGATCAGG` nor its reverse complement appear once in the _ori_ site of _T. petrophila_. One possible explanation is that different motifs are responsible for initiating replicaton in different bacteria.

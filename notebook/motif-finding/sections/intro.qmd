@@ -1,0 +1,28 @@
+# Hidden Messages in the Replication Origin
+
+In bacteria, short regions in the genome called **DnaA boxes** act as the binding site for _DnaA_ proteins to initiate replication. The function of these segments of DNA can be experimentally verified by wet-lab scientists. However, the process of motif discovery is often costly and is prone to systematic errors. 
+
+![](../../assets/vibrio-cholerae.jpeg){fig-align="center" width="75%" .lightbox}
+
+::: {.column-margin}
+Retrieved from \
+[Emerging Pathogens Institute](https://epi.ufl.edu/events/vibrio-symposium/)
+:::
+
+The observation that regulatory regions often contain short motifs make discovery amenable to computation techniques. I will be using the _Vibrio cholerae_ genome to illustrate some approaches to motif discovery.
+
+
+## Genome Data
+
+The genome for _Vibrio cholerae_ can be downloaded [here](https://bioinformaticsalgorithms.com/data/realdatasets/Replication/Vibrio_cholerae.txt).
+
+Load and inspect the genome:
+```{python}
+filepath = "assets/vibrio-cholerae.txt"
+with open(filepath, "r") as handle:
+  genome = handle.read().strip()
+  n = 80
+  lines = [genome[i:i+n] for i in range(0, 300, n)]
+  for line in lines:
+    print(line)
+```

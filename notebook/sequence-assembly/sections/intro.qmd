@@ -1,0 +1,32 @@
+## How Do We Assemble Genomes?
+
+Currently, technologies with the capacity to sequence human-sized genomes in one go do not exist. This fragments the sequence alignment process into two steps:
+
+1. Sequencing of reads
+2. Assembly
+
+### Sequencing
+
+In sequencing, DNA is extracted and purified from an organism. It is then sheared into many short piece and placed into a reaction tube for PCR amplification. Popular platforms for short-read sequencing include **Illumina**, **SOLiD** (Life Technologies), and **Ion Torrent** (ThermoFisher). For long-read sequencing, commonly used platforms include Oxford's **Nanopore** sequencer and Pacific Biosciences' **Single Molecule Real-Time** (SMRT) sequencer.   
+
+::: {.column-margin}
+**Polymerase Chain Reaction** (PCR) is a laboratory technique designed by Kary Mullis to amplify DNA sequences.
+:::
+
+![Steps in DNA sequencing. Retrieved from the [FJC](https://www.fjc.gov/content/361255/dna-sequencing-technologies-how-they-differ-and-why-it-matters).](../../../assets/steps-in-sequencing.png)
+
+
+### Assembly
+
+The problem of sequence assembly is synonymous to reconstructing a book that has been blasted into a million pieces. Rebuilding the book from its fragment is not a straightforward task for many reasons. For one, multiple fragments may contain the same word making it hard to exactly know its relative position in the book. It is also possible that the blast completely obliterated some parts of the book resulting to information loss. The difficulty can also be attributed to the intrinsic properties of DNA and its sequencing tools:
+
+- DNA is double-stranded: cannot know if the read came from the forward or reverse strand
+- Sequencing machines can generate errors
+- Amplification bias: some regions of the genome may not be covered by any reads
+
+![Two approaches to sequence assembly. Retrieved from [Wikipedia](https://en.wikipedia.org/wiki/Sequence_assembly#/media/File:Types_of_sequencing_assembly.png).](https://upload.wikimedia.org/wikipedia/commons/b/b6/Types_of_sequencing_assembly.png)
+
+In an ideal scenario, there exists a copy of the same book which can serve as a reference to guide us in reconstruction. This allows us to reduce the assembly into a mapping problem. Generated reads are mapped to the reference and optimized based on an alignment scoring function. The mapped reads are then collapsed into longer contiguous segments called **contigs** to simplify the alignment. This is the **reference-guided** approach to sequence assembly.
+
+It can also be the case that the blasted book is the only copy we have, in which case we need to be more clever and design a systematic way to go rebuilding the book. An intuitive approach is to try to join overlapping pairs of reads until you form sufficiently long contigs. This is the **_de novo_** approach to sequence assembly.
+

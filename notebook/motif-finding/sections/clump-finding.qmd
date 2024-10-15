@@ -1,0 +1,34 @@
+## Clump Finding
+
+Instead of finding clumps of a specific k-mer, we can find every k-mer that forms a clump in the genome.
+
+The idea is to slide a window of fixed length _L_ along the genome, looking for a region where a k-mer appears several times in short succession. The value of _L_ can vary, however empirical data suggests a length of 500 which reflects the typical length of _ori_ in bacterial genomes.
+
+::: {.callout-tip}
+# Clump Finding Problem
+
+Find patterns forming clumps in a string.
+
+- **Input**: A string _text_, and integers _k_, _L_, and _t_.
+- **Output**: All distinct k-mers forming (_L_, _t_)-clumps in _text_.
+:::
+
+```{python}
+def find_clumps(text: str, k: int, L: int, t: int) -> list[str]:
+  """Return a list of k-mers that occur at least t times in a region of length L."""
+  patterns = set()
+  for i in range(len(text)-L+1):
+    window = text[i:i+L]
+    freq_map = frequency_table(window, k)
+    for kmer in freq_map:
+      if freq_map[kmer] >= t:
+        patterns.add(kmer) 
+  return list(patterns)
+```
+
+Let's find (500,3)-clumps with a k-mer size of 9 in the genome of _V cholerae_:
+
+```{python}
+# clumps = find_clumps(genome, 9, 500, 3)
+# print(clumps)
+```

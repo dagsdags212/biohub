@@ -1,0 +1,94 @@
+## GC Skew
+
+Prior to replication, DNA is unwound by the _helicase_ enzyme to separate the two sister strands. This allows other proteins such as _primase_, _ligase_, and _polymerase_ to interact with each individual strand and carry out the duplication process. 
+
+When DNA is single-stranded, cytosine has the tendency to mutate into thymine in a process called **deamination**. 
+
+![](https://www.researchgate.net/publication/350836790/figure/fig1/AS:1012053561053185@1618303780051/Deamination-process-Deamination-of-cytosine-left-to-uracil-right-as-caused-by.ppm){width="50%" fig-align="center"}
+
+::: {.column-margin}
+Borrowed from a [thesis by Elsa Call](https://www.researchgate.net/publication/350836790_The_Age_of_Museomics_-_How_to_get_genomic_information_from_museum_specimens_of_Lepidoptera)
+:::
+
+The converted thymine is then paired with an adenine, leading to a discrepancy in the GC content of the reverse half-strand. This is known as the GC skew.
+
+
+How can we use this to identify the _ori_ site of bacteria?
+
+
+The idea stems from the observation that the forward and reverse half-strands of a bacterial genome is demarcated by the origin and terminus of replication. The forward half-strand traverses the genome in the 5' ⟶ 3' direction while the reverse half-strand follows the opposite direction (3' ⟶ 5'). Due to the asymmetry of the replication process, deamination occurs more frequently in the reverse half-strands resulting in an increase in cytosine. By dividing the genome into equally-sized bins and computing the difference in the counts of guanine and cytosine, we can get an idea of where we are in the genome.
+
+![](https://bioinformaticsalgorithms.com/images/Replication/ecoli_frequency_difference.png){width="95%" fig-align="center"}
+
+::: {.column-margin}
+Borrowed from Dr. Pavel Pevzner's course _Bioinformatics Algorithms_.
+:::
+
+### The Skew Array
+
+The skew array keeps a running measurement of the _skew_ value while "walking" the length of a genome. The _skew_ value is computed as follows:
+
+$$ \text{skew} = \text{count}_G - \text{count}_C $$
+
+If the _skew_ value is increasing, then we guess that we are on the forward half-strand. Otherwise, we guess that we are on the reverse half-strand. 
+
+![](https://bioinformaticsalgorithms.com/images/Replication/increasing_decreasing_skew.png){width="95%" fig-align="center"}
+
+::: {.column-margin}
+Borrowed from Dr. Pavel Pevzner's course _Bioinformatics Algorithms_.
+:::
+
+As an example, consider the DNA string `CATGGGCATCGGCCATACGCC`. We compute the skew values starting from the first position up to the length of the string. At position zero, we initialize the skew value as follows:
+
+
+$$
+\begin{equation}
+\text{skew}_0 = 
+  \begin{cases}
+    0  & \text{if $\text{genome}_0 \in \{A,T\}$} \\
+    +1 & \text{if $\text{genome}_0 = G$} \\  
+    -1 & \text{if $\text{genome}_0 = C$} \\  
+  \end{cases}
+\end{equation}
+$$
+
+Since our sequence starts with `C`, we set $\text{skew}_0 = -1$. Computing the skew at the $i^{th}$ position can be simplified by considering the skew of the previous position and updating the value based on the following conditions:
+
+$$
+\begin{equation}
+  \text{skew}_i =
+  \begin{cases}
+    \text{skew}_{i-1} & \text{if $\text{genome}_i \in \{A,T\}$} \\
+    \text{skew}_{i-1} + 1 & \text{if $\text{genome}_i = G$} \\
+    \text{skew}_{i-1} - 1 & \text{if $\text{genome}_i = C$} \\
+  \end{cases}
+\end{equation}
+$$
+
+Based on our rules, the first five elements of the skew array can be computed as \[-1, -1, -1, 0, 1\]. The code implementation is provided below.
+
+```{python}
+def skew_array(text: str) -> list[int]:
+  """Computes the total count difference of G and C."""
+  skew_values = [0]
+  for base in text.upper():
+    if base == "G":
+      skew_values.append(skew_values[-1]+1)
+    elif base == "C":
+      skew_values.append(skew_values[-1]-1)
+    else:
+      skew_values.append(skew_values[-1])
+  return skew_values
+```
+
+### Visualizing the Skew Array
+
+The skew array can be visualized by plotting the _skew_ values against the current genome position. Applying this to the linearized genome of _E. coli_, we get the following graph:
+
+![](https://bioinformaticsalgorithms.com/images/Replication/skew_diagram_ecoli.png){width="95%" fig-align="center"}
+
+
+By finding the range where the skew value transitions from decreasing to increasing, we can identify the position of the _ori_ site of _E. coli_. Another way to think about the problem is to find the genome position corresponding to the **global minimum** of the skew array. 
+
+Similarly, the _ter_ region (terminus of replication) can be framed as a maximization problem. To solve this, we find the genomic location at which we observe the highest _skew_ value in the array.
+

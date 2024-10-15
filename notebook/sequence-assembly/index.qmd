@@ -1,0 +1,17 @@
+---
+title: Assembling Genomes
+author: Jan Emmanuel Samson
+email: jgsamson@up.edu.ph
+date: 2024/10/15
+last-modified: 2024/10/15
+description: "Borrowing concepts in graph theory to go from reads to contigs to genomes."
+categories:
+  - algorithms
+  - sequence analysis
+image: ../../assets/debruijn-graph.png
+toc: true
+execute:
+  cache: true
+---
+
+{{< include sections/intro.qmd >}}
