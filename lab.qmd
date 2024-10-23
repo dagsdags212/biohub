@@ -1,0 +1,12 @@
+---
+title: "Lab"
+listing:
+  contents: 
+    - "lab/**/index.qmd"
+  type: default
+  categories: true
+  sort: "date desc"
+  max-items: 10
+page-layout: full
+title-block-banner: false
+---
