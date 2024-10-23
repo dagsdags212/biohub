@@ -18,7 +18,7 @@ The genome for _Vibrio cholerae_ can be downloaded [here](https://bioinformatics
 
 Load and inspect the genome:
 ```{python}
-filepath = "assets/vibrio-cholerae.txt"
+filepath = "/home/dagsdags/gh-repos/biohub/data/vibrio-cholerae.txt"
 with open(filepath, "r") as handle:
   genome = handle.read().strip()
   n = 80

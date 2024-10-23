@@ -7,13 +7,13 @@ Currently, technologies with the capacity to sequence human-sized genomes in one
 
 ### Sequencing
 
-In sequencing, DNA is extracted and purified from an organism. It is then sheared into many short piece and placed into a reaction tube for PCR amplification. Popular platforms for short-read sequencing include **Illumina**, **SOLiD** (Life Technologies), and **Ion Torrent** (ThermoFisher). For long-read sequencing, commonly used platforms include Oxford's **Nanopore** sequencer and Pacific Biosciences' **Single Molecule Real-Time** (SMRT) sequencer.   
+In sequencing, DNA is extracted and purified from an organism. It is then sheared into many short piece and placed into a reaction tube for <abbr title="Polymerase Chain Reaction">PCR</abbr> amplification. Popular platforms for short-read sequencing include **Illumina**, **SOLiD** (Life Technologies), and **Ion Torrent** (ThermoFisher). For long-read sequencing, commonly used platforms include Oxford's **Nanopore** sequencer and Pacific Biosciences' **<abbr title="Single Molecule, Real-Time">SMRT</abbr>** sequencer.   
 
 ::: {.column-margin}
 **Polymerase Chain Reaction** (PCR) is a laboratory technique designed by Kary Mullis to amplify DNA sequences.
 :::
 
-![Steps in DNA sequencing. Retrieved from the [FJC](https://www.fjc.gov/content/361255/dna-sequencing-technologies-how-they-differ-and-why-it-matters).](../../../assets/steps-in-sequencing.png)
+![Steps in DNA sequencing. Retrieved from the [FJC](https://www.fjc.gov/content/361255/dna-sequencing-technologies-how-they-differ-and-why-it-matters).](../../../assets/steps-in-sequencing.png){.rounded .text-center width="95%"}
 
 
 ### Assembly
@@ -24,7 +24,7 @@ The problem of sequence assembly is synonymous to reconstructing a book that has
 - Sequencing machines can generate errors
 - Amplification bias: some regions of the genome may not be covered by any reads
 
-![Two approaches to sequence assembly. Retrieved from [Wikipedia](https://en.wikipedia.org/wiki/Sequence_assembly#/media/File:Types_of_sequencing_assembly.png).](https://upload.wikimedia.org/wikipedia/commons/b/b6/Types_of_sequencing_assembly.png)
+![Two approaches to sequence assembly. Retrieved from [Wikipedia](https://en.wikipedia.org/wiki/Sequence_assembly#/media/File:Types_of_sequencing_assembly.png).](https://upload.wikimedia.org/wikipedia/commons/b/b6/Types_of_sequencing_assembly.png){.rounded .text-center width="95%"}
 
 In an ideal scenario, there exists a copy of the same book which can serve as a reference to guide us in reconstruction. This allows us to reduce the assembly into a mapping problem. Generated reads are mapped to the reference and optimized based on an alignment scoring function. The mapped reads are then collapsed into longer contiguous segments called **contigs** to simplify the alignment. This is the **reference-guided** approach to sequence assembly.
 

@@ -38,10 +38,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -103,7 +103,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../css/styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -126,6 +126,10 @@ window.Quarto = {
   <li class="nav-item">
     <a class="nav-link" href="../../notebook.html"> 
 <span class="menu-text">Notebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../lab.html"> 
+<span class="menu-text">Lab</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../algorithms.html"> 
@@ -159,6 +163,10 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#smith-waterman" id="toc-smith-waterman" class="nav-link" data-scroll-target="#smith-waterman">Smith-Waterman</a></li>
   <li><a href="#implementing-smith-waterman" id="toc-implementing-smith-waterman" class="nav-link" data-scroll-target="#implementing-smith-waterman">Implementing Smith-Waterman</a></li>
+  </ul></li>
+  <li><a href="#global-alignment" id="toc-global-alignment" class="nav-link" data-scroll-target="#global-alignment">Global Alignment</a>
+  <ul class="collapse">
+  <li><a href="#needleman-wunsch" id="toc-needleman-wunsch" class="nav-link" data-scroll-target="#needleman-wunsch">Needleman-Wunsch</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -649,7 +657,7 @@ F_{\text{0,0}} = F(0, 0) = 0
 F_{1,1} = min(0, F_{0,0} -3) = 0
 \]</span></p>
 <p>Repeating the same logic for the first 3 rows and columns would yield the following matrix:</p>
-<div id="cfda7da7" class="cell" data-execution_count="2">
+<div id="23bb351c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
@@ -834,7 +842,7 @@ F_{1,1} = min(0, F_{0,0} -3) = 0
 </div>
 <p><br></p>
 <p>The completed matrix is shown below:</p>
-<div id="4731b3d4" class="cell" data-execution_count="3">
+<div id="8396f786" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
@@ -1036,233 +1044,228 @@ T: <i><span class="blue">TAG</span><span class="red">-</span><span class="blue">
 </section>
 <section id="implementing-smith-waterman" class="level3">
 <h3 class="anchored" data-anchor-id="implementing-smith-waterman">Implementing Smith-Waterman</h3>
-<pre><code>
+</section>
+</section>
+<section id="global-alignment" class="level2">
+<h2 class="anchored" data-anchor-id="global-alignment">Global Alignment</h2>
+<section id="needleman-wunsch" class="level3">
+<h3 class="anchored" data-anchor-id="needleman-wunsch">Needleman-Wunsch</h3>
+<p>The Needleman-Wunsch algorithm is used for the global alignment of biological strings. The technique pre-dates the Smith-Waterman algorithm and actually serves as the basis of their implementation. The key difference between the techniques is in how the subsitutions matrix is created. Smith-Waterman does not allow for negative scores while Needleman-Wunsch does, hence extending its capability to align two sequences from end-to-end.</p>
+<p>The algorithm also follows four general steps:</p>
+<ol type="1">
+<li><dl>
+<dt>Choosing a scoring scheme.</dt>
+<dd>
+Follows the same principle as Smith-Waterman.
+</dd>
+</dl></li>
+<li><dl>
+<dt>Initializing the matrix.</dt>
+<dd>
+Follows the same principle as Smith-Waterman.
+</dd>
+</dl></li>
+<li><dl>
+<dt>Computing alignment scores.</dt>
+<dd>
+Mostly follows the same system as Smith-Waterman, but allows for negative scores.
+</dd>
+</dl></li>
+<li><dl>
+<dt>Path backtracking.</dt>
+<dd>
+Backtracking always starts at the last element of the matrix. We only stop extending the path when we reach the origin at position (0,0).
+</dd>
+</dl></li>
+</ol>
+<section id="generating-matrix-and-computing-scores" class="level4">
+<h4 class="anchored" data-anchor-id="generating-matrix-and-computing-scores">Generating matrix and computing scores</h4>
+<hr>
+<p><strong>Using the reference strings and scoring schemes from the previous example, we generate a scoring matrix as follows:</strong></p>
+<div id="8160b3f1" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
 
-## Global Alignment
 
-### Needleman-Wunsch
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">T</th>
+<th data-quarto-table-cell-role="th">A</th>
+<th data-quarto-table-cell-role="th">G</th>
+<th data-quarto-table-cell-role="th">A</th>
+<th data-quarto-table-cell-role="th">C</th>
+<th data-quarto-table-cell-role="th">C</th>
+<th data-quarto-table-cell-role="th">C</th>
+<th data-quarto-table-cell-role="th">C</th>
+<th data-quarto-table-cell-role="th">A</th>
+<th data-quarto-table-cell-role="th">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th"></td>
+<td>0</td>
+<td>-10</td>
+<td>-20</td>
+<td>-30</td>
+<td>-40</td>
+<td>-50</td>
+<td>-60</td>
+<td>-70</td>
+<td>-80</td>
+<td>-90</td>
+<td>-100</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">T</td>
+<td>-10</td>
+<td>3</td>
+<td>-7</td>
+<td>-17</td>
+<td>-27</td>
+<td>-37</td>
+<td>-47</td>
+<td>-57</td>
+<td>-67</td>
+<td>-77</td>
+<td>-87</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">A</td>
+<td>-20</td>
+<td>-7</td>
+<td>6</td>
+<td>-4</td>
+<td>-14</td>
+<td>-27</td>
+<td>-37</td>
+<td>-47</td>
+<td>-57</td>
+<td>-67</td>
+<td>-77</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">A</td>
+<td>-30</td>
+<td>-17</td>
+<td>-4</td>
+<td>3</td>
+<td>-1</td>
+<td>-11</td>
+<td>-22</td>
+<td>-33</td>
+<td>-44</td>
+<td>-54</td>
+<td>-64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">C</td>
+<td>-40</td>
+<td>-27</td>
+<td>-14</td>
+<td>-7</td>
+<td>0</td>
+<td>2</td>
+<td>-8</td>
+<td>-18</td>
+<td>-28</td>
+<td>-38</td>
+<td>-48</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">C</td>
+<td>-50</td>
+<td>-37</td>
+<td>-24</td>
+<td>-17</td>
+<td>-10</td>
+<td>3</td>
+<td>5</td>
+<td>-5</td>
+<td>-15</td>
+<td>-25</td>
+<td>-35</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">C</td>
+<td>-60</td>
+<td>-47</td>
+<td>-34</td>
+<td>-27</td>
+<td>-20</td>
+<td>-7</td>
+<td>6</td>
+<td>8</td>
+<td>-2</td>
+<td>-12</td>
+<td>-22</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">C</td>
+<td>-70</td>
+<td>-57</td>
+<td>-44</td>
+<td>-37</td>
+<td>-30</td>
+<td>-17</td>
+<td>-4</td>
+<td>9</td>
+<td>11</td>
+<td>1</td>
+<td>-9</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">A</td>
+<td>-80</td>
+<td>-67</td>
+<td>-54</td>
+<td>-47</td>
+<td>-34</td>
+<td>-27</td>
+<td>-14</td>
+<td>-1</td>
+<td>6</td>
+<td>14</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">C</td>
+<td>-90</td>
+<td>-77</td>
+<td>-64</td>
+<td>-57</td>
+<td>-44</td>
+<td>-37</td>
+<td>-24</td>
+<td>-11</td>
+<td>2</td>
+<td>4</td>
+<td>17</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">C</td>
+<td>-100</td>
+<td>-87</td>
+<td>-74</td>
+<td>-67</td>
+<td>-54</td>
+<td>-41</td>
+<td>-34</td>
+<td>-21</td>
+<td>-2</td>
+<td>-6</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
 
-The Needleman-Wunsch algorithm is used for the global alignment of biological strings. The technique pre-dates
-the Smith-Waterman algorithm and actually serves as the basis of their implementation. The key difference 
-between the techniques is in how the subsitutions matrix is created. Smith-Waterman does not allow for negative
-scores while Needleman-Wunsch does, hence extending its capability to align two sequences from end-to-end.
-
-The algorithm also follows four general steps:
-
-1. Choosing a scoring scheme.
-: Follows the same principle as Smith-Waterman.
-
-2. Initializing the matrix.
-: Follows the same principle as Smith-Waterman.
-
-3. Computing alignment scores.
-: Mostly follows the same system as Smith-Waterman, but allows for negative scores.
-
-4. Path backtracking.
-: Backtracking always starts at the last element of the matrix. We only stop extending the path when we reach
-the origin at position (0,0).
-
-#### Generating matrix and computing scores
-
----
-
-**Using the reference strings and scoring schemes from the previous example, we generate a scoring matrix as
-follows:**
-
-::: {#48cae635 .cell execution_count=4}
-
-::: {.cell-output .cell-output-display execution_count=8}
-```{=html}
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border="1" class="dataframe"&gt;
-  &lt;thead&gt;
-    &lt;tr style="text-align: right;"&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;T&lt;/th&gt;
-      &lt;th&gt;A&lt;/th&gt;
-      &lt;th&gt;G&lt;/th&gt;
-      &lt;th&gt;A&lt;/th&gt;
-      &lt;th&gt;C&lt;/th&gt;
-      &lt;th&gt;C&lt;/th&gt;
-      &lt;th&gt;C&lt;/th&gt;
-      &lt;th&gt;C&lt;/th&gt;
-      &lt;th&gt;A&lt;/th&gt;
-      &lt;th&gt;C&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;-10&lt;/td&gt;
-      &lt;td&gt;-20&lt;/td&gt;
-      &lt;td&gt;-30&lt;/td&gt;
-      &lt;td&gt;-40&lt;/td&gt;
-      &lt;td&gt;-50&lt;/td&gt;
-      &lt;td&gt;-60&lt;/td&gt;
-      &lt;td&gt;-70&lt;/td&gt;
-      &lt;td&gt;-80&lt;/td&gt;
-      &lt;td&gt;-90&lt;/td&gt;
-      &lt;td&gt;-100&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;T&lt;/th&gt;
-      &lt;td&gt;-10&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;-7&lt;/td&gt;
-      &lt;td&gt;-17&lt;/td&gt;
-      &lt;td&gt;-27&lt;/td&gt;
-      &lt;td&gt;-37&lt;/td&gt;
-      &lt;td&gt;-47&lt;/td&gt;
-      &lt;td&gt;-57&lt;/td&gt;
-      &lt;td&gt;-67&lt;/td&gt;
-      &lt;td&gt;-77&lt;/td&gt;
-      &lt;td&gt;-87&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;A&lt;/th&gt;
-      &lt;td&gt;-20&lt;/td&gt;
-      &lt;td&gt;-7&lt;/td&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;-4&lt;/td&gt;
-      &lt;td&gt;-14&lt;/td&gt;
-      &lt;td&gt;-27&lt;/td&gt;
-      &lt;td&gt;-37&lt;/td&gt;
-      &lt;td&gt;-47&lt;/td&gt;
-      &lt;td&gt;-57&lt;/td&gt;
-      &lt;td&gt;-67&lt;/td&gt;
-      &lt;td&gt;-77&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;A&lt;/th&gt;
-      &lt;td&gt;-30&lt;/td&gt;
-      &lt;td&gt;-17&lt;/td&gt;
-      &lt;td&gt;-4&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;-1&lt;/td&gt;
-      &lt;td&gt;-11&lt;/td&gt;
-      &lt;td&gt;-22&lt;/td&gt;
-      &lt;td&gt;-33&lt;/td&gt;
-      &lt;td&gt;-44&lt;/td&gt;
-      &lt;td&gt;-54&lt;/td&gt;
-      &lt;td&gt;-64&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;C&lt;/th&gt;
-      &lt;td&gt;-40&lt;/td&gt;
-      &lt;td&gt;-27&lt;/td&gt;
-      &lt;td&gt;-14&lt;/td&gt;
-      &lt;td&gt;-7&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;-8&lt;/td&gt;
-      &lt;td&gt;-18&lt;/td&gt;
-      &lt;td&gt;-28&lt;/td&gt;
-      &lt;td&gt;-38&lt;/td&gt;
-      &lt;td&gt;-48&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;C&lt;/th&gt;
-      &lt;td&gt;-50&lt;/td&gt;
-      &lt;td&gt;-37&lt;/td&gt;
-      &lt;td&gt;-24&lt;/td&gt;
-      &lt;td&gt;-17&lt;/td&gt;
-      &lt;td&gt;-10&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;-5&lt;/td&gt;
-      &lt;td&gt;-15&lt;/td&gt;
-      &lt;td&gt;-25&lt;/td&gt;
-      &lt;td&gt;-35&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;C&lt;/th&gt;
-      &lt;td&gt;-60&lt;/td&gt;
-      &lt;td&gt;-47&lt;/td&gt;
-      &lt;td&gt;-34&lt;/td&gt;
-      &lt;td&gt;-27&lt;/td&gt;
-      &lt;td&gt;-20&lt;/td&gt;
-      &lt;td&gt;-7&lt;/td&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;-2&lt;/td&gt;
-      &lt;td&gt;-12&lt;/td&gt;
-      &lt;td&gt;-22&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;C&lt;/th&gt;
-      &lt;td&gt;-70&lt;/td&gt;
-      &lt;td&gt;-57&lt;/td&gt;
-      &lt;td&gt;-44&lt;/td&gt;
-      &lt;td&gt;-37&lt;/td&gt;
-      &lt;td&gt;-30&lt;/td&gt;
-      &lt;td&gt;-17&lt;/td&gt;
-      &lt;td&gt;-4&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;11&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;-9&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;A&lt;/th&gt;
-      &lt;td&gt;-80&lt;/td&gt;
-      &lt;td&gt;-67&lt;/td&gt;
-      &lt;td&gt;-54&lt;/td&gt;
-      &lt;td&gt;-47&lt;/td&gt;
-      &lt;td&gt;-34&lt;/td&gt;
-      &lt;td&gt;-27&lt;/td&gt;
-      &lt;td&gt;-14&lt;/td&gt;
-      &lt;td&gt;-1&lt;/td&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;14&lt;/td&gt;
-      &lt;td&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;C&lt;/th&gt;
-      &lt;td&gt;-90&lt;/td&gt;
-      &lt;td&gt;-77&lt;/td&gt;
-      &lt;td&gt;-64&lt;/td&gt;
-      &lt;td&gt;-57&lt;/td&gt;
-      &lt;td&gt;-44&lt;/td&gt;
-      &lt;td&gt;-37&lt;/td&gt;
-      &lt;td&gt;-24&lt;/td&gt;
-      &lt;td&gt;-11&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;17&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;C&lt;/th&gt;
-      &lt;td&gt;-100&lt;/td&gt;
-      &lt;td&gt;-87&lt;/td&gt;
-      &lt;td&gt;-74&lt;/td&gt;
-      &lt;td&gt;-67&lt;/td&gt;
-      &lt;td&gt;-54&lt;/td&gt;
-      &lt;td&gt;-41&lt;/td&gt;
-      &lt;td&gt;-34&lt;/td&gt;
-      &lt;td&gt;-21&lt;/td&gt;
-      &lt;td&gt;-2&lt;/td&gt;
-      &lt;td&gt;-6&lt;/td&gt;
-      &lt;td&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;</code></pre>
-<p>::: :::</p>
+</div>
+</div>
+</div>
+</section>
 <section id="backtracking" class="level4">
 <h4 class="anchored" data-anchor-id="backtracking">Backtracking</h4>
 <hr>

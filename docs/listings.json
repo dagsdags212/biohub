@@ -2,6 +2,7 @@
   {
     "listing": "/notebook.html",
     "items": [
+      "/notebook/protein-embeddings/index.html",
       "/notebook/sequence-assembly/index.html",
       "/notebook/motif-finding/index.html",
       "/notebook/micromamba/index.html",
@@ -29,6 +30,12 @@
     "listing": "/algorithms.html",
     "items": [
       "/algorithms/z-algorithm.html"
+    ]
+  },
+  {
+    "listing": "/lab.html",
+    "items": [
+      "/lab/neural-networks/index.html"
     ]
   }
 ]

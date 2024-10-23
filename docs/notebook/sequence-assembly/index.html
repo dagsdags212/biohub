@@ -71,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../css/styles.css">
 </head>
 
 <body class="floating nav-fixed slimcontent">
@@ -94,6 +94,10 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="../../notebook.html"> 
 <span class="menu-text">Notebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../lab.html"> 
+<span class="menu-text">Lab</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../algorithms.html"> 
@@ -126,7 +130,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#assembly" id="toc-assembly" class="nav-link" data-scroll-target="#assembly">Assembly</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="main.py"><i class="bi bi-file-code"></i>Source Code</a></li></ul></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -184,13 +188,13 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <section id="sequencing" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="sequencing">Sequencing</h3>
-<p>In sequencing, DNA is extracted and purified from an organism. It is then sheared into many short piece and placed into a reaction tube for PCR amplification. Popular platforms for short-read sequencing include <strong>Illumina</strong>, <strong>SOLiD</strong> (Life Technologies), and <strong>Ion Torrent</strong> (ThermoFisher). For long-read sequencing, commonly used platforms include Oxford’s <strong>Nanopore</strong> sequencer and Pacific Biosciences’ <strong>Single Molecule Real-Time</strong> (SMRT) sequencer.</p>
+<p>In sequencing, DNA is extracted and purified from an organism. It is then sheared into many short piece and placed into a reaction tube for <abbr title="Polymerase Chain Reaction">PCR</abbr> amplification. Popular platforms for short-read sequencing include <strong>Illumina</strong>, <strong>SOLiD</strong> (Life Technologies), and <strong>Ion Torrent</strong> (ThermoFisher). For long-read sequencing, commonly used platforms include Oxford’s <strong>Nanopore</strong> sequencer and Pacific Biosciences’ <strong><abbr title="Single Molecule, Real-Time">SMRT</abbr></strong> sequencer.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p><strong>Polymerase Chain Reaction</strong> (PCR) is a laboratory technique designed by Kary Mullis to amplify DNA sequences.</p>
 </div></div><div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../../assets/steps-in-sequencing.png" class="img-fluid figure-img"></p>
+<p><img src="../../../assets/steps-in-sequencing.png" class="rounded text-center img-fluid figure-img" style="width:95.0%"></p>
 <figcaption>Steps in DNA sequencing. Retrieved from the <a href="https://www.fjc.gov/content/361255/dna-sequencing-technologies-how-they-differ-and-why-it-matters">FJC</a>.</figcaption>
 </figure>
 </div>
@@ -205,12 +209,29 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Types_of_sequencing_assembly.png" class="img-fluid figure-img"></p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Types_of_sequencing_assembly.png" class="rounded text-center img-fluid figure-img" style="width:95.0%"></p>
 <figcaption>Two approaches to sequence assembly. Retrieved from <a href="https://en.wikipedia.org/wiki/Sequence_assembly#/media/File:Types_of_sequencing_assembly.png">Wikipedia</a>.</figcaption>
 </figure>
 </div>
 <p>In an ideal scenario, there exists a copy of the same book which can serve as a reference to guide us in reconstruction. This allows us to reduce the assembly into a mapping problem. Generated reads are mapped to the reference and optimized based on an alignment scoring function. The mapped reads are then collapsed into longer contiguous segments called <strong>contigs</strong> to simplify the alignment. This is the <strong>reference-guided</strong> approach to sequence assembly.</p>
 <p>It can also be the case that the blasted book is the only copy we have, in which case we need to be more clever and design a systematic way to go rebuilding the book. An intuitive approach is to try to join overlapping pairs of reads until you form sufficiently long contigs. This is the <strong><em>de novo</em></strong> approach to sequence assembly.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+String Composition Problem:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Generate the k-mer composition of a string.</p>
+<ul>
+<li><strong>Input</strong>: An integer <em>k</em> and a string <em>text</em>.</li>
+<li><strong>Output</strong>: The k-mer composition of <em>text</em>.</li>
+</ul>
+</div>
+</div>
 
 
 </section>

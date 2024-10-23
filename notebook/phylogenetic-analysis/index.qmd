@@ -6,7 +6,7 @@ description: Build trees to infer phylogenetic relationships across species.
 categories:
   - Phylogeny and Evolution
   - Alignment
-image: ../../ssets/phylogenetic-tree-cover.png
+image: ../../assets/covers/phylogenetic-tree-cover.png
 toc: true
 ---
 

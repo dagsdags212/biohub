@@ -1,14 +1,25 @@
+---
+execute-dir: project
+---
+
 ```{python}
 #| echo: false
-def load_text(filepath: str) -> str:
+from pathlib import Path
+
+root = Path("/home/dagsdags/gh-repos/biohub")
+print(root)
+
+def load_text(filepath: Path | str) -> str:
   txt = ""
   with open(filepath, "r") as file:
     for line in file.readlines():
       txt += line.strip().upper()
   return txt
 
-ori = load_text("assets/vcholerae_ori.txt")
-genome = load_text("assets/vibrio-cholerae.txt")
+ori_path = root / Path("data/vcholerae_ori.txt")
+genome = root / Path("data/vibrio-cholerae.txt")
+ori = load_text(ori_path)
+genome = load_text(genome)
 ```
 
 ## K-mer Counting
@@ -19,7 +30,8 @@ A simple way to check for motifs is to find frequently-occurring k-mers in a reg
 
 To count the frequency of a particular k-mer, we can create a window of size _k_ and slide it across a query sequence. At each position, we compare the the current window with the k-mer and increment a counter if they match.
 
-```python
+
+```{python}
 def pattern_count(text: str, pattern: str) -> int:
   """Counts the number of times `pattern` occurs as a substring of `text`."""
   count: int = 0
@@ -54,7 +66,6 @@ def get_most_frequent_kmer(freq_map: dict[str, int]) -> tuple[int, list[str]]:
     if count == max_count:
       most_freq_kmers.append(kmer)
   return (max_count, most_freq_kmers)
-
 ```
 
 Using the _V. cholerae_ origin of replication:
@@ -188,7 +199,8 @@ cctaccacctgcgtcccctattatttactactactaataatagcagtataattgatctga
 :::
 
 ```{python}
-t_petrophila_ori = load_text("assets/thermotoga_petrophila_ori.txt")
+t_petrophila_ori_path = root / Path("data/thermotoga_petrophila_ori.txt")
+t_petrophila_ori = load_text(t_petrophila_ori_path)
 v_cholerae_motifs = ["ATGATCAAG", "CTTGATCAT"]
 for motif in v_cholerae_motifs:
   result = pattern_matching(motif, t_petrophila_ori)

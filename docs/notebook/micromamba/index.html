@@ -72,10 +72,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../css/styles.css">
 </head>
 
 <body class="floating nav-fixed slimcontent">
@@ -128,6 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link" href="../../notebook.html"> 
 <span class="menu-text">Notebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../lab.html"> 
+<span class="menu-text">Lab</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../algorithms.html"> 
@@ -163,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#creating-a-local-environment" id="toc-creating-a-local-environment" class="nav-link" data-scroll-target="#creating-a-local-environment">Creating a Local Environment</a></li>
   <li><a href="#installing-packages" id="toc-installing-packages" class="nav-link" data-scroll-target="#installing-packages">Installing Packages</a></li>
   </ul></li>
-  <li><a href="#setting-up-our-bioinfo-221-environment" id="toc-setting-up-our-bioinfo-221-environment" class="nav-link" data-scroll-target="#setting-up-our-bioinfo-221-environment">Setting Up Our BIOINFO 221 Environment</a>
+  <li><a href="#setting-up-our-environment" id="toc-setting-up-our-environment" class="nav-link" data-scroll-target="#setting-up-our-environment">Setting Up Our Environment</a>
   <ul class="collapse">
   <li><a href="#a-more-reproducible-way-to-create-an-environment" id="toc-a-more-reproducible-way-to-create-an-environment" class="nav-link" data-scroll-target="#a-more-reproducible-way-to-create-an-environment">A More Reproducible Way to Create an Environment</a></li>
   </ul></li>
@@ -354,8 +359,8 @@ Tip
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="setting-up-our-bioinfo-221-environment" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="setting-up-our-bioinfo-221-environment">Setting Up Our BIOINFO 221 Environment</h2>
+<section id="setting-up-our-environment" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="setting-up-our-environment">Setting Up Our Environment</h2>
 <p>For the second hands-on session, we would need the following programs:</p>
 <div class="center">
 <table class="table-hover caption-top table">
@@ -448,7 +453,7 @@ Tip
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">snpEff</span> <span class="at">--help</span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2</span> <span class="at">--help</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="a-more-reproducible-way-to-create-an-environment" class="level3">
+<section id="a-more-reproducible-way-to-create-an-environment" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="a-more-reproducible-way-to-create-an-environment">A More Reproducible Way to Create an Environment</h3>
 <p><strong>1. Create a YAML file containing the environment name, channels, and packages.</strong></p>
 <div class="code-with-filename">
@@ -478,7 +483,18 @@ Tip
 <span data-code-cell="annotated-cell-17" data-code-lines="5,6,7,8,9,10,11,12" data-code-annotation="2">A list of packages to be installed</span>
 </dd>
 </dl>
-<p><strong>2. Create a micromamba environment from the YAML file using <code>env create</code>, making to to specify the <code>-f</code> or <code>--file</code> flag.</strong></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><a href="#dnldts62271" onclick="fetch('data:text/plain;base64,bmFtZTogYmlvaW5mbzIyMQpjaGFubmVsczoKICAtIGJpb2NvbmRhCiAgLSBjb25kYS1mb3JnZQpkZXBlbmRlbmNpZXM6CiAgLSBvcGVuamRrPTExLjAuMQogIC0gc3BhZGVzCiAgLSBxdWFzdAogIC0gZ2F0awogIC0gc25wZWZmCiAgLSBib3d0aWUyCiAgLSBzYW10b29scwo=').then(res => res.blob()).then(blob => {
+      const downloadURL = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.href = downloadURL;
+      a.download = 'env.yml.yml'; a.click();
+      window.URL.revokeObjectURL(downloadURL);
+      document.body.removeChild(a);
+        });"><button class="btn btn-default downloadthis  " id="dnldts62271"><i class="bi bi-filetype-yml"></i> Download YAML file </button></a></p>
+</div></div><p><strong>2. Create a micromamba environment from the YAML file using <code>env create</code>, making to to specify the <code>-f</code> or <code>--file</code> flag.</strong></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> env create <span class="at">-f</span> env.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>3. Activate the environment and install additional packages.</strong></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> activate bioinfo221</span>

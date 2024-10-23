@@ -8,7 +8,7 @@ description: "Interrogating patterns in the genome with biological significance.
 categories:
   - algorithms
   - sequence analysis
-image: ../../assets/motif-logo.png
+image: ../../assets/covers/motif-logo.png
 toc: true
 execute:
   cache: true

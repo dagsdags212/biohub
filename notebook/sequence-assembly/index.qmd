@@ -8,10 +8,25 @@ description: "Borrowing concepts in graph theory to go from reads to contigs to 
 categories:
   - algorithms
   - sequence analysis
-image: ../../assets/debruijn-graph.png
-toc: true
+image: ../../assets/covers/deBruijn-cover.webp
 execute:
   cache: true
+format:
+  html:
+    code-links:
+      - text: Source Code
+        icon: file-code
+        href: main.py
 ---
 
 {{< include sections/intro.qmd >}}
+
+::: {.callout-tip}
+# String Composition Problem:
+
+Generate the k-mer composition of a string.
+
+- **Input**: An integer _k_ and a string _text_.
+- **Output**: The k-mer composition of _text_.
+:::
+

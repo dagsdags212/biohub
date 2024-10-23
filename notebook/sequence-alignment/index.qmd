@@ -6,7 +6,7 @@ description: Find highly conserved regions in biological strings using technique
 categories:
   - Algorithms
   - Alignment
-image: ../../assets/msa-cover.png
+image: ../../assets/covers/msa-cover.webp
 toc: true
 execute:
   freeze: true  
@@ -337,9 +337,6 @@ Following the path would lead to the following alignment:
 :::
 
 ### Implementing Smith-Waterman
-
-```{}
-
 
 ## Global Alignment
 
