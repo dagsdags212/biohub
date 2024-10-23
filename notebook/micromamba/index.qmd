@@ -8,7 +8,7 @@ description: "Setting up local environments to support reproducible workflows in
 categories:
   - CLI
   - Containerization
-image: ../../assets/mamba-logo.png
+image: ../../assets/covers/mamba-logo.png
 toc: true
 ---
 
@@ -174,7 +174,7 @@ List currently install packages:
 micromamba list
 ```
 
-## Setting Up Our BIOINFO 221 Environment
+## Setting Up Our Environment
 
 For the second hands-on session, we would need the following programs:
 
@@ -247,6 +247,10 @@ dependencies: # <2>
 ```
 1. A list of channels to pull packages from
 2. A list of packages to be installed
+
+::: {.column-margin}
+{{< downloadthis env.yml dname="env.yml" label="Download YAML file" icon="filetype-yml" >}}
+:::
 
 **2. Create a micromamba environment from the YAML file using `env create`, making to to specify the `-f` or `--file` flag.**
 
