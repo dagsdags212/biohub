@@ -1,7 +1,6 @@
 project:
   type: website
   output-dir: docs
-  execute-dir: project
 
 website:
   title: "BioHub"
@@ -15,6 +14,8 @@ website:
     left:
       - href: notebook.qmd
         text: "Notebook"
+      - href: lab.qmd
+        text: "Lab"
       - href: algorithms.qmd
         text: "Algorithms"
       - href: rosalind.qmd
@@ -27,14 +28,15 @@ website:
 
 format:
   html:
-    theme: [cosmo, custom.scss]
+    theme: [cosmo]
     toc: true
     toc-location: left
-    css: styles.css
+    css: ./css/styles.css
 
+filters:
+  - include-code-files
 
 bibliography: references.bib
 highlight-style: monokai
 code-annotations: hover
 code-overflow: scroll
-
