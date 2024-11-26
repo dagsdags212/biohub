@@ -1,0 +1,19 @@
+---
+title: "Rosalind Challenges"
+listing:
+  id: rosalind-challenges
+  contents: 
+    - ../rosalind/*.qmd
+  type: table
+  categories: true
+  sort: "date desc"
+  max-items: 10
+  date-format: iso
+  image-placeholder: assets/rosalind-logo.jpg
+  table-hover: true
+page-layout: full
+title-block-banner: false
+--- 
+
+::: {#rosalind-challenges}
+:::

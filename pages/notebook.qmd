@@ -1,0 +1,12 @@
+---
+title: "Notebook"
+listing:
+  contents: 
+    - ../notebook/**/index.qmd
+  type: default
+  categories: true
+  sort: "date desc"
+  max-items: 10
+page-layout: full
+title-block-banner: true
+---
