@@ -1,41 +1,41 @@
 [
   {
-    "listing": "/notebook.html",
+    "listing": "/pages/lab.html",
     "items": [
-      "/notebook/protein-embeddings/index.html",
+      "/lab/neural_networks/index.html"
+    ]
+  },
+  {
+    "listing": "/pages/algorithms.html",
+    "items": [
+      "/algorithms/z-algorithm.html"
+    ]
+  },
+  {
+    "listing": "/pages/rosalind.html",
+    "items": [
+      "/rosalind/consensus_and_profile.pdf",
+      "/rosalind/motif_finding.pdf",
+      "/rosalind/gc_content.pdf",
+      "/rosalind/hamming_distance.pdf",
+      "/rosalind/mendelian_inheritance.pdf",
+      "/rosalind/recurrence_relations.pdf",
+      "/rosalind/translation.pdf",
+      "/rosalind/counting_nucleotides.pdf",
+      "/rosalind/replication.pdf",
+      "/rosalind/transcription.pdf"
+    ]
+  },
+  {
+    "listing": "/pages/notebook.html",
+    "items": [
+      "/notebook/edirect/index.html",
       "/notebook/sequence-assembly/index.html",
       "/notebook/motif-finding/index.html",
       "/notebook/micromamba/index.html",
       "/notebook/phylogenetic-analysis/index.html",
       "/notebook/sequence-alignment/index.html",
       "/notebook/retrieving-biological-data/index.html"
-    ]
-  },
-  {
-    "listing": "/rosalind.html",
-    "items": [
-      "/rosalind/motif_finding.pdf",
-      "/rosalind/consensus_and_profile.pdf",
-      "/rosalind/recurrence_relations.pdf",
-      "/rosalind/gc_content.pdf",
-      "/rosalind/hamming_distance.pdf",
-      "/rosalind/mendelian_inheritance.pdf",
-      "/rosalind/translation.pdf",
-      "/rosalind/counting_nucleotides.pdf",
-      "/rosalind/transcription.pdf",
-      "/rosalind/replication.pdf"
-    ]
-  },
-  {
-    "listing": "/algorithms.html",
-    "items": [
-      "/algorithms/z-algorithm.html"
-    ]
-  },
-  {
-    "listing": "/lab.html",
-    "items": [
-      "/lab/neural-networks/index.html"
     ]
   }
 ]

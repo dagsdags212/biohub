@@ -127,19 +127,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../notebook.html"> 
+    <a class="nav-link" href="../../pages/notebook.html"> 
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../lab.html"> 
+    <a class="nav-link" href="../../pages/lab.html"> 
 <span class="menu-text">Lab</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../algorithms.html"> 
+    <a class="nav-link" href="../../pages/algorithms.html"> 
 <span class="menu-text">Algorithms</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../rosalind.html"> 
+    <a class="nav-link" href="../../pages/rosalind.html"> 
 <span class="menu-text">Rosalind</span></a>
   </li>  
 </ul>
@@ -485,7 +485,7 @@ Tip
 </dl>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="#dnldts62271" onclick="fetch('data:text/plain;base64,bmFtZTogYmlvaW5mbzIyMQpjaGFubmVsczoKICAtIGJpb2NvbmRhCiAgLSBjb25kYS1mb3JnZQpkZXBlbmRlbmNpZXM6CiAgLSBvcGVuamRrPTExLjAuMQogIC0gc3BhZGVzCiAgLSBxdWFzdAogIC0gZ2F0awogIC0gc25wZWZmCiAgLSBib3d0aWUyCiAgLSBzYW10b29scwo=').then(res => res.blob()).then(blob => {
+<p><a href="#dnldts1283" onclick="fetch('data:text/plain;base64,bmFtZTogYmlvaW5mbzIyMQpjaGFubmVsczoKICAtIGJpb2NvbmRhCiAgLSBjb25kYS1mb3JnZQpkZXBlbmRlbmNpZXM6CiAgLSBvcGVuamRrPTExLjAuMQogIC0gc3BhZGVzCiAgLSBxdWFzdAogIC0gZ2F0awogIC0gc25wZWZmCiAgLSBib3d0aWUyCiAgLSBzYW10b29scwo=').then(res => res.blob()).then(blob => {
       const downloadURL = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       document.body.appendChild(a);
@@ -493,7 +493,7 @@ Tip
       a.download = 'env.yml.yml'; a.click();
       window.URL.revokeObjectURL(downloadURL);
       document.body.removeChild(a);
-        });"><button class="btn btn-default downloadthis  " id="dnldts62271"><i class="bi bi-filetype-yml"></i> Download YAML file </button></a></p>
+        });"><button class="btn btn-default downloadthis  " id="dnldts1283"><i class="bi bi-filetype-yml"></i> Download YAML file </button></a></p>
 </div></div><p><strong>2. Create a micromamba environment from the YAML file using <code>env create</code>, making to to specify the <code>-f</code> or <code>--file</code> flag.</strong></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> env create <span class="at">-f</span> env.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>3. Activate the environment and install additional packages.</strong></p>

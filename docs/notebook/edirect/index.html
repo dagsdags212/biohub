@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jan Emmanuel Samson">
+<meta name="dcterms.date" content="2024-11-27">
+<meta name="description" content="Query and programmatically access the various databases hosted at NCBI">
 
-<title>ncbi_datasets – BioHub</title>
+<title>Entrez Utilities Quick Start – BioHub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,59 +23,25 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,17 +71,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../css/styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">BioHub</span>
     </a>
   </div>
@@ -123,19 +92,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../pages/notebook.html"> 
+    <a class="nav-link" href="../../pages/notebook.html"> 
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../pages/lab.html"> 
+    <a class="nav-link" href="../../pages/lab.html"> 
 <span class="menu-text">Lab</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../pages/algorithms.html"> 
+    <a class="nav-link" href="../../pages/algorithms.html"> 
 <span class="menu-text">Algorithms</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../pages/rosalind.html"> 
+    <a class="nav-link" href="../../pages/rosalind.html"> 
 <span class="menu-text">Rosalind</span></a>
   </li>  
 </ul>
@@ -148,14 +117,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Entrez Utilities Quick Start</h1>
+                  <div>
+        <div class="description">
+          Query and programmatically access the various databases hosted at NCBI
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">CLI</div>
+                <div class="quarto-category">API</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Jan Emmanuel Samson </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 27, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-to-use-ncbi-datasets" id="toc-how-to-use-ncbi-datasets" class="nav-link active" data-scroll-target="#how-to-use-ncbi-datasets">How to use NCBI datasets</a></li>
+  <li><a href="#introduction-to-the-e-utilities" id="toc-introduction-to-the-e-utilities" class="nav-link active" data-scroll-target="#introduction-to-the-e-utilities">Introduction to the E-utilities</a>
+  <ul class="collapse">
+  <li><a href="#the-entrez-system-identifies-database-records-using-uids" id="toc-the-entrez-system-identifies-database-records-using-uids" class="nav-link" data-scroll-target="#the-entrez-system-identifies-database-records-using-uids">The Entrez System Identifies Database Records Using UIDs</a></li>
+  </ul></li>
+  <li><a href="#accessory-programs" id="toc-accessory-programs" class="nav-link" data-scroll-target="#accessory-programs">Accessory Programs</a></li>
   </ul>
 </nav>
 </nav>
@@ -164,27 +174,204 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
 
 
 
 
-<section id="how-to-use-ncbi-datasets" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-use-ncbi-datasets">How to use NCBI datasets</h3>
-<p><a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/">NCBI Datasets</a> is a new resource designed by NCBI to gather data from across NCBI databases. The main entry point of the tool is the <code>datasets</code> command. Subcommands such as <code>download</code> or <code>summary</code> is then specified, followed by more subcommands to specify your query.</p>
-<p>It seems to be the direction that NCBI wants to shepherd users towards. However, the nested structure of running the tool makes its use complicated and convoluted compared to other resources. NCBI is kind enough to give us a diagram for navigating the subcommands:</p>
-<center>
-<p><img src="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/datasets_schema_taxonomy.svg" class="img-fluid"></p>
-</center>
-<p>Swiftwater hydra (<em>Hydra vulgaris</em>) has a taxonomy id of <code>6087</code> and RefSeq id of <code>GCF_038396675.1</code>. We can download its genome by running the following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datasets</span> download genome accession GCF_038396675.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>By default, genome is downloaded as a zipped file named <strong>ncbi_dataset</strong>. The structure of the directory is seen below.</p>
-<pre><code>ncbi_dataset
-└── data
-    ├── assembly_data_report.jsonl
-    ├── dataset_catalog.json
-    └── GCF_038396675.1
-        └── GCF_038396675.1_HydraT2T_AEP_genomic.fn</code></pre>
+
+<section id="introduction-to-the-e-utilities" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="introduction-to-the-e-utilities">Introduction to the E-utilities</h2>
+<p>The <strong>Entrez Programming Utilities</strong> (E-utilities) are a set of server-side programs that provide a stable interface into the Entrez query and database system at the NCBI. It provides a REST API for programmatic access to data hosted in the 38 databases covering a variety of biomedical data, including nucleotide and protein sequences, gene records, molecular structures, and biomedical literature.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/US-NLM-NCBI-Logo.svg/1200px-US-NLM-NCBI-Logo.svg.png" class="img-fluid quarto-figure quarto-figure-right figure-img"></p>
+</figure>
+</div>
+</div></div><p>The official help manual can be access <a href="https://www.ncbi.nlm.nih.gov/books/NBK25501/">here</a>.</p>
+<section id="the-entrez-system-identifies-database-records-using-uids" class="level3">
+<h3 class="anchored" data-anchor-id="the-entrez-system-identifies-database-records-using-uids">The Entrez System Identifies Database Records Using UIDs</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="Unique Identifiers">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Unique Identifiers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Each data record stored in an Entrez database is associated with a <strong>unique identifier</strong> (UID).</p>
+</div>
+</div>
+<table class="table-hover table-striped caption-top table">
+<caption>Entrez Unique Identifiers (UIDs) for selected databases.</caption>
+<thead>
+<tr class="header">
+<th>Entrez Database</th>
+<th>UID Common Name</th>
+<th>E-utility Database Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BioProject</td>
+<td>BioProject ID</td>
+<td>bioproject</td>
+</tr>
+<tr class="even">
+<td>BioSample</td>
+<td>BioSample ID</td>
+<td>biosample</td>
+</tr>
+<tr class="odd">
+<td>Books</td>
+<td>Book ID</td>
+<td>books</td>
+</tr>
+<tr class="even">
+<td>Conserved Domains</td>
+<td>PSSM-ID</td>
+<td>cdd</td>
+</tr>
+<tr class="odd">
+<td>dbGaP</td>
+<td>dbGaP ID</td>
+<td>gap</td>
+</tr>
+<tr class="even">
+<td>dbVar</td>
+<td>dbVar ID</td>
+<td>dbvar</td>
+</tr>
+<tr class="odd">
+<td>Gene</td>
+<td>Gene ID</td>
+<td>gene</td>
+</tr>
+<tr class="even">
+<td>GEO Datasets</td>
+<td>GDS ID</td>
+<td>gds</td>
+</tr>
+<tr class="odd">
+<td>GEO Profiles</td>
+<td>GEO ID</td>
+<td>geoprofiles</td>
+</tr>
+<tr class="even">
+<td>HomoloGene</td>
+<td>HomoloGene ID</td>
+<td>homologene</td>
+</tr>
+<tr class="odd">
+<td>MeSH</td>
+<td>MeSH ID</td>
+<td>mesh</td>
+</tr>
+<tr class="even">
+<td>NCBI C++ Toolkit</td>
+<td>Toolkit ID</td>
+<td>toolkit</td>
+</tr>
+<tr class="odd">
+<td>NLM Catalog</td>
+<td>NLM Catalog ID</td>
+<td>nlmcatalog</td>
+</tr>
+<tr class="even">
+<td>Nucleotide</td>
+<td>GI number</td>
+<td>nuccore</td>
+</tr>
+<tr class="odd">
+<td>PopSet</td>
+<td>PopSet ID</td>
+<td>popset</td>
+</tr>
+<tr class="even">
+<td>Probe</td>
+<td>Probe ID</td>
+<td>probe</td>
+</tr>
+<tr class="odd">
+<td>Proteins</td>
+<td>GI number</td>
+<td>proteins</td>
+</tr>
+<tr class="even">
+<td>Protein Clusters</td>
+<td>Protein Cluser ID</td>
+<td>proteinclusters</td>
+</tr>
+<tr class="odd">
+<td>PubChem BioAssay</td>
+<td>AID</td>
+<td>pcassay</td>
+</tr>
+<tr class="even">
+<td>PubChem Compound</td>
+<td>CID</td>
+<td>pccompound</td>
+</tr>
+<tr class="odd">
+<td>PubChem Substance</td>
+<td>SID</td>
+<td>pcsubstance</td>
+</tr>
+<tr class="even">
+<td>PubMed</td>
+<td>PMID</td>
+<td>pubmed</td>
+</tr>
+<tr class="odd">
+<td>PubMed Central</td>
+<td>PMCID</td>
+<td>pmc</td>
+</tr>
+<tr class="even">
+<td>SNP</td>
+<td>rs number</td>
+<td>snp</td>
+</tr>
+<tr class="odd">
+<td>SRA</td>
+<td>SRA ID</td>
+<td>sra</td>
+</tr>
+<tr class="even">
+<td>Structure</td>
+<td>MMDB-ID</td>
+<td>structure</td>
+</tr>
+<tr class="odd">
+<td>Taxonomy</td>
+<td>TaxID</td>
+<td>taxonomy</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="accessory-programs" class="level2">
+<h2 class="anchored" data-anchor-id="accessory-programs">Accessory Programs</h2>
+<p>Additional helper programs are included in the EDirect package. They help eliminate the need to write custom scripts to further filter out query results.</p>
+<dl>
+<dt>nquire</dt>
+<dd>
+Retrieves data from remote servers with URLs constructed from command line arguments.
+</dd>
+<dt>tramsute</dt>
+<dd>
+Converts a concatenate stream of JSON objects or other structured formats into XML.
+</dd>
+<dt>xtract</dt>
+<dd>
+Uses waypoints to navigate a complex XML hierarchy and obtain data values by field name.
+</dd>
+</dl>
 
 
 </section>

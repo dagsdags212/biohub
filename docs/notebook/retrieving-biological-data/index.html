@@ -129,19 +129,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../notebook.html"> 
+    <a class="nav-link" href="../../pages/notebook.html"> 
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../lab.html"> 
+    <a class="nav-link" href="../../pages/lab.html"> 
 <span class="menu-text">Lab</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../algorithms.html"> 
+    <a class="nav-link" href="../../pages/algorithms.html"> 
 <span class="menu-text">Algorithms</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../rosalind.html"> 
+    <a class="nav-link" href="../../pages/rosalind.html"> 
 <span class="menu-text">Rosalind</span></a>
   </li>  
 </ul>
@@ -326,43 +326,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dl>
 <p>Running the <code>bio search</code> command will return a JSON-formatted string which contains the metadata for a particular record. Use the <code>--csv</code> flag to output the metadata in a comma-delimited format. Similarly, use the <code>--csv</code> if you want tab-delimited data.</p>
 <p>Running <code>bio search SRR1553425</code> would produce the following:</p>
-<div id="100fd588" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-stdout">
-<pre><code>[
-    {
-        "run_accession": "SRR1553425",
-        "sample_accession": "SAMN02951957",
-        "sample_alias": "EM110",
-        "sample_description": "Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone",
-        "first_public": "2015-06-05",
-        "country": "Sierra Leone",
-        "scientific_name": "Zaire ebolavirus",
-        "fastq_bytes": "111859282;119350609",
-        "base_count": "360534650",
-        "read_count": "1784825",
-        "library_name": "EM110_r1.ADXX",
-        "library_strategy": "RNA-Seq",
-        "library_source": "TRANSCRIPTOMIC",
-        "library_layout": "PAIRED",
-        "instrument_platform": "ILLUMINA",
-        "instrument_model": "Illumina HiSeq 2500",
-        "study_title": "Zaire ebolavirus Genome sequencing",
-        "fastq_url": [
-            "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz",
-            "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz"
-        ],
-        "info": "112 MB, 119 MB files; 1.8 million reads; 360.5 million sequenced bases"
-    }
-]</code></pre>
-</div>
-</div>
 <p>We can then use the <code>jq</code> processing tool to extract fields of interest. Extract the <code>fastq_url</code> list by running:</p>
-<div id="7fa67009" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="st">".[].fastq_url[]"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>"https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz"
-"https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz"</code></pre>
-</div>
+<div id="7e559070" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="st">".[].fastq_url[]"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="accessing-genbank" class="level3">
@@ -391,29 +357,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dd>
 </dl>
 <p>Let us verify the download by viewing the first ten lines of the annotation file:</p>
-<div id="6da6eafe" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-stdout">
-<pre><code>##gff-version 3
-#!gff-spec-version 1.21
-#!processor NCBI annotwriter
-##sequence-region AF086833.2 1 18959
-##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=128952
-AF086833.2  Genbank region  1   18959   .   +   .   ID=AF086833.2:1..18959;Dbxref=taxon:128952;gb-acronym=EBOV-May;gbkey=Src;mol_type=viral cRNA;strain=Mayinga
-AF086833.2  Genbank five_prime_UTR  1   55  .   +   .   ID=id-AF086833.2:1..55;Note=putative leader region;function=regulation or initiation of RNA replication;gbkey=5'UTR
-AF086833.2  Genbank gene    56  3026    .   +   .   ID=gene-NP;Name=NP;gbkey=Gene;gene=NP;gene_biotype=protein_coding
-AF086833.2  Genbank mRNA    56  3026    .   +   .   ID=rna-NP;Parent=gene-NP;gbkey=mRNA;gene=NP;product=nucleoprotein
-AF086833.2  Genbank exon    56  3026    .   +   .   ID=exon-NP-1;Parent=rna-NP;gbkey=mRNA;gene=NP;product=nucleoprotein</code></pre>
-</div>
-</div>
 </section>
 <section id="download-via-url" class="level3">
 <h3 class="anchored" data-anchor-id="download-via-url">Download via URL</h3>
 <p>If you know the URL of a resource, you may use <code>wget</code> or <code>curl</code> to download the file. First, save the URL to a variable for referencing:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">URL</span><span class="op">=</span>http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">URL</span><span class="op">=</span>http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.22.fa.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Use <code>curl</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="va">${URL}</span> <span class="at">-o</span> chr22.fa.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="va">${URL}</span> <span class="at">-o</span> chr22.fa.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Or use <code>wget</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> <span class="va">${URL}</span> <span class="at">-o</span> chr22.fa.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> <span class="va">${URL}</span> <span class="at">-o</span> chr22.fa.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>-nc</code> flag would skip the download altogether if the file already exists. Use this flag to ensure that large files are not overwritten.</p>
 <p>For large files, <a href="https://aria2.github.io/">aria2</a> can be used for faster, multi-segmented downloads. The tool also supports checkpoints which allow you to restart interrupted downloads. Download aria2 from their website or use <code>conda</code> to install in an environment.</p>
 <div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aria2c</span> <span class="va">${URL}</span> <span class="dt">\ </span></span>
@@ -438,7 +390,7 @@ AF086833.2  Genbank exon    56  3026    .   +   .   ID=exon-NP-1;Parent=rna-NP;g
 <p><img src="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/datasets_schema_taxonomy.svg" class="img-fluid"></p>
 </center>
 <p>Swiftwater hydra (<em>Hydra vulgaris</em>) has a taxonomy id of <code>6087</code> and RefSeq id of <code>GCF_038396675.1</code>. We can download its genome by running the following:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datasets</span> download genome accession GCF_038396675.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datasets</span> download genome accession GCF_038396675.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>By default, genome is downloaded as a zipped file named <strong>ncbi_dataset</strong>. The structure of the directory is seen below.</p>
 <pre><code>ncbi_dataset
 └── data
@@ -490,114 +442,54 @@ AF086833.2  Genbank exon    56  3026    .   +   .   ID=exon-NP-1;Parent=rna-NP;g
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>Refgenie can be installed as a Python package using <code>pip</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install using pip.</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install refgenie</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install using pipx.</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install refgenie</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install using pip.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install refgenie</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install using pipx.</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install refgenie</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or conda:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge refgenie</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use mamba/micromamba instead of conda</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> install refgenie</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge refgenie</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use mamba/micromamba instead of conda</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> install refgenie</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="create-a-config-file" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-config-file">Create a config file</h3>
 <p><code>refgenie</code> requires a configuration file that lists the resources in the form of a yaml file. For that you need to select a directory that will store the downloaded resources. The path to the config file is saved as the <code>REFGENIE</code> shell environment variable which will be used for initialization:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Path pointing to refgenie config file.</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">REFGENIE</span><span class="op">=</span>~/refs/config.yaml</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the REFGENIE variable when launching a shell instance</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"export REFGENIE=~/refs/config.yml"</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run initialization</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Path pointing to refgenie config file.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">REFGENIE</span><span class="op">=</span>~/refs/config.yaml</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the REFGENIE variable when launching a shell instance</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"export REFGENIE=~/refs/config.yml"</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run initialization</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>refgenie</code> tool is now ready to be used to download and manage reference genomes.</p>
 </section>
 <section id="using-refgenie" class="level3">
 <h3 class="anchored" data-anchor-id="using-refgenie">Using refgenie</h3>
 <p>A list of pre-built assets from a remote server can be displayed with <code>listr</code>:</p>
-<div id="64be62a8" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> refgenie listr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                             Remote refgenie assets                             
-                   Server URL: http://refgenomes.databio.org                    
-┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ genome           ┃ assets                                                    ┃
-┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ rCRSd            │ fasta, bowtie2_index, bwa_index, star_index,              │
-│                  │ hisat2_index, bismark_bt2_index                           │
-│ hg38             │ fasta, gencode_gtf, refgene_anno, dbsnp, ensembl_gtf,     │
-│                  │ ensembl_rb, suffixerator_index, bwa_index, bowtie2_index, │
-│                  │ dbnsfp, star_index, fasta_txome, hisat2_index,            │
-│                  │ cellranger_reference, bismark_bt2_index,                  │
-│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
-│ human_repeats    │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ mouse_chrM2x     │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ hg18_cdna        │ fasta, kallisto_index                                     │
-│ hs38d1           │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ hg38_cdna        │ fasta, salmon_index, kallisto_index                       │
-│ rn6_cdna         │ fasta, salmon_index, kallisto_index                       │
-│ mm10_cdna        │ fasta, salmon_index, kallisto_index                       │
-│ hg19_cdna        │ fasta, salmon_index, kallisto_index                       │
-│ hg38_chr22       │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ hg19             │ fasta, gencode_gtf, refgene_anno, dbsnp, ensembl_gtf,     │
-│                  │ ensembl_rb, suffixerator_index, bowtie2_index, bwa_index, │
-│                  │ hisat2_index, fasta_txome, star_index,                    │
-│                  │ cellranger_reference, bismark_bt2_index,                  │
-│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
-│ hg18             │ fasta, gencode_gtf, bowtie2_index, suffixerator_index,    │
-│                  │ bwa_index, hisat2_index, fasta_txome, star_index,         │
-│                  │ cellranger_reference, bismark_bt2_index                   │
-│ human_alu        │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ hisat2_index, bismark_bt2_index                           │
-│ human_rDNA       │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ human_alphasat   │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ mm10             │ fasta, gencode_gtf, refgene_anno, ensembl_gtf,            │
-│                  │ ensembl_rb, suffixerator_index, bwa_index, bowtie2_index, │
-│                  │ hisat2_index, star_index, fasta_txome,                    │
-│                  │ cellranger_reference, bismark_bt2_index,                  │
-│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
-│ rn6              │ fasta, refgene_anno, ensembl_gtf, suffixerator_index,     │
-│                  │ bwa_index, bowtie2_index, hisat2_index, star_index,       │
-│                  │ fasta_txome, bismark_bt2_index, salmon_partial_sa_index,  │
-│                  │ tgMap, salmon_sa_index                                    │
-│ t7               │ fasta, bowtie2_index                                      │
-│ dm6              │ fasta, gencode_gtf, refgene_anno, ensembl_gtf,            │
-│                  │ bowtie2_index                                             │
-│ hg38_noalt_decoy │ fasta, suffixerator_index, bwa_index, bowtie2_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ mm10_primary     │ fasta, bowtie2_index, bwa_index                           │
-│ hg38_primary     │ fasta, bwa_index, bowtie2_index                           │
-│ hg38_mm10        │ fasta, bwa_index                                          │
-└──────────────────┴───────────────────────────────────────────────────────────┘
-             use refgenie listr -g &lt;genome&gt; for more detailed view              </code></pre>
-</div>
+<div id="42f45280" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> refgenie listr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Genome data is fetched using the <code>pull</code> command:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> pull hg38/bwa_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> pull hg38/bwa_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>seek</code> command displays the path of the downloaded file:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> seek hg38/bwa_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> seek hg38/bwa_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>List local genome assets:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Use command substitution to store the genome path to a variable:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the human reference genome</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> pull hg38/fasta</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save path of reference genome to a variable</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="va">REF</span><span class="op">=</span><span class="va">$(</span><span class="ex">refgenie</span> seek hg38/fasta<span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the human reference genome</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> pull hg38/fasta</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save path of reference genome to a variable</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="va">REF</span><span class="op">=</span><span class="va">$(</span><span class="ex">refgenie</span> seek hg38/fasta<span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then use the resulting path in downstream tools:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate statistics for the human reference genome</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> stats <span class="va">${REF}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate statistics for the human reference genome</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> stats <span class="va">${REF}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Subscribe to the iGenomes server which hosts additional reference genomes and genome assets.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> subscribe <span class="at">-s</span> http://igenomes.databio.org/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> subscribe <span class="at">-s</span> http://igenomes.databio.org/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="using-genomepy" class="level2">
@@ -639,55 +531,41 @@ AF086833.2  Genbank exon    56  3026    .   +   .   ID=exon-NP-1;Parent=rna-NP;g
 <section id="installation-1" class="level3">
 <h3 class="anchored" data-anchor-id="installation-1">Installation</h3>
 <p>Install using micromamba:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> install genomepy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">micromamba</span> install genomepy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Install using pip or pipx:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install genomepy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install genomepy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="using-genomepy-1" class="level3">
 <h3 class="anchored" data-anchor-id="using-genomepy-1">Using genomepy</h3>
 <p>Use the <code>search</code> command to query genomes by name or accession:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">genomepy</span> search ecoli <span class="op">&gt;</span> ecoli_query_results.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">genomepy</span> search ecoli <span class="op">&gt;</span> ecoli_query_results.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A genome index will be downloaded upon invoking the <code>search</code> command for the first time. Hence, the initial search may take a while depending on your connection speed. As seen from the log below, assembly summaries are fetched from multiple databases (GENCODE, UCSC, Ensembl, NCBI).</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>05:28:31 | INFO | Downloading assembly summaries from GENCODE</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>05:29:54 | INFO | Downloading assembly summaries from UCSC</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>05:30:05 | INFO | Downloading assembly summaries from Ensembl</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>05:30:43 | INFO | Downloading assembly summaries from NCBI, this will take a while...</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>genbank_historical: 73.0k genomes <span class="co">[</span><span class="ot">00:06, 11.1k genomes/s</span><span class="co">]</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>refseq_historical: 85.6k genomes <span class="co">[</span><span class="ot">00:05, 16.6k genomes/s</span><span class="co">]</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>genbank: 2.39M genomes <span class="co">[</span><span class="ot">02:11, 18.1k genomes/s</span><span class="co">]</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>refseq: 378k genomes <span class="co">[</span><span class="ot">00:28, 13.0k genomes/s</span><span class="co">]</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>05:28:31 | INFO | Downloading assembly summaries from GENCODE</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>05:29:54 | INFO | Downloading assembly summaries from UCSC</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>05:30:05 | INFO | Downloading assembly summaries from Ensembl</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>05:30:43 | INFO | Downloading assembly summaries from NCBI, this will take a while...</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>genbank_historical: 73.0k genomes <span class="co">[</span><span class="ot">00:06, 11.1k genomes/s</span><span class="co">]</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>refseq_historical: 85.6k genomes <span class="co">[</span><span class="ot">00:05, 16.6k genomes/s</span><span class="co">]</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>genbank: 2.39M genomes <span class="co">[</span><span class="ot">02:11, 18.1k genomes/s</span><span class="co">]</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>refseq: 378k genomes <span class="co">[</span><span class="ot">00:28, 13.0k genomes/s</span><span class="co">]</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The results look like so:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>name                 provider accession         tax_id annotation species                                  other_info                              </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                                                        n r e k   &lt;- UCSC options (see help)                                                       </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>EcoliT22_2.0         NCBI     GCF_000247665.3      562     ✓      Escherichia coli O157:H43 str. T22       BAYGEN                                  </span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>Ecoli.O104:H4.LB226692_2.0 NCBI     GCA_000215685.3      562     ✓      Escherichia coli O104:H4 str. LB226692   Life Technologies                       </span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>Ecoli.O104:H4.01-09591_1.0 NCBI     GCA_000221065.2      562     ✓      Escherichia coli O104:H4 str. 01-09591   Life Technologies                       </span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>Ecoli_C227-11_1.0    NCBI     GCA_000220805.2      562     ✓      Escherichia coli O104:H4 str. C227-11    PacBio                                  </span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>ecoli009             NCBI     GCA_900607665.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>ecoli006             NCBI     GCA_900607465.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>ecoli008             NCBI     GCA_900607535.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>ecoli017             NCBI     GCA_900608025.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>ecoli025             NCBI     GCA_900608175.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>ecoli022             NCBI     GCA_900608105.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>ecoli015             NCBI     GCA_900607975.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>ecoli013             NCBI     GCA_900607805.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>name                 provider accession         tax_id annotation species                                  other_info                              </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                                                        n r e k   &lt;- UCSC options (see help)                                                       </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>EcoliT22_2.0         NCBI     GCF_000247665.3      562     ✓      Escherichia coli O157:H43 str. T22       BAYGEN                                  </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>Ecoli.O104:H4.LB226692_2.0 NCBI     GCA_000215685.3      562     ✓      Escherichia coli O104:H4 str. LB226692   Life Technologies                       </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>Ecoli.O104:H4.01-09591_1.0 NCBI     GCA_000221065.2      562     ✓      Escherichia coli O104:H4 str. 01-09591   Life Technologies                       </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>Ecoli_C227-11_1.0    NCBI     GCA_000220805.2      562     ✓      Escherichia coli O104:H4 str. C227-11    PacBio                                  </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>ecoli009             NCBI     GCA_900607665.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>ecoli006             NCBI     GCA_900607465.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>ecoli008             NCBI     GCA_900607535.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>ecoli017             NCBI     GCA_900608025.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>ecoli025             NCBI     GCA_900608175.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>ecoli022             NCBI     GCA_900608105.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>ecoli015             NCBI     GCA_900607975.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL         </span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>ecoli013             NCBI     GCA_900607805.1      562     ✓      Escherichia coli                         BIOZENTRUM, UNIVERSITY OF BASEL       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Entries under the <code>name</code> field can be used to download the genome:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">genomepy</span> install ecoli009</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">genomepy</span> install ecoli009</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>By default, the downloaded genomes will be found in the <code>~/.local/share/genomes</code> directory. For our example, the directory named <code>ecoli009</code> contains the genome data and other relevant files:</p>
-<div id="eec0bb5a" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-stdout">
-<pre><code>/home/dagsdags/.local/share/genomes
-└── ecoli009
-    ├── assembly_report.txt
-    ├── ecoli009.fa
-    ├── ecoli009.fa.fai
-    ├── ecoli009.fa.sizes
-    ├── ecoli009.gaps.bed
-    └── README.txt
-
-1 directory, 6 files</code></pre>
-</div>
-</div>
 </section>
 </section>
 <section id="how-to-get-fastq-data" class="level2">
@@ -721,22 +599,18 @@ AF086833.2  Genbank exon    56  3026    .   +   .   ID=exon-NP-1;Parent=rna-NP;g
 </div>
 </center>
 <p>The sratools suite from NCBI provides <code>fastq-dump</code> and <code>fasterq-dump</code> to download read data from SRA accessions. In later versions of sratools, <code>fasterq-dump</code> is the preferred tool for fetching read data as demonstrated below:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Store accession number and number of reads</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="va">ACC</span><span class="op">=</span>SRR1553425</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="va">N</span><span class="op">=</span>10000</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create reads directory</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> reads</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch reads from accession</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="ex">fasterq-dump</span> <span class="at">--split-3</span> <span class="at">-X</span> <span class="va">${N}</span> <span class="at">-O</span> reads <span class="va">${ACC}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Store accession number and number of reads</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="va">ACC</span><span class="op">=</span>SRR1553425</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="va">N</span><span class="op">=</span>10000</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create reads directory</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> reads</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch reads from accession</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="ex">fasterq-dump</span> <span class="at">--split-3</span> <span class="at">-X</span> <span class="va">${N}</span> <span class="at">-O</span> reads <span class="va">${ACC}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>However this method is clunky and fragile, often failing to fetch the required data due to errors that are cryptically communicated to the user. An alternative method is to retrieve the URLs that point to the data and download locally using <code>wget</code>, <code>curl</code> or <code>aria2</code>. Use <code>bio search</code> to retrieve metadata on the SRA accession and parse using <code>jq</code>.</p>
-<div id="76f06f1b" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="op">-</span>r <span class="st">'.[].fastq_url[]'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz
-https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz</code></pre>
-</div>
+<div id="7bb34578" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="op">-</span>r <span class="st">'.[].fastq_url[]'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="using-the-sra-explorer" class="level3">
 <h3 class="anchored" data-anchor-id="using-the-sra-explorer">Using the SRA Explorer</h3>
@@ -753,18 +627,9 @@ https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz
 <h3 class="anchored" data-anchor-id="how-to-download-multiple-runs">How to download multiple runs</h3>
 <p>All data from a project can be queried using <code>bio search</code>, parsed using <code>csvcut</code>, and concurrently downloaded using <code>parallel</code> or <code>aria2c</code>:</p>
 <p>The project id encapsulates all the details in a sequencing experiment. Pass the project id as an argument to the <code>bio search</code> command to view the SRR accessions.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the project metadata and save as a CSV file</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> search PRJNA257197 <span class="at">--csv</span> <span class="op">&gt;</span> project.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the project metadata and save as a CSV file</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> search PRJNA257197 <span class="at">--csv</span> <span class="op">&gt;</span> project.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The truncated output is as follows:</p>
-<div id="1219ea26" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-stdout">
-<pre><code>SRR1553416,SAMN02951952,EM095B,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,75343412;82686811,204989600,1014800,EM095_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/006/SRR1553416/SRR1553416_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/006/SRR1553416/SRR1553416_2.fastq.gz']","75 MB, 83 MB files; 1.0 million reads; 205.0 million sequenced bases"
-SRR1553417,SAMN02951951,EM095,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,142031647;152472244,376904730,1865865,EM095.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/007/SRR1553417/SRR1553417_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/007/SRR1553417/SRR1553417_2.fastq.gz']","142 MB, 152 MB files; 1.9 million reads; 376.9 million sequenced bases"
-SRR1553418,SAMN02951953,EM096,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,1307005;1336226,3701246,18323,EM096_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/008/SRR1553418/SRR1553418_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/008/SRR1553418/SRR1553418_2.fastq.gz']","1 MB, 1 MB files; 0.0 million reads; 3.7 million sequenced bases"
-SRR1553419,SAMN02951953,EM096,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,21244723;23562643,56849264,281432,EM096.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/009/SRR1553419/SRR1553419_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/009/SRR1553419/SRR1553419_2.fastq.gz']","21 MB, 24 MB files; 0.3 million reads; 56.8 million sequenced bases"
-SRR1553420,SAMN02951954,EM098,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,16892437;19247731,45087612,223206,EM098.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/000/SRR1553420/SRR1553420_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/000/SRR1553420/SRR1553420_2.fastq.gz']","17 MB, 19 MB files; 0.2 million reads; 45.1 million sequenced bases"</code></pre>
-</div>
-</div>
 <p>Only the accession numbers are needed to download the reads. From the project file, we extract the first column corresponding to the accession, and use this as input to <code>fastq-dump</code>. The <code>parallel</code> tool enables us to simultaneously download multiple accession at once.</p>
 <div class="sourceCode" id="annotated-cell-30"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-30-1"><a href="#annotated-cell-30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the first column and download concurrently using parallel</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="1">1</button><span id="annotated-cell-30-2" class="code-annotation-target"><a href="#annotated-cell-30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> project.csv <span class="kw">|</span> <span class="dt">\</span></span>

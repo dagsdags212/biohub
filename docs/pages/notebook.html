@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ncbi_datasets – BioHub</title>
+<title>Notebook – BioHub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,59 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -100,19 +68,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
 
-<link rel="stylesheet" href="../../../css/styles.css">
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">BioHub</span>
     </a>
   </div>
@@ -123,19 +149,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../pages/notebook.html"> 
+    <a class="nav-link active" href="../pages/notebook.html" aria-current="page"> 
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../pages/lab.html"> 
+    <a class="nav-link" href="../pages/lab.html"> 
 <span class="menu-text">Lab</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../pages/algorithms.html"> 
+    <a class="nav-link" href="../pages/algorithms.html"> 
 <span class="menu-text">Algorithms</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../pages/rosalind.html"> 
+    <a class="nav-link" href="../pages/rosalind.html"> 
 <span class="menu-text">Rosalind</span></a>
   </li>  
 </ul>
@@ -148,48 +174,299 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Notebook</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-left">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#how-to-use-ncbi-datasets" id="toc-how-to-use-ncbi-datasets" class="nav-link active" data-scroll-target="#how-to-use-ncbi-datasets">How to use NCBI datasets</a></li>
-  </ul>
-</nav>
-</nav>
+  
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-    </div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="API">API <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Algorithms">Algorithms <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Alignment">Alignment <span class="quarto-category-count">(2)</span></div><div class="category" data-category="CLI">CLI <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Containerization">Containerization <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Phylogeny and Evolution">Phylogeny and Evolution <span class="quarto-category-count">(1)</span></div><div class="category" data-category="algorithms">algorithms <span class="quarto-category-count">(2)</span></div><div class="category" data-category="sequence analysis">sequence analysis <span class="quarto-category-count">(2)</span></div></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
 
 
-<section id="how-to-use-ncbi-datasets" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-use-ncbi-datasets">How to use NCBI datasets</h3>
-<p><a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/">NCBI Datasets</a> is a new resource designed by NCBI to gather data from across NCBI databases. The main entry point of the tool is the <code>datasets</code> command. Subcommands such as <code>download</code> or <code>summary</code> is then specified, followed by more subcommands to specify your query.</p>
-<p>It seems to be the direction that NCBI wants to shepherd users towards. However, the nested structure of running the tool makes its use complicated and convoluted compared to other resources. NCBI is kind enough to give us a diagram for navigating the subcommands:</p>
-<center>
-<p><img src="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/datasets_schema_taxonomy.svg" class="img-fluid"></p>
-</center>
-<p>Swiftwater hydra (<em>Hydra vulgaris</em>) has a taxonomy id of <code>6087</code> and RefSeq id of <code>GCF_038396675.1</code>. We can download its genome by running the following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datasets</span> download genome accession GCF_038396675.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>By default, genome is downloaded as a zipped file named <strong>ncbi_dataset</strong>. The structure of the directory is seen below.</p>
-<pre><code>ncbi_dataset
-└── data
-    ├── assembly_data_report.jsonl
-    ├── dataset_catalog.json
-    └── GCF_038396675.1
-        └── GCF_038396675.1_HydraT2T_AEP_genomic.fn</code></pre>
 
 
-</section>
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="CLI,API" data-listing-date-sort="1732636800000" data-listing-file-modified-sort="1732659118011" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="16">
+<div class="thumbnail">
+<p><a href="../notebook/edirect/index.html" class="no-external"></a></p><a href="../notebook/edirect/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../notebook/edirect/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../notebook/edirect/index.html" class="no-external">Entrez Utilities Quick Start</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../notebook/edirect/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('CLI'); return false;">
+CLI
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('API'); return false;">
+API
+</div>
+</div>
+<div class="listing-description">
+<a href="../notebook/edirect/index.html" class="no-external">Query and programmatically access the various databases hosted at NCBI</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../notebook/edirect/index.html" class="no-external">
+<div class="listing-date">
+Nov 27, 2024
+</div>
+<div class="listing-author">
+Jan Emmanuel Samson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="algorithms,sequence analysis" data-listing-date-sort="1728921600000" data-listing-file-modified-sort="1729689778691" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="25">
+<div class="thumbnail">
+<p><a href="../notebook/sequence-assembly/index.html" class="no-external"></a></p><a href="../notebook/sequence-assembly/index.html" class="no-external">
+<p><img loading="lazy" src="../assets/covers/deBruijn-cover.webp" class="thumbnail-image"></p>
+</a><p><a href="../notebook/sequence-assembly/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../notebook/sequence-assembly/index.html" class="no-external">Assembling Genomes</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../notebook/sequence-assembly/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('algorithms'); return false;">
+algorithms
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('sequence analysis'); return false;">
+sequence analysis
+</div>
+</div>
+<div class="listing-description">
+<a href="../notebook/sequence-assembly/index.html" class="no-external">Borrowing concepts in graph theory to go from reads to contigs to genomes.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../notebook/sequence-assembly/index.html" class="no-external">
+<div class="listing-date">
+Oct 15, 2024
+</div>
+<div class="listing-author">
+Jan Emmanuel Samson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="algorithms,sequence analysis" data-listing-date-sort="1728748800000" data-listing-file-modified-sort="1729589629003" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="16">
+<div class="thumbnail">
+<p><a href="../notebook/motif-finding/index.html" class="no-external"></a></p><a href="../notebook/motif-finding/index.html" class="no-external">
+<p><img loading="lazy" src="../assets/covers/motif-logo.png" class="thumbnail-image"></p>
+</a><p><a href="../notebook/motif-finding/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../notebook/motif-finding/index.html" class="no-external">Finding Motifs in a Genetic Haystack</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../notebook/motif-finding/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('algorithms'); return false;">
+algorithms
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('sequence analysis'); return false;">
+sequence analysis
+</div>
+</div>
+<div class="listing-description">
+<a href="../notebook/motif-finding/index.html" class="no-external">Interrogating patterns in the genome with biological significance.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../notebook/motif-finding/index.html" class="no-external">
+<div class="listing-date">
+Oct 13, 2024
+</div>
+<div class="listing-author">
+Jan Emmanuel Samson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="CLI,Containerization" data-listing-date-sort="1727884800000" data-listing-file-modified-sort="1729691033662" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1005">
+<div class="thumbnail">
+<p><a href="../notebook/micromamba/index.html" class="no-external"></a></p><a href="../notebook/micromamba/index.html" class="no-external">
+<p><img loading="lazy" src="../assets/covers/mamba-logo.png" class="thumbnail-image"></p>
+</a><p><a href="../notebook/micromamba/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../notebook/micromamba/index.html" class="no-external">Getting Started with Micromamba</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../notebook/micromamba/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('CLI'); return false;">
+CLI
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Containerization'); return false;">
+Containerization
+</div>
+</div>
+<div class="listing-description">
+<a href="../notebook/micromamba/index.html" class="no-external">Setting up local environments to support reproducible workflows in Bioinformatics.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../notebook/micromamba/index.html" class="no-external">
+<div class="listing-date">
+Oct 3, 2024
+</div>
+<div class="listing-author">
+Jan Emmanuel Samson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="Phylogeny and Evolution,Alignment" data-listing-date-sort="1724774400000" data-listing-file-modified-sort="1729589693151" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1713">
+<div class="thumbnail">
+<p><a href="../notebook/phylogenetic-analysis/index.html" class="no-external"></a></p><a href="../notebook/phylogenetic-analysis/index.html" class="no-external">
+<p><img loading="lazy" src="../assets/covers/phylogenetic-tree-cover.png" class="thumbnail-image"></p>
+</a><p><a href="../notebook/phylogenetic-analysis/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../notebook/phylogenetic-analysis/index.html" class="no-external">Modeling Evolutionary Relationships</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../notebook/phylogenetic-analysis/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Phylogeny and Evolution'); return false;">
+Phylogeny and Evolution
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Alignment'); return false;">
+Alignment
+</div>
+</div>
+<div class="listing-description">
+<a href="../notebook/phylogenetic-analysis/index.html" class="no-external">Build trees to infer phylogenetic relationships across species.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../notebook/phylogenetic-analysis/index.html" class="no-external">
+<div class="listing-date">
+Aug 28, 2024
+</div>
+<div class="listing-author">
+Jan Emmanuel Samson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="Algorithms,Alignment" data-listing-date-sort="1724688000000" data-listing-file-modified-sort="1729690533016" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2160">
+<div class="thumbnail">
+<p><a href="../notebook/sequence-alignment/index.html" class="no-external"></a></p><a href="../notebook/sequence-alignment/index.html" class="no-external">
+<p><img loading="lazy" src="../assets/covers/msa-cover.webp" class="thumbnail-image"></p>
+</a><p><a href="../notebook/sequence-alignment/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../notebook/sequence-alignment/index.html" class="no-external">Local and Global Sequence Alignment</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../notebook/sequence-alignment/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Algorithms'); return false;">
+Algorithms
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Alignment'); return false;">
+Alignment
+</div>
+</div>
+<div class="listing-description">
+<a href="../notebook/sequence-alignment/index.html" class="no-external">Find highly conserved regions in biological strings using techniques in dynamic programming.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../notebook/sequence-alignment/index.html" class="no-external">
+<div class="listing-date">
+Aug 27, 2024
+</div>
+<div class="listing-author">
+Jan Emmanuel Samson
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="CLI,API" data-listing-date-sort="1721664000000" data-listing-file-modified-sort="1729589709634" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="25">
+<div class="thumbnail">
+<p><a href="../notebook/retrieving-biological-data/index.html" class="no-external"></a></p><a href="../notebook/retrieving-biological-data/index.html" class="no-external">
+<p><img loading="lazy" src="../assets/covers/data-retrieval-cover.jpg" class="thumbnail-image"></p>
+</a><p><a href="../notebook/retrieving-biological-data/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../notebook/retrieving-biological-data/index.html" class="no-external">Retrieving Biological Data</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../notebook/retrieving-biological-data/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('CLI'); return false;">
+CLI
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('API'); return false;">
+API
+</div>
+</div>
+<div class="listing-description">
+<a href="../notebook/retrieving-biological-data/index.html" class="no-external">Tools for downloading genomic data using the command line.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../notebook/retrieving-biological-data/index.html" class="no-external">
+<div class="listing-date">
+Jul 23, 2024
+</div>
+<div class="listing-author">
+Jan Emmanuel Samson
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

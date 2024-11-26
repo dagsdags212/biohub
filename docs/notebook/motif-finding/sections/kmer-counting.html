@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -152,19 +152,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../notebook.html"> 
+    <a class="nav-link" href="../../../pages/notebook.html"> 
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../lab.html"> 
+    <a class="nav-link" href="../../../pages/lab.html"> 
 <span class="menu-text">Lab</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../algorithms.html"> 
+    <a class="nav-link" href="../../../pages/algorithms.html"> 
 <span class="menu-text">Algorithms</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../rosalind.html"> 
+    <a class="nav-link" href="../../../pages/rosalind.html"> 
 <span class="menu-text">Rosalind</span></a>
   </li>  
 </ul>
@@ -216,72 +216,62 @@ window.Quarto = {
 </header>
 
 
-<div id="4cbe182b" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-stdout">
-<pre><code>/home/dagsdags/gh-repos/biohub</code></pre>
-</div>
-</div>
 <p>A <strong>k-mer</strong> is a string of length <em>k</em>. It is a substring derived from a longer sequence. For example, the string <em>AGTAGT</em> has three unique 3-mers: AGT, GTA, and TAG. The 3-mer AGT occurs twice in the sequence while the rest are only found once.</p>
 <p>A simple way to check for motifs is to find frequently-occurring k-mers in a region of the genome. If the count of a particular k-mer is surprisingly large, we can argue that the k-mer pattern may be of biological significance.</p>
 <p>To count the frequency of a particular k-mer, we can create a window of size <em>k</em> and slide it across a query sequence. At each position, we compare the the current window with the k-mer and increment a counter if they match.</p>
-<div id="6a6ad1f7" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pattern_count(text: <span class="bu">str</span>, pattern: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Counts the number of times `pattern` occurs as a substring of `text`."""</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  count: <span class="bu">int</span> <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  k <span class="op">=</span> <span class="bu">len</span>(pattern)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(text)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> text[i:i<span class="op">+</span>k] <span class="op">==</span> pattern:</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c023c585" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pattern_count(text: <span class="bu">str</span>, pattern: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Counts the number of times `pattern` occurs as a substring of `text`."""</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  count: <span class="bu">int</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  k <span class="op">=</span> <span class="bu">len</span>(pattern)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(text)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> text[i:i<span class="op">+</span>k] <span class="op">==</span> pattern:</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A more generalized approach is to set the <em>k</em> parameter and count all k-mers in the query sequence. We then extract the most frequent k-mer by filtering for the substring with the highest count.</p>
-<div id="bf4ef5bb" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> frequency_table(text: <span class="bu">str</span>, k: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">int</span>]:</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Returns a frequency table containing all k-mer counts."""</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  kmer_counts <span class="op">=</span> {}</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(text)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    kmer <span class="op">=</span> text[i:i<span class="op">+</span>k]</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> kmer <span class="kw">in</span> kmer_counts:</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      kmer_counts[kmer] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      kmer_counts[kmer] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return all k-mers sorted by count</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> kmer_counts</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_most_frequent_kmer(freq_map: <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">tuple</span>[<span class="bu">int</span>, <span class="bu">list</span>[<span class="bu">str</span>]]:</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Returns the most frequent k-mer and its counts from a frequency table. </span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">  If there are multiple most-frequent k-mers, return them in a list."""</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  max_count <span class="op">=</span> <span class="bu">max</span>(freq_map.values())</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  most_freq_kmers <span class="op">=</span> []</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> kmer, count <span class="kw">in</span> freq_map.items():</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> count <span class="op">==</span> max_count:</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      most_freq_kmers.append(kmer)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (max_count, most_freq_kmers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4433f500" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> frequency_table(text: <span class="bu">str</span>, k: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">int</span>]:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Returns a frequency table containing all k-mer counts."""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  kmer_counts <span class="op">=</span> {}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(text)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    kmer <span class="op">=</span> text[i:i<span class="op">+</span>k]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> kmer <span class="kw">in</span> kmer_counts:</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      kmer_counts[kmer] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      kmer_counts[kmer] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return all k-mers sorted by count</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> kmer_counts</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_most_frequent_kmer(freq_map: <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">tuple</span>[<span class="bu">int</span>, <span class="bu">list</span>[<span class="bu">str</span>]]:</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Returns the most frequent k-mer and its counts from a frequency table. </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  If there are multiple most-frequent k-mers, return them in a list."""</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  max_count <span class="op">=</span> <span class="bu">max</span>(freq_map.values())</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  most_freq_kmers <span class="op">=</span> []</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> kmer, count <span class="kw">in</span> freq_map.items():</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> count <span class="op">==</span> max_count:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      most_freq_kmers.append(kmer)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (max_count, most_freq_kmers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Using the <em>V. cholerae</em> origin of replication:</p>
 <div class="center">
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>atcaatgatcaacgtaagcttctaagcatgatcaaggtgctcacacagtttatccacaac</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ctgagtggatgacatcaagataggtcgttgtatctccttcctctcgtactctcatgacca</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>cggaaagatgatcaagagaggatgatttcttggccatatcgcaatgaatacttgtgactt</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>gtgcttccaattgacatcttcagcgccatattgcgctggccaaggtgacggagcgggatt</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>acgaaagcatgatcatggctgttgttctgtttatcttgttttgactgagacttgttagga</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>tagacggtttttcatcactgactagccaaagccttactctgcctgacatcgaccgtaaat</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>tgataatgaatttacatgcttccgcgacgatttacctcttgatcatcgatccgattgaag</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>atcttcaattgttaattctcttgcctcgactcatagccatgatgagctcttgatcatgtt</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>tccttaaccctctattttttacggaagaatgatcaagctgctgctcttgatcatcgtttc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>atcaatgatcaacgtaagcttctaagcatgatcaaggtgctcacacagtttatccacaac</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ctgagtggatgacatcaagataggtcgttgtatctccttcctctcgtactctcatgacca</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cggaaagatgatcaagagaggatgatttcttggccatatcgcaatgaatacttgtgactt</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>gtgcttccaattgacatcttcagcgccatattgcgctggccaaggtgacggagcgggatt</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>acgaaagcatgatcatggctgttgttctgtttatcttgttttgactgagacttgttagga</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>tagacggtttttcatcactgactagccaaagccttactctgcctgacatcgaccgtaaat</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>tgataatgaatttacatgcttccgcgacgatttacctcttgatcatcgatccgattgaag</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>atcttcaattgttaattctcttgcctcgactcatagccatgatgagctcttgatcatgtt</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>tccttaaccctctattttttacggaagaatgatcaagctgctgctcttgatcatcgtttc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let us find the most frequent frequent k-mers in the range <span class="math inline">\(k = 3\)</span> and <span class="math inline">\(k = 9\)</span>:</p>
-<div id="c54b515c" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>k_list <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">10</span>))</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>kmer_counts <span class="op">=</span> {}</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> k_list:</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  freq_map <span class="op">=</span> frequency_table(ori, k)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  kmer_counts[k] <span class="op">=</span> get_most_frequent_kmer(freq_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="ff139b76" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-stdout">
-<pre><code>{25: 'TGA', 12: 'ATGA', 8: 'TGATCA', 5: 'ATGATCA', 4: 'ATGATCAA', 3: 'ATGATCAAG, CTCTTGATC, TCTTGATCA, CTTGATCAT'}</code></pre>
-</div>
+<div id="02f7eebb" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>k_list <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">10</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>kmer_counts <span class="op">=</span> {}</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> k_list:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  freq_map <span class="op">=</span> frequency_table(ori, k)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  kmer_counts[k] <span class="op">=</span> get_most_frequent_kmer(freq_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The 3-mer <strong>TGA</strong> is observed in 25 unique positions of the bacterial genome. Is this a suprising observation?</p>
 <p>Assuming that the occurrence of a nucleotide at a given position is independent of all other position, we can expect the frequency of a k-mer to decrease as <em>k</em> increases. Given our frequency table, it is a bit surprising that four 9-mers occur three times within a 500-bp window. Furthermore, it seems that the the 9-mers <code>ATGATCAAG</code> and <code>CTTGATCAT</code> are reverse complements of each other.</p>
@@ -289,58 +279,53 @@ window.Quarto = {
 <section id="including-reverse-complements" class="level3">
 <h3 class="anchored" data-anchor-id="including-reverse-complements">Including Reverse Complements</h3>
 <p>We can update our couting function to collapse a k-mer and its reverse complement to a single count. First, we write a subroutine for getting the reverse complement of an input sequence.</p>
-<div id="42b55227" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rev_comp(seq: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Computes the reverse complement of a given DNA sequence."""</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  rc <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Map N to N to deal with invalid base calls</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  comp_map <span class="op">=</span> {<span class="st">"A"</span>: <span class="st">"T"</span>, <span class="st">"T"</span>: <span class="st">"A"</span>, <span class="st">"G"</span>: <span class="st">"C"</span>, <span class="st">"C"</span>: <span class="st">"G"</span>, <span class="st">"N"</span>: <span class="st">"N"</span>}</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Prepend the complement for each base.</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> base <span class="kw">in</span> seq:</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    rc <span class="op">=</span> comp_map[<span class="st">"base"</span>] <span class="op">+</span> rc</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> rc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="51a8ffde" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rev_comp(seq: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Computes the reverse complement of a given DNA sequence."""</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  rc <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Map N to N to deal with invalid base calls</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  comp_map <span class="op">=</span> {<span class="st">"A"</span>: <span class="st">"T"</span>, <span class="st">"T"</span>: <span class="st">"A"</span>, <span class="st">"G"</span>: <span class="st">"C"</span>, <span class="st">"C"</span>: <span class="st">"G"</span>, <span class="st">"N"</span>: <span class="st">"N"</span>}</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Prepend the complement for each base.</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> base <span class="kw">in</span> seq:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    rc <span class="op">=</span> comp_map[<span class="st">"base"</span>] <span class="op">+</span> rc</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> rc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When counting k-mers we will only keep the sequence that comes first when ordered lexicographically. For example, the 4-mer AGTC is the reverse complement of GACT. Since AGTC comes before GACT lexicographyically, we will store only the count of AGTC.</p>
-<div id="7fe25f53" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> frequent_kmers_with_rc(text: <span class="bu">str</span>, k: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">set</span>:</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Returns a frequency table containing counts of all k-mers and </span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">  their reverse complement."""</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  kmer_counts <span class="op">=</span> {}</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(text)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    kmer <span class="op">=</span> text[i:i<span class="op">+</span>k]</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    kmer_rc <span class="op">=</span> rev_comp(kmer)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Only add kmer_ref to the dictionary</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    kmer_ref <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> kmer <span class="op">&gt;</span> kmer_rc:</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>      kmer_ref <span class="op">=</span> kmer</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (kmer <span class="kw">in</span> kmer_counts) <span class="kw">or</span> (kmer_rc <span class="kw">in</span> kmer_counts):</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      kmer_counts[kmer_ref] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      kmer_counts[kmer_ref] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return all k-mers sorted by count</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> kmer_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="83a929ad" class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> frequent_kmers_with_rc(text: <span class="bu">str</span>, k: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">set</span>:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Returns a frequency table containing counts of all k-mers and </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">  their reverse complement."""</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  kmer_counts <span class="op">=</span> {}</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(text)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    kmer <span class="op">=</span> text[i:i<span class="op">+</span>k]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    kmer_rc <span class="op">=</span> rev_comp(kmer)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Only add kmer_ref to the dictionary</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    kmer_ref <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> kmer <span class="op">&gt;</span> kmer_rc:</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      kmer_ref <span class="op">=</span> kmer</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (kmer <span class="kw">in</span> kmer_counts) <span class="kw">or</span> (kmer_rc <span class="kw">in</span> kmer_counts):</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      kmer_counts[kmer_ref] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      kmer_counts[kmer_ref] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return all k-mers sorted by count</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> kmer_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="pattern-matching" class="level3">
 <h3 class="anchored" data-anchor-id="pattern-matching">Pattern Matching</h3>
 <p>Aside from computing the k-mer frequencies, we are also interested in knowning where common k-mers are located in the genome. Given an input pattern or k-mer, we keep a running list of indices at which the pattern occurs as a substring of the genome.</p>
-<div id="caf3638f" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pattern_matching(pattern: <span class="bu">str</span>, genome: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">list</span>[<span class="bu">int</span>]:</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Find all occurrences of a pattern in a genome.</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns a list of indices that indicate the start of each match."""</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  matches <span class="op">=</span> []</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  k <span class="op">=</span> <span class="bu">len</span>(pattern)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(genome)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> genome[i:i<span class="op">+</span>k] <span class="op">==</span> pattern:</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      matches.append(i)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> matches</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="44652221" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pattern_matching(pattern: <span class="bu">str</span>, genome: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">list</span>[<span class="bu">int</span>]:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Find all occurrences of a pattern in a genome.</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns a list of indices that indicate the start of each match."""</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  matches <span class="op">=</span> []</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  k <span class="op">=</span> <span class="bu">len</span>(pattern)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(genome)<span class="op">-</span>k<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> genome[i:i<span class="op">+</span>k] <span class="op">==</span> pattern:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      matches.append(i)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> matches</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Running the <code>pattern_matching</code> function to search all occurrences of <code>ATGATCAAG</code> in the <em>V. cholerae</em> genome would yield the following positions:</p>
-<div id="d827dd4e" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-stdout">
-<pre><code>116556 149355 151913 152013 152394 186189 194276 200076 224527 307692 479770 610980 653338 679985 768828 878903 985368</code></pre>
-</div>
-</div>
 <p>Our motif <code>ATGATCAAG</code> appears 17 times in the bacterial genome. Is this sufficient evidence to confirm that this region represents a signal to bind DnaA for initiating replication?</p>
 </section>
 <section id="verifying-with-other-bacterial-genomes" class="level3">
@@ -348,24 +333,24 @@ window.Quarto = {
 <p>We can validate our hypothesis by checking if the same motif appears in known <em>ori</em> regions from other bacteria. This verifies that the clumping of <code>ATGATCAAG</code>/<code>CTTGATCAT</code> is not merely a result of circumstance.</p>
 <p>Let us check the proposed <em>ori</em> region of <em>Thermotoga petrophila</em>, an extremophile that lives in very hot environments:</p>
 <div class="center">
-<div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>aactctatacctcctttttgtcgaatttgtgtgatttatagagaaaatcttattaactga</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>aactaaaatggtaggtttggtggtaggttttgtgtacattttgtagtatctgatttttaa</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ttacataccgtatattgtattaaattgacgaacaattgcatggaattgaatatatgcaaa</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>acaaacctaccaccaaactctgtattgaccattttaggacaacttcagggtggtaggttt</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>ctgaagctctcatcaatagactattttagtctttacaaacaatattaccgttcagattca</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>agattctacaacgctgttttaatgggcgttgcagaaaacttaccacctaaaatccagtat</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ccaagccgatttcagagaaacctaccacttacctaccacttacctaccacccgggtggta</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>agttgcagacattattaaaaacctcatcagaagcttgttcaaaaatttcaatactcgaaa</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>cctaccacctgcgtcccctattatttactactactaataatagcagtataattgatctga</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aactctatacctcctttttgtcgaatttgtgtgatttatagagaaaatcttattaactga</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>aactaaaatggtaggtttggtggtaggttttgtgtacattttgtagtatctgatttttaa</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ttacataccgtatattgtattaaattgacgaacaattgcatggaattgaatatatgcaaa</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>acaaacctaccaccaaactctgtattgaccattttaggacaacttcagggtggtaggttt</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>ctgaagctctcatcaatagactattttagtctttacaaacaatattaccgttcagattca</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>agattctacaacgctgttttaatgggcgttgcagaaaacttaccacctaaaatccagtat</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ccaagccgatttcagagaaacctaccacttacctaccacttacctaccacccgggtggta</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>agttgcagacattattaaaaacctcatcagaagcttgttcaaaaatttcaatactcgaaa</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>cctaccacctgcgtcccctattatttactactactaataatagcagtataattgatctga</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3d1a1a2f" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>t_petrophila_ori_path <span class="op">=</span> root <span class="op">/</span> Path(<span class="st">"data/thermotoga_petrophila_ori.txt"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>t_petrophila_ori <span class="op">=</span> load_text(t_petrophila_ori_path)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>v_cholerae_motifs <span class="op">=</span> [<span class="st">"ATGATCAAG"</span>, <span class="st">"CTTGATCAT"</span>]</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> motif <span class="kw">in</span> v_cholerae_motifs:</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  result <span class="op">=</span> pattern_matching(motif, t_petrophila_ori)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> result:</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ed0a90c7" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>t_petrophila_ori_path <span class="op">=</span> root <span class="op">/</span> Path(<span class="st">"data/thermotoga_petrophila_ori.txt"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>t_petrophila_ori <span class="op">=</span> load_text(t_petrophila_ori_path)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>v_cholerae_motifs <span class="op">=</span> [<span class="st">"ATGATCAAG"</span>, <span class="st">"CTTGATCAT"</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> motif <span class="kw">in</span> v_cholerae_motifs:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  result <span class="op">=</span> pattern_matching(motif, t_petrophila_ori)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> result:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Upon checking, neither <code>ATGATCAGG</code> nor its reverse complement appear once in the <em>ori</em> site of <em>T. petrophila</em>. One possible explanation is that different motifs are responsible for initiating replicaton in different bacteria.</p>
 

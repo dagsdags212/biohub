@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ncbi_datasets – BioHub</title>
+<title>intro – BioHub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -105,7 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../../css/styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -155,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-to-use-ncbi-datasets" id="toc-how-to-use-ncbi-datasets" class="nav-link active" data-scroll-target="#how-to-use-ncbi-datasets">How to use NCBI datasets</a></li>
+  <li><a href="#introduction-to-the-e-utilities" id="toc-introduction-to-the-e-utilities" class="nav-link active" data-scroll-target="#introduction-to-the-e-utilities">Introduction to the E-utilities</a></li>
   </ul>
 </nav>
 </nav>
@@ -164,27 +130,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 
 
 
-<section id="how-to-use-ncbi-datasets" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-use-ncbi-datasets">How to use NCBI datasets</h3>
-<p><a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/">NCBI Datasets</a> is a new resource designed by NCBI to gather data from across NCBI databases. The main entry point of the tool is the <code>datasets</code> command. Subcommands such as <code>download</code> or <code>summary</code> is then specified, followed by more subcommands to specify your query.</p>
-<p>It seems to be the direction that NCBI wants to shepherd users towards. However, the nested structure of running the tool makes its use complicated and convoluted compared to other resources. NCBI is kind enough to give us a diagram for navigating the subcommands:</p>
-<center>
-<p><img src="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/datasets_schema_taxonomy.svg" class="img-fluid"></p>
-</center>
-<p>Swiftwater hydra (<em>Hydra vulgaris</em>) has a taxonomy id of <code>6087</code> and RefSeq id of <code>GCF_038396675.1</code>. We can download its genome by running the following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datasets</span> download genome accession GCF_038396675.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>By default, genome is downloaded as a zipped file named <strong>ncbi_dataset</strong>. The structure of the directory is seen below.</p>
-<pre><code>ncbi_dataset
-└── data
-    ├── assembly_data_report.jsonl
-    ├── dataset_catalog.json
-    └── GCF_038396675.1
-        └── GCF_038396675.1_HydraT2T_AEP_genomic.fn</code></pre>
+<section id="introduction-to-the-e-utilities" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="introduction-to-the-e-utilities">Introduction to the E-utilities</h2>
+<p>The <strong>Entrez Programming Utilities</strong> (E-utilities) are a set of server-side programs that provide a stable interface into the Entrez query and database system at the NCBI. It provides a REST API for programmatic access to data hosted in the 38 databases covering a variety of biomedical data, including nucleotide and protein sequences, gene records, molecular structures, and biomedical literature.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/US-NLM-NCBI-Logo.svg/1200px-US-NLM-NCBI-Logo.svg.png" class="img-fluid quarto-figure quarto-figure-right figure-img"></p>
+</figure>
+</div>
+</div></div><p>The official help manual can be access <a href="https://www.ncbi.nlm.nih.gov/books/NBK25501/">here</a>.</p>
 
 
 </section>

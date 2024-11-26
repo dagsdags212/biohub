@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="../../../styles.css">
+<link rel="stylesheet" href="../../../css/styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -126,15 +126,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../notebook.html"> 
+    <a class="nav-link" href="../../../pages/notebook.html"> 
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../algorithms.html"> 
+    <a class="nav-link" href="../../../pages/lab.html"> 
+<span class="menu-text">Lab</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../pages/algorithms.html"> 
 <span class="menu-text">Algorithms</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../rosalind.html"> 
+    <a class="nav-link" href="../../../pages/rosalind.html"> 
 <span class="menu-text">Rosalind</span></a>
   </li>  
 </ul>
@@ -272,43 +276,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dl>
 <p>Running the <code>bio search</code> command will return a JSON-formatted string which contains the metadata for a particular record. Use the <code>--csv</code> flag to output the metadata in a comma-delimited format. Similarly, use the <code>--csv</code> if you want tab-delimited data.</p>
 <p>Running <code>bio search SRR1553425</code> would produce the following:</p>
-<div id="e3ee6aa2" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-stdout">
-<pre><code>[
-    {
-        "run_accession": "SRR1553425",
-        "sample_accession": "SAMN02951957",
-        "sample_alias": "EM110",
-        "sample_description": "Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone",
-        "first_public": "2015-06-05",
-        "country": "Sierra Leone",
-        "scientific_name": "Zaire ebolavirus",
-        "fastq_bytes": "111859282;119350609",
-        "base_count": "360534650",
-        "read_count": "1784825",
-        "library_name": "EM110_r1.ADXX",
-        "library_strategy": "RNA-Seq",
-        "library_source": "TRANSCRIPTOMIC",
-        "library_layout": "PAIRED",
-        "instrument_platform": "ILLUMINA",
-        "instrument_model": "Illumina HiSeq 2500",
-        "study_title": "Zaire ebolavirus Genome sequencing",
-        "fastq_url": [
-            "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz",
-            "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz"
-        ],
-        "info": "112 MB, 119 MB files; 1.8 million reads; 360.5 million sequenced bases"
-    }
-]</code></pre>
-</div>
-</div>
 <p>We can then use the <code>jq</code> processing tool to extract fields of interest. Extract the <code>fastq_url</code> list by running:</p>
-<div id="bb1b3459" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="st">".[].fastq_url[]"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>"https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz"
-"https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz"</code></pre>
-</div>
+<div id="40cd6e7e" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="st">".[].fastq_url[]"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

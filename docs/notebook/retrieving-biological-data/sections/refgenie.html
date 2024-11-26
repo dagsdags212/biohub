@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="../../../styles.css">
+<link rel="stylesheet" href="../../../css/styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -126,15 +126,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../notebook.html"> 
+    <a class="nav-link" href="../../../pages/notebook.html"> 
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../algorithms.html"> 
+    <a class="nav-link" href="../../../pages/lab.html"> 
+<span class="menu-text">Lab</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../pages/algorithms.html"> 
 <span class="menu-text">Algorithms</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../rosalind.html"> 
+    <a class="nav-link" href="../../../pages/rosalind.html"> 
 <span class="menu-text">Rosalind</span></a>
   </li>  
 </ul>
@@ -239,86 +243,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="using-refgenie" class="level3">
 <h3 class="anchored" data-anchor-id="using-refgenie">Using refgenie</h3>
 <p>A list of pre-built assets from a remote server can be displayed with <code>listr</code>:</p>
-<div id="d37b9408" class="cell" data-execution_count="1">
+<div id="0bea65db" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> refgenie listr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                             Remote refgenie assets                             
-                   Server URL: http://refgenomes.databio.org                    
-┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ genome           ┃ assets                                                    ┃
-┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ rCRSd            │ fasta, bowtie2_index, bwa_index, star_index,              │
-│                  │ hisat2_index, bismark_bt2_index                           │
-│ hg38             │ fasta, gencode_gtf, refgene_anno, dbsnp, ensembl_gtf,     │
-│                  │ ensembl_rb, suffixerator_index, bwa_index, bowtie2_index, │
-│                  │ dbnsfp, star_index, fasta_txome, hisat2_index,            │
-│                  │ cellranger_reference, bismark_bt2_index,                  │
-│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
-│ human_repeats    │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ mouse_chrM2x     │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ hg18_cdna        │ fasta, kallisto_index                                     │
-│ hs38d1           │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ hg38_cdna        │ fasta, salmon_index, kallisto_index                       │
-│ rn6_cdna         │ fasta, salmon_index, kallisto_index                       │
-│ mm10_cdna        │ fasta, salmon_index, kallisto_index                       │
-│ hg19_cdna        │ fasta, salmon_index, kallisto_index                       │
-│ hg38_chr22       │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ hg19             │ fasta, gencode_gtf, refgene_anno, dbsnp, ensembl_gtf,     │
-│                  │ ensembl_rb, suffixerator_index, bowtie2_index, bwa_index, │
-│                  │ hisat2_index, fasta_txome, star_index,                    │
-│                  │ cellranger_reference, bismark_bt2_index,                  │
-│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
-│ hg18             │ fasta, gencode_gtf, bowtie2_index, suffixerator_index,    │
-│                  │ bwa_index, hisat2_index, fasta_txome, star_index,         │
-│                  │ cellranger_reference, bismark_bt2_index                   │
-│ human_alu        │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ hisat2_index, bismark_bt2_index                           │
-│ human_rDNA       │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ human_alphasat   │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ mm10             │ fasta, gencode_gtf, refgene_anno, ensembl_gtf,            │
-│                  │ ensembl_rb, suffixerator_index, bwa_index, bowtie2_index, │
-│                  │ hisat2_index, star_index, fasta_txome,                    │
-│                  │ cellranger_reference, bismark_bt2_index,                  │
-│                  │ salmon_partial_sa_index, tgMap, salmon_sa_index           │
-│ rn6              │ fasta, refgene_anno, ensembl_gtf, suffixerator_index,     │
-│                  │ bwa_index, bowtie2_index, hisat2_index, star_index,       │
-│                  │ fasta_txome, bismark_bt2_index, salmon_partial_sa_index,  │
-│                  │ tgMap, salmon_sa_index                                    │
-│ t7               │ fasta, bowtie2_index                                      │
-│ dm6              │ fasta, gencode_gtf, refgene_anno, ensembl_gtf,            │
-│                  │ bowtie2_index                                             │
-│ hg38_noalt_decoy │ fasta, suffixerator_index, bwa_index, bowtie2_index,      │
-│                  │ star_index, hisat2_index, bismark_bt2_index               │
-│ mm10_primary     │ fasta, bowtie2_index, bwa_index                           │
-│ hg38_primary     │ fasta, bwa_index, bowtie2_index                           │
-│ hg38_mm10        │ fasta, bwa_index                                          │
-└──────────────────┴───────────────────────────────────────────────────────────┘
-             use refgenie listr -g &lt;genome&gt; for more detailed view              </code></pre>
-</div>
 </div>
 <p>Genome data is fetched using the <code>pull</code> command:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> pull hg38/bwa_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> pull hg38/bwa_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>seek</code> command displays the path of the downloaded file:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> seek hg38/bwa_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> seek hg38/bwa_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>List local genome assets:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Use command substitution to store the genome path to a variable:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the human reference genome</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> pull hg38/fasta</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save path of reference genome to a variable</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="va">REF</span><span class="op">=</span><span class="va">$(</span><span class="ex">refgenie</span> seek hg38/fasta<span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the human reference genome</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> pull hg38/fasta</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save path of reference genome to a variable</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="va">REF</span><span class="op">=</span><span class="va">$(</span><span class="ex">refgenie</span> seek hg38/fasta<span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then use the resulting path in downstream tools:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate statistics for the human reference genome</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> stats <span class="va">${REF}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate statistics for the human reference genome</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> stats <span class="va">${REF}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Subscribe to the iGenomes server which hosts additional reference genomes and genome assets.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> subscribe <span class="at">-s</span> http://igenomes.databio.org/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">refgenie</span> subscribe <span class="at">-s</span> http://igenomes.databio.org/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
