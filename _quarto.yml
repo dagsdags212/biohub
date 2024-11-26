@@ -12,13 +12,13 @@ website:
     foreground: light
     pinned: false
     left:
-      - href: notebook.qmd
+      - href: pages/notebook.qmd
         text: "Notebook"
-      - href: lab.qmd
+      - href: pages/lab.qmd
         text: "Lab"
-      - href: algorithms.qmd
+      - href: pages/algorithms.qmd
         text: "Algorithms"
-      - href: rosalind.qmd
+      - href: pages/rosalind.qmd
         text: "Rosalind"
     tools:
       - icon: twitter
