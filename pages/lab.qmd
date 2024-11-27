@@ -8,5 +8,5 @@ listing:
   sort: "date desc"
   max-items: 10
 page-layout: full
-title-block-banner: false
+title-block-banner: true
 ---

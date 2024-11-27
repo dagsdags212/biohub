@@ -2,12 +2,11 @@
 title: "Algorithms"
 listing:
   contents: 
-    - ../algorithms/*.qmd
+    - ../algorithms/**/index.qmd
   type: default
   categories: true
   sort: "date desc"
   max-items: 10
-  image-placeholder: ../assets/data-retrieval.jpg
 page-layout: full
-title-block-banner: false
+title-block-banner: true
 ---

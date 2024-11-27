@@ -9,10 +9,10 @@ listing:
   sort: "date desc"
   max-items: 10
   date-format: iso
-  image-placeholder: assets/rosalind-logo.jpg
+  image-placeholder: ../assets/rosalind-logo.jpg
   table-hover: true
 page-layout: full
-title-block-banner: false
+title-block-banner: true
 --- 
 
 ::: {#rosalind-challenges}

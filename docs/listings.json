@@ -2,13 +2,14 @@
   {
     "listing": "/pages/lab.html",
     "items": [
+      "/lab/edirect/index.html",
       "/lab/neural_networks/index.html"
     ]
   },
   {
     "listing": "/pages/algorithms.html",
     "items": [
-      "/algorithms/z-algorithm.html"
+      "/algorithms/z_algorithm/index.html"
     ]
   },
   {
@@ -29,13 +30,12 @@
   {
     "listing": "/pages/notebook.html",
     "items": [
-      "/notebook/edirect/index.html",
-      "/notebook/sequence-assembly/index.html",
-      "/notebook/motif-finding/index.html",
+      "/notebook/sequence_assembly/index.html",
+      "/notebook/motif_finding/index.html",
       "/notebook/micromamba/index.html",
-      "/notebook/phylogenetic-analysis/index.html",
-      "/notebook/sequence-alignment/index.html",
-      "/notebook/retrieving-biological-data/index.html"
+      "/notebook/phylogenetic_analysis/index.html",
+      "/notebook/sequence_alignment/index.html",
+      "/notebook/retrieving_biological_data/index.html"
     ]
   }
 ]
