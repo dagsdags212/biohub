@@ -8,7 +8,7 @@ description: "Setting up local environments to support reproducible workflows in
 categories:
   - CLI
   - Containerization
-image: ../../assets/covers/mamba-logo.png
+image: assets/cover.png
 toc: true
 ---
 

@@ -6,7 +6,7 @@ description: Find highly conserved regions in biological strings using technique
 categories:
   - Algorithms
   - Alignment
-image: ../../assets/covers/msa-cover.webp
+image: assets/cover.png
 toc: true
 execute:
   freeze: true  

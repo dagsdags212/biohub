@@ -8,7 +8,7 @@ description: "Interrogating patterns in the genome with biological significance.
 categories:
   - algorithms
   - sequence analysis
-image: ../../assets/covers/motif-logo.png
+image: assets/cover.png
 toc: true
 execute:
   cache: true
@@ -16,10 +16,10 @@ execute:
 
 {{< include sections/intro.qmd >}}
 
-{{< include sections/kmer-counting.qmd >}}
+{{< include sections/kmer_counting.qmd >}}
 
-{{< include sections/clump-finding.qmd >}}
+{{< include sections/clump_finding.qmd >}}
 
-{{< include sections/gc-skew.qmd >}}
+{{< include sections/gc_skew.qmd >}}
 
-{{< include sections/approximate-matching.qmd >}}
+{{< include sections/approximate_matching.qmd >}}

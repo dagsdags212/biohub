@@ -13,7 +13,7 @@ In sequencing, DNA is extracted and purified from an organism. It is then sheare
 **Polymerase Chain Reaction** (PCR) is a laboratory technique designed by Kary Mullis to amplify DNA sequences.
 :::
 
-![Steps in DNA sequencing. Retrieved from the [FJC](https://www.fjc.gov/content/361255/dna-sequencing-technologies-how-they-differ-and-why-it-matters).](../../../assets/steps-in-sequencing.png){.rounded .text-center width="95%"}
+![Steps in DNA sequencing. Retrieved from the [FJC](https://www.fjc.gov/content/361255/dna-sequencing-technologies-how-they-differ-and-why-it-matters).](https://www.fjc.gov/sites/default/files/dna/Section_3_Figure_8._Schematic_of_short-read_sequencing.png%20(2).png){.rounded .text-center width="85%"}
 
 
 ### Assembly

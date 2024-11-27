@@ -2,7 +2,7 @@
 
 In bacteria, short regions in the genome called **DnaA boxes** act as the binding site for _DnaA_ proteins to initiate replication. The function of these segments of DNA can be experimentally verified by wet-lab scientists. However, the process of motif discovery is often costly and is prone to systematic errors. 
 
-![](../../assets/vibrio-cholerae.jpeg){fig-align="center" width="75%" .lightbox}
+![](https://epi.ufl.edu/wordpress/files/2024/07/Vibrio-cholerae-graphic-illustration-1934x1115.jpeg){fig-align="center" width="65%" .lightbox}
 
 ::: {.column-margin}
 Retrieved from \

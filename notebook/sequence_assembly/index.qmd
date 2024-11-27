@@ -8,9 +8,9 @@ description: "Borrowing concepts in graph theory to go from reads to contigs to 
 categories:
   - algorithms
   - sequence analysis
-image: ../../assets/covers/deBruijn-cover.webp
+image: assets/cover.webp
 execute:
-  cache: true
+  freeze: true
 format:
   html:
     code-links:
