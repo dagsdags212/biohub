@@ -23,8 +23,9 @@ mb-0 {
 }
 
 /* ALIGNMENTS */
-.center {
+.center span {
   text-align: center;
+  vertical-align: middle;
 }
 
 /* FONT SIZES */
