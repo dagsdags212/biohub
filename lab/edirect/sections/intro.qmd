@@ -1,0 +1,10 @@
+## Introduction to the E-utilities
+
+The **Entrez Programming Utilities** (E-utilities) are a set of server-side programs that provide a stable interface into the Entrez query and database system at the NCBI. It provides a REST API for programmatic access to data hosted in the 38 databases covering a variety of biomedical data, including nucleotide and protein sequences, gene records, molecular structures, and biomedical literature.
+
+::: {.column-margin}
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/US-NLM-NCBI-Logo.svg/1200px-US-NLM-NCBI-Logo.svg.png){fig-align="right"}
+:::
+
+The official help manual can be access [here](https://www.ncbi.nlm.nih.gov/books/NBK25501/).
+

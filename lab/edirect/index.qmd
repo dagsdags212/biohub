@@ -1,0 +1,25 @@
+---
+title: Entrez Utilities Quick Start
+author: Jan Emmanuel Samson
+email: jgsamson@up.edu.ph
+date: 2024/11/27
+last-modified: 2024/11/27
+description: "Query and programmatically access the various databases hosted at NCBI"
+categories:
+  - CLI
+  - API
+image: assets/cover.png
+toc: true
+title-block-banner: true
+---
+
+{{< include sections/intro.qmd >}}
+
+{{< include sections/installation.qmd >}}
+
+{{< include sections/databases.qmd >}}
+
+{{< include sections/eutils.qmd >}}
+
+{{< include sections/accessory_programs.qmd >}}
+
