@@ -1,0 +1,25 @@
+---
+title: "BioHub"
+description: "all things bioinformatics and more"
+code-annotations: hover
+twitter-card:
+  image: logo.webp
+format:
+  html:
+    toc: false
+
+about:
+  id: index
+  template: jolla
+  image: logo.webp
+  links:
+    - icon: book
+      text: Notebook
+      href: pages/notebook.qmd
+    - icon: postcard
+      text: Lab
+      href: pages/lab.qmd
+    - icon: file-code
+      text: Algorithms
+      href: pages/algorithms.qmd
+---
