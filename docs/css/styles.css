@@ -1,42 +1,42 @@
-:root {
-  --rosewater: #dc8a78;
-  --flamingo: #dd7878;
-  --red: #f38ba8;
-  --maroon: #eba0ac;
-  --blue: #89b4fa;
-  --yellow: #f9e2af;
-  --green: #a6e3a1;
-  --peach: #fab387;
-  --teal: #94e2d5;
-  --pink: #f5c2e7;
-  --text: #1e1e2e;
-  --text-light: #313244;
+section#parameters {
+  overflow-x: auto;
 }
 
-p {
-  text-align: justify;
+section[id^="parameters-"] {
+  overflow-x: auto;
 }
 
-/* MARGINS */
-mb-0 {
-  margin-bottom: 0;
+.jupyterlite-console {
+  width: 100%;
+  height: 95%;
+  margin: auto;
+  display: block;
 }
 
-/* ALIGNMENTS */
-.center span {
-  text-align: center;
-  vertical-align: middle;
+.index-grid {
+  @extend .grid;
+  display: flex;
+  justify-content: space-between;
 }
 
-/* FONT SIZES */
-.md {
-  font-size: 1.25em;
+.index-g-col-4 {
+  @extend .g-col-4;
+  flex: 1;
+  margin: 0 5px;
 }
 
-.lg {
-  font-size: 1.5em;
+.dropdown-menu {
+  max-height: 400px;
+  overflow: auto;
 }
 
-.wide {
-  letter-spacing: 0.2rem;
+.quarto-navbar-tools .dropdown-menu.show {
+  right: 0px;
+  left: auto;
+}
+
+@media (max-width: 988px) {
+  .quarto-navbar-tools .dropdown-menu.show {
+    right: -80px;
+  }
 }

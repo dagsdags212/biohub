@@ -69,10 +69,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -143,9 +145,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools tools-wide">
     <a href="https://x.com/dagsdags13" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://github.com/dagsdags212" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -229,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch reads from accession</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">fasterq-dump</span> <span class="at">--split-3</span> <span class="at">-X</span> <span class="va">${N}</span> <span class="at">-O</span> reads <span class="va">${ACC}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>However this method is clunky and fragile, often failing to fetch the required data due to errors that are cryptically communicated to the user. An alternative method is to retrieve the URLs that point to the data and download locally using <code>wget</code>, <code>curl</code> or <code>aria2</code>. Use <code>bio search</code> to retrieve metadata on the SRA accession and parse using <code>jq</code>.</p>
-<div id="5056710f" class="cell" data-execution_count="1">
+<div id="3e3c57ec" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> bio search SRR1553425 <span class="op">|</span> jq <span class="op">-</span>r <span class="st">'.[].fastq_url[]'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_1.fastq.gz
@@ -254,13 +257,13 @@ https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/005/SRR1553425/SRR1553425_2.fastq.gz
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the project metadata and save as a CSV file</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bio</span> search PRJNA257197 <span class="at">--csv</span> <span class="op">&gt;</span> project.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The truncated output is as follows:</p>
-<div id="078075aa" class="cell" data-execution_count="2">
+<div id="45b1d66c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
-<pre><code>SRR1553421,SAMN02951955,EM104,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,19517324;20042056,57393048,284124,EM104_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/001/SRR1553421/SRR1553421_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/001/SRR1553421/SRR1553421_2.fastq.gz']","20 MB, 20 MB files; 0.3 million reads; 57.4 million sequenced bases"
-SRR1553422,SAMN02951955,EM104,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,29555626;31210876,93631646,463523,EM104.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/002/SRR1553422/SRR1553422_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/002/SRR1553422/SRR1553422_2.fastq.gz']","30 MB, 31 MB files; 0.5 million reads; 93.6 million sequenced bases"
-SRR1553429,SAMN02951959,EM112,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,97192130;102451475,315363814,1561207,EM112_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/009/SRR1553429/SRR1553429_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/009/SRR1553429/SRR1553429_2.fastq.gz']","97 MB, 102 MB files; 1.6 million reads; 315.4 million sequenced bases"
-SRR1553430,SAMN02951959,EM112,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,119206170;137380514,368527992,1824396,EM112.FCH9,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/000/SRR1553430/SRR1553430_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/000/SRR1553430/SRR1553430_2.fastq.gz']","119 MB, 137 MB files; 1.8 million reads; 368.5 million sequenced bases"
-SRR1553433,SAMN02951961,EM115,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,32312459;32636419,100531966,497683,EM115_r1.ADXX,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/003/SRR1553433/SRR1553433_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR155/003/SRR1553433/SRR1553433_2.fastq.gz']","32 MB, 33 MB files; 0.5 million reads; 100.5 million sequenced bases"</code></pre>
+<pre><code>SRR1972602,SAMN03253748,G3769.5,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,64700200;62048586,177030780,876390,G3769.5.l1,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR197/002/SRR1972602/SRR1972602_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR197/002/SRR1972602/SRR1972602_2.fastq.gz']","65 MB, 62 MB files; 0.9 million reads; 177.0 million sequenced bases"
+SRR1972603,SAMN03253750,G3789.7,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,48479951;46951197,136769352,677076,G3789.7.l1,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR197/003/SRR1972603/SRR1972603_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR197/003/SRR1972603/SRR1972603_2.fastq.gz']","48 MB, 47 MB files; 0.7 million reads; 136.8 million sequenced bases"
+SRR1972604,SAMN03253751,G3794.3,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,51272726;46805204,141510494,700547,G3794.3.l1,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR197/004/SRR1972604/SRR1972604_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR197/004/SRR1972604/SRR1972604_2.fastq.gz']","51 MB, 47 MB files; 0.7 million reads; 141.5 million sequenced bases"
+SRR1972608,SAMN03253757,G3809.2,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,44413580;40807337,114095256,564828,G3809.2.l1,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR197/008/SRR1972608/SRR1972608_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR197/008/SRR1972608/SRR1972608_2.fastq.gz']","44 MB, 41 MB files; 0.6 million reads; 114.1 million sequenced bases"
+SRR1972610,SAMN03253763,G3821.3,Zaire ebolavirus genome sequencing from 2014 outbreak in Sierra Leone,2015-06-05,Sierra Leone,Zaire ebolavirus,51084211;47577227,146658666,726033,G3821.3.l1,RNA-Seq,TRANSCRIPTOMIC,PAIRED,ILLUMINA,Illumina HiSeq 2500,Zaire ebolavirus Genome sequencing,"['https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR197/000/SRR1972610/SRR1972610_1.fastq.gz', 'https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR197/000/SRR1972610/SRR1972610_2.fastq.gz']","51 MB, 48 MB files; 0.7 million reads; 146.7 million sequenced bases"</code></pre>
 </div>
 </div>
 <p>Only the accession numbers are needed to download the reads. From the project file, we extract the first column corresponding to the accession, and use this as input to <code>fastq-dump</code>. The <code>parallel</code> tool enables us to simultaneously download multiple accession at once.</p>
@@ -312,6 +315,150 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -384,7 +531,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/dagsdags212\.github\.io\/biohub");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -758,10 +905,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>© 2024, Jan Samson</p>
-</div>
-    <div class="nav-footer-right">
       &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/dagsdags212">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
     </div>
   </div>
 </footer>

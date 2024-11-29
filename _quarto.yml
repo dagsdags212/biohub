@@ -2,11 +2,34 @@ project:
   type: website
   output-dir: docs
 
+highlight-style: ayu
+code-annotations: hover
+
+execute:
+  warning: false
+  error: false
+  cache: true
+
 website:
   title: "BioHub"
+  site-url: https://dagsdags212.github.io/biohub
+  description: "all things bioinformatics and more"
   page-navigation: true
+
+  # options
+  reader-mode: false
   back-to-top-navigation: true
-  page-footer: © 2024, Jan Samson
+  repo-url: https://github.com/dagsdags212/biohub
+  repo-branch: main
+
+  # footer
+  page-footer:
+    left: ""
+    right:
+      - icon: github
+        href: https://github.com/dagsdags212 
+
+  # nav
   navbar:
     background: dark
     foreground: light
@@ -28,15 +51,15 @@ website:
 
 format:
   html:
-    theme: [cosmo]
+    theme: 
+      light: [flatly, css/theme_light.scss]
+      dark: [darkly, css/theme_dark.scss]
+    css: css/styles.css
     toc: true
     toc-location: left
-    css: ./css/styles.css
 
 filters:
   - include-code-files
 
 bibliography: references.bib
-highlight-style: monokai
-code-annotations: hover
 code-overflow: scroll

@@ -1,0 +1,97 @@
+---
+engine: jupyter
+execute:
+  freeze: true
+---
+
+## EInfo
+
+Accessed through the `einfo` command to display a list of NCBI databases. It can also display summary statistics and information about indexed fields and links in a specific database.
+
+### Arguments
+
+The `einfo` command allows the following arguments:
+
+- `-dbs`: Outputs a text list of NCBI databases which can be accessed by E-utilities.
+- `-db`: Allow you to specify a database name about which you wish to receive information.
+- `-fields`: Overrides the default XML output and prints a text list of indexed fields for the database specified by the `-db` parameter.
+- `-links`: Override the default XML output and prints a text list of links (for use with the ELink utility) for the database specified in the `-db` parameter
+
+### Examples
+
+Get a list of all available databases (truncated to the first 10), sorted alphabetically:
+```bash
+einfo -dbs | sort | head -n 10
+```
+
+Display a list of PubMed indexed fields:
+```bash
+einfo -db pubmed -fields
+```
+
+## ESearch
+
+Uses the `esearch` command to search an NCBI database for a query and finds the unique identifiers for all records that match the search query.
+
+### Arguments
+
+The `esearch` command allows the following arguments:
+
+- `-db`: The database to be searched.
+- `-query`: The search string enclosed in double quotes.
+- `-sort`: Specifies the order in which your results will be sorted.
+- `-datetype`: When limiting by date, specifies which of the several date fields on a record is used to limit.
+- `-days`: Limits results to records with dates no more than the specified number of days in the past, based on the date field specified in the `-datetype` argument.
+- `-mindate/-maxdate`: Limits results to records with dates in a certain range, based on the date field specified in the `-datetype argument`.
+- `-spell`: Corrects misspellings in your search query.
+- `-log`: Also show the full E-utilities URL and the full query translation.
+
+### Examples
+
+Search for articles on the African Swine Fever Virus:
+```bash
+esearch -db pubmed -query "African Swine Fever Virus"
+```
+The query returns XML-formatted output where the `<Count>3064</Count>` tag indicates the number of relevant results.
+
+Add a date filter and sort by the _Relevance_ field:
+```bash
+esearch -db pubmed -query "African Swine Fever Virus" \
+  -datetype PDAT -mindate 2020 -maxdate 2024 \
+  -sort "Relevance"
+```
+
+## EFetch
+
+The `efetch` command is used by the EFetch utility to download records from an NCBI database in a specified format.
+
+### Arguments
+
+The `efetch` command allows the following arguments:
+
+- `-db`: The database from which to retrieve records.
+- `-id`: One or more UIDs, separated by commas.
+- `-format`: Specifies the format in which you wish to display the records.
+  + Valid formats include:
+    - `uid`: display a list of UIDs
+    - `abstract`: displays the Abstract view, formatted in plain text
+    - `medline`: displays the MEDLINE view, including the field indicators
+    - `xml`: displays the full PubMed XML
+
+### Examples
+
+Retrieve 10 articles on ASFV:
+```bash
+esearch -db pubmed -query "African Swine Fever Virus" \
+  | efetch -format uid | head -n 20 \
+  | esummary -db pubmed \
+  | xtract -pattern DocumentSummary -element Id Title -year PubDate \
+  | align-columns
+```
+
+Retrieve a first 20 UIDs of available ASFV genomes:
+```bash
+esearch -db nuccore -query "African Swine Fever Virus genome" \
+  | efetch -format uid | head
+```
+

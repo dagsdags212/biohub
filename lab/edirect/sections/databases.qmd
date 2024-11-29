@@ -35,3 +35,7 @@ Each data record stored in an Entrez database is associated with a **unique iden
 | Taxonomy | TaxID | taxonomy | 
 : Entrez Unique Identifiers (UIDs) for selected databases. {.hover .striped}
 
+The list of E-utility database names can also be retrieved by running the `einfo` command:
+```bash
+einfo -email $EMAIL -dbs | sort
+```
