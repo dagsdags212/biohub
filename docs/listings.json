@@ -34,6 +34,7 @@
   {
     "listing": "/pages/lab.html",
     "items": [
+      "/lab/quality_control/index.html",
       "/lab/edirect/index.html",
       "/lab/neural_networks/index.html"
     ]

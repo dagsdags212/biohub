@@ -1,0 +1,59 @@
+{
+  "tag": "Cutadapt report",
+  "schema_version": [0, 3],
+  "cutadapt_version": "5.0",
+  "python_version": "3.12.8",
+  "command_line_arguments": [
+    "output/cutadapt/f010_mirna.trimmed.1.fastq",
+    "-m",
+    "17",
+    "-M",
+    "30",
+    "-q",
+    "20",
+    "-o",
+    "output/cutadapt/f010_mirna.trimmed.2.fastq",
+    "--json",
+    "output/cutadapt/report.json"
+  ],
+  "cores": 1,
+  "input": {
+    "path1": "output/cutadapt/f010_mirna.trimmed.1.fastq",
+    "path2": null,
+    "paired": false
+  },
+  "read_counts": {
+    "input": 100000,
+    "filtered": {
+      "too_short": 34050,
+      "too_long": 61246,
+      "too_many_n": null,
+      "too_many_expected_errors": null,
+      "casava_filtered": null,
+      "discard_trimmed": null,
+      "discard_untrimmed": null
+    },
+    "output": 4704,
+    "reverse_complemented": null,
+    "read1_with_adapter": null,
+    "read2_with_adapter": null
+  },
+  "basepair_counts": {
+    "input": 8759457,
+    "input_read1": 8759457,
+    "input_read2": null,
+    "quality_trimmed": 2073791,
+    "quality_trimmed_read1": 2073791,
+    "quality_trimmed_read2": null,
+    "poly_a_trimmed": null,
+    "poly_a_trimmed_read1": null,
+    "poly_a_trimmed_read2": null,
+    "output": 103449,
+    "output_read1": 103449,
+    "output_read2": null
+  },
+  "adapters_read1": [],
+  "adapters_read2": null,
+  "poly_a_trimmed_read1": null,
+  "poly_a_trimmed_read2": null
+}
