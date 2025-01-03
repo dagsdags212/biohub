@@ -211,6 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#checking-for-adapters" id="toc-checking-for-adapters" class="nav-link" data-scroll-target="#checking-for-adapters">Checking for Adapters</a></li>
   <li><a href="#trimming-adapters" id="toc-trimming-adapters" class="nav-link" data-scroll-target="#trimming-adapters">Trimming Adapters</a></li>
   <li><a href="#explore-the-trimmed-sequencing-reads" id="toc-explore-the-trimmed-sequencing-reads" class="nav-link" data-scroll-target="#explore-the-trimmed-sequencing-reads">Explore the Trimmed Sequencing Reads</a></li>
+  <li><a href="#read-trimming-and-filtering-using-fastp" id="toc-read-trimming-and-filtering-using-fastp" class="nav-link" data-scroll-target="#read-trimming-and-filtering-using-fastp">Read Trimming and Filtering Using fastp</a></li>
   </ul></li>
   <li><a href="#bringing-it-all-together" id="toc-bringing-it-all-together" class="nav-link" data-scroll-target="#bringing-it-all-together">Bringing It All Together</a></li>
   </ul>
@@ -462,47 +463,88 @@ Total written (filtered):        180,401 bp (1.6%)</code></pre>
 <hr>
 <p>The report confirms that reads with quality scores below 20 have been removed and only the first 30 bases were kept per read. The overrepresented sequences still persist and represent the miRNA sequences. Confirm this by querying the overrepresented sequences against an updated miRNA database.</p>
 </section>
+<section id="read-trimming-and-filtering-using-fastp" class="level3">
+<h3 class="anchored" data-anchor-id="read-trimming-and-filtering-using-fastp">Read Trimming and Filtering Using fastp</h3>
+<p><code>fastp</code> is an all-in-one tool designed for preprocessing and quality control of FASTQ data. It automatically detects adapter sequences in the 3’ and 5’ ends of the reads and performs filtering based on quality score and read length. Furthermore, it supports preprocessing of long reads (e.g., PacBio, Nanopore) and implements parallel compute. Similar to <code>fastqc</code>, the program generates a summary report in HTML format.</p>
+<p>Simply provide the raw read data as input and specify an output directory to store the report. We could explicitly provide the adapter sequences using the <code>-a</code> flag. The minimum length, maximum length, and quality score threshold are given by the <code>--length_required</code>, <code>--length_limit</code>, and <code>-q</code> flags, respectively.</p>
+<div class="sourceCode" id="annotated-cell-17"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="1">1</button><span id="annotated-cell-17-1" class="code-annotation-target"><a href="#annotated-cell-17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastp</span> <span class="at">-i</span> data/f010_raw_mirna.fastq <span class="at">-o</span> output/fastp/f010_mirna.trimmed.fastq <span class="dt">\</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="2">2</button><span id="annotated-cell-17-2" class="code-annotation-target"><a href="#annotated-cell-17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--length_required</span> 30 <span class="at">--length_limit</span> 60 <span class="dt">\</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="3">3</button><span id="annotated-cell-17-3" class="code-annotation-target"><a href="#annotated-cell-17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-q</span> 20 <span class="dt">\</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="4">4</button><span id="annotated-cell-17-4" class="code-annotation-target"><a href="#annotated-cell-17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--html</span> output/fastp/fastp_report.html <span class="dt">\</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="5">5</button><span id="annotated-cell-17-5" class="code-annotation-target"><a href="#annotated-cell-17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--json</span> output/fastp/fastp_report.json</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-17" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-17" data-code-lines="1" data-code-annotation="1">Process raw reads and save output to specified path</span>
+</dd>
+<dt data-target-cell="annotated-cell-17" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-17" data-code-lines="2" data-code-annotation="2">Specify the minimum and maximum read length, respectively</span>
+</dd>
+<dt data-target-cell="annotated-cell-17" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-17" data-code-lines="3" data-code-annotation="3">Specift quality score threshold</span>
+</dd>
+<dt data-target-cell="annotated-cell-17" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-17" data-code-lines="4" data-code-annotation="4">Generate an HTML report</span>
+</dd>
+<dt data-target-cell="annotated-cell-17" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-17" data-code-lines="5" data-code-annotation="5">Generate a JSON report</span>
+</dd>
+</dl>
+<p>The summary report generated by <code>fastp</code> is minimal and simplistic. An example is provided below, giving us information on both raw and processed data:</p>
+<embed type="text/html" src="output/fastp/fastp_report.html" width="100%" height="640">
+</section>
 </section>
 <section id="bringing-it-all-together" class="level2">
 <h2 class="anchored" data-anchor-id="bringing-it-all-together">Bringing It All Together</h2>
 <p>The entire workflow can be replicated by running the bash script provided below.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print commands and exit on error</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-uex</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create working directory and navigate to it</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> qc <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> qc</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download sequencing reads into the 'data' directory</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/bioinfo-dirty-jobs/Data.git data/</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Decompress reads with gunzip</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> data/QUALITY/quality_control/f010_raw_mirna.fastqc.gz</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Store path to reads as variable</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="va">READS</span><span class="op">=</span>data/QUALITY/quality_control/f010_raw_mirna.fastqc</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create subdirectories for outputs</span></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> output/<span class="dt">{fastqc</span><span class="op">,</span><span class="dt">cutadapt</span><span class="op">,</span><span class="dt">fastp}</span></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-o</span> output/fasqc/<span class="dt">{raw</span><span class="op">,</span><span class="dt">trimmed}</span></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Run fastq on raw reads</span></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="va">${READS}</span> <span class="at">-o</span> output/fastqc/raw</span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Trim adapters using cutadapt</span></span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> data/f010_raw_mirna.fastq <span class="dt">\</span></span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">-a</span> TTTTTAGAGTGGTCTCATACAGAACTTATAAGATTCCCAAATCCAAAGACATTTCACGTTTATGGTGATTTCCCAG <span class="dt">\</span></span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> GCTTACCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAAAAAAG <span class="dt">\</span></span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> output/cutadapt/f010_mirna.trimmed.1.fastq</span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter reads by length and quality score using cutadapt</span></span>
-<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> output/cutadapt/f010_mirna.trimmed.1.fastq <span class="dt">\</span></span>
-<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> 17 <span class="at">-M</span> 30 <span class="dt">\</span></span>
-<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">-q</span> 20 <span class="dt">\</span></span>
-<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> output/cutadapt/f010_mirna.trimmed.2.fastq <span class="dt">\</span></span>
-<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">--json</span> output/cutadapt/report.json</span>
-<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-run fastqc on trimmed reads</span></span>
-<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">-o</span> output/fastqc/trimmed output/cutadapt/f010_mirna.trimmed.fastq </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-18"><pre class="sourceCode bash code-annotation-code code-with-copy"><code class="sourceCode bash"><span id="annotated-cell-18-1"><a href="#annotated-cell-18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print commands and exit on error</span></span>
+<span id="annotated-cell-18-2"><a href="#annotated-cell-18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-uex</span></span>
+<span id="annotated-cell-18-3"><a href="#annotated-cell-18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-4"><a href="#annotated-cell-18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create working directory and navigate to it</span></span>
+<span id="annotated-cell-18-5"><a href="#annotated-cell-18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> qc <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> qc</span>
+<span id="annotated-cell-18-6"><a href="#annotated-cell-18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-7"><a href="#annotated-cell-18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download sequencing reads into the 'data' directory</span></span>
+<span id="annotated-cell-18-8"><a href="#annotated-cell-18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/bioinfo-dirty-jobs/Data.git data/</span>
+<span id="annotated-cell-18-9"><a href="#annotated-cell-18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-10"><a href="#annotated-cell-18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Decompress reads with gunzip</span></span>
+<span id="annotated-cell-18-11"><a href="#annotated-cell-18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> data/QUALITY/quality_control/f010_raw_mirna.fastqc.gz</span>
+<span id="annotated-cell-18-12"><a href="#annotated-cell-18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-13"><a href="#annotated-cell-18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Store path to reads as variable</span></span>
+<span id="annotated-cell-18-14"><a href="#annotated-cell-18-14" aria-hidden="true" tabindex="-1"></a><span class="va">READS</span><span class="op">=</span>data/QUALITY/quality_control/f010_raw_mirna.fastqc</span>
+<span id="annotated-cell-18-15"><a href="#annotated-cell-18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-16"><a href="#annotated-cell-18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create subdirectories for outputs</span></span>
+<span id="annotated-cell-18-17"><a href="#annotated-cell-18-17" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> output/<span class="dt">{fastqc</span><span class="op">,</span><span class="dt">cutadapt</span><span class="op">,</span><span class="dt">fastp}</span></span>
+<span id="annotated-cell-18-18"><a href="#annotated-cell-18-18" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-o</span> output/fasqc/<span class="dt">{raw</span><span class="op">,</span><span class="dt">trimmed}</span></span>
+<span id="annotated-cell-18-19"><a href="#annotated-cell-18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-20"><a href="#annotated-cell-18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Run fastq on raw reads</span></span>
+<span id="annotated-cell-18-21"><a href="#annotated-cell-18-21" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="va">${READS}</span> <span class="at">-o</span> output/fastqc/raw</span>
+<span id="annotated-cell-18-22"><a href="#annotated-cell-18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-23"><a href="#annotated-cell-18-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Trim adapters using cutadapt</span></span>
+<span id="annotated-cell-18-24"><a href="#annotated-cell-18-24" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> data/f010_raw_mirna.fastq <span class="dt">\</span></span>
+<span id="annotated-cell-18-25"><a href="#annotated-cell-18-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">-a</span> TTTTTAGAGTGGTCTCATACAGAACTTATAAGATTCCCAAATCCAAAGACATTTCACGTTTATGGTGATTTCCCAG <span class="dt">\</span></span>
+<span id="annotated-cell-18-26"><a href="#annotated-cell-18-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> GCTTACCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAAAAAAG <span class="dt">\</span></span>
+<span id="annotated-cell-18-27"><a href="#annotated-cell-18-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> output/cutadapt/f010_mirna.trimmed.1.fastq</span>
+<span id="annotated-cell-18-28"><a href="#annotated-cell-18-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-29"><a href="#annotated-cell-18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter reads by length and quality score using cutadapt</span></span>
+<span id="annotated-cell-18-30"><a href="#annotated-cell-18-30" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> output/cutadapt/f010_mirna.trimmed.1.fastq <span class="dt">\</span></span>
+<span id="annotated-cell-18-31"><a href="#annotated-cell-18-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> 17 <span class="at">-M</span> 30 <span class="dt">\</span></span>
+<span id="annotated-cell-18-32"><a href="#annotated-cell-18-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">-q</span> 20 <span class="dt">\</span></span>
+<span id="annotated-cell-18-33"><a href="#annotated-cell-18-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> output/cutadapt/f010_mirna.trimmed.2.fastq <span class="dt">\</span></span>
+<span id="annotated-cell-18-34"><a href="#annotated-cell-18-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">--json</span> output/cutadapt/report.json</span>
+<span id="annotated-cell-18-35"><a href="#annotated-cell-18-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-36"><a href="#annotated-cell-18-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-run fastqc on trimmed reads</span></span>
+<span id="annotated-cell-18-37"><a href="#annotated-cell-18-37" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">-o</span> output/fastqc/trimmed output/cutadapt/f010_mirna.trimmed.fastq </span>
+<span id="annotated-cell-18-38"><a href="#annotated-cell-18-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-39"><a href="#annotated-cell-18-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Trim and filter using fastp</span></span>
+<span id="annotated-cell-18-40"><a href="#annotated-cell-18-40" aria-hidden="true" tabindex="-1"></a><span class="ex">fastp</span> <span class="at">-i</span> data/f010_raw_mirna.fastq <span class="at">-o</span> output/fastp/f010_mirna.trimmed.fastq <span class="dt">\</span></span>
+<span id="annotated-cell-18-41"><a href="#annotated-cell-18-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">--length_required</span> 30 <span class="at">--length_limit</span> 60 <span class="dt">\</span></span>
+<span id="annotated-cell-18-42"><a href="#annotated-cell-18-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">-q</span> 20 <span class="dt">\</span></span>
+<span id="annotated-cell-18-43"><a href="#annotated-cell-18-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">--html</span> output/fastp/fastp_report.html <span class="dt">\</span></span>
+<span id="annotated-cell-18-44"><a href="#annotated-cell-18-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">--json</span> output/fastp/fastp_report.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
