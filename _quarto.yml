@@ -61,5 +61,4 @@ format:
 filters:
   - include-code-files
 
-bibliography: references.bib
 code-overflow: scroll
