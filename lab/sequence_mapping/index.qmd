@@ -1,0 +1,79 @@
+---
+title: Mapping High-Throughput Sequencing Data
+author: Jan Emmanuel Samson
+email: jgsamson@up.edu.ph
+date: 2025/01/03
+last-modified: 2025/01/03
+description: ""
+categories:
+  - sequence-analysis
+  - read-mapping
+  - CLI
+image: assets/cover.webp
+toc: true
+title-block-banner: true
+bibliography: ref.bib
+draft: true
+---
+
+## Introduction
+
+#### Considerations
+
+One consideration when choosing a mapper is the type of data that it was designed for (DNA, RNA, miRNA, bisulpite). Another dimension to consider is the sequencing platform that generated the HTS data. Some mappers are generalizable across data types which allows the alignment of any sequences, hence the source of data is irrelevant as long as the stored data fits the specifications of the tool. Examples include _BLAT_, _SSAHA_, _Exonerate_, and _Mummer_. 
+
+Some mappers were built for handling a subset of sequencing technologies such as _Slider_ which works well for Illumina data and exploits the base call probabilities present in its output files. In contrast, mappers such as _SOCS_, _RNA-MATE_, and _MapReads_ are catered towards aligning SOLiD reads which are encoded in color space. Mappers such as _SOAP_, _Bowtie_, or _Novoalign_ exploit the biases found in Illumina reads and have functionality to trim bases off the 3'-end reads in an attempt to reduce this bias.
+
+#### Mapping RNA Reads
+
+In eukaryotes, genes can be spliced differentially to generate a wide variety of products from the same gene set. Thus, RNA-seq reads that are mapped to a reference genome can display large gaps in the alignment. This is especially the case when reads span multiple exons. Mappers overcome this issue by detecting splice junction locations by using _de novo_ methods or referring to an exon junction library. 
+
+#### Variation and Errors
+
+Mappers must allow for the approximate matching between reads and the reference to cope with errors and variation. More errors should be permitted when aligning long reads or reads from a different species. Five mismatches in a read with 36 bases (14%) is quantitatively different from five mismatches in a read with 500 bases (3%). 
+
+The challenge is to distinguish between true genetic variation and sequencing errors. Mappers such as _ELAND_, _VMATCH_, and _WHAM_ permits a small number of mismatches while mappers like _MapReads_, _MicroRazerS_, and _mrsFast_ accounts for an arbitrary number of mismatches. Some tools such as _BWA_ support indels while others impose no constraints on the number of mismatches and indels (e.g., _Bowtie2_, _GNUMAP_, _Mosaik_, _RazerS_, _SSAHA2_, _VMATCH_, _SHRiMP2_).
+
+### A Survey of Tools for Mapping
+
+
+:::: {.columns}
+::: {.column width="50%"}
+
+### Short-Read Mappers
+
+- BWA
+- 
+
+:::
+::: {.column width="50%"}
+
+### Long-Read Mappers
+
+- RazerS
+- BWA-SW
+- SOAP2
+- RUM
+- RMAP
+- SOAPSplice
+- Bowtie2
+
+:::
+::::
+
+### Splice Aligners
+
+- MapSplice
+- TopHat*
+- Supersplat
+- SOAPSPlice
+- SpliceMap
+- RNA-Mate*
+- RUM*
+- PASS
+- QPALMA
+- MapSplice
+
+::: {.column-margin}
+*Wrappers that can use a variety of mappers
+:::
