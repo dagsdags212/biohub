@@ -1,0 +1,51 @@
+---
+title: Memory Management in C
+author: Jan Emmanuel Samson
+email: jgsamson@up.edu.ph
+date: 2025/01/03
+last-modified: 2025/01/03
+description: "Understand how and where programs store data in memory"
+categories:
+  - C
+  - programming
+image: assets/cover.webp
+toc: true
+title-block-banner: true
+draft: true
+---
+
+## Goals
+
+1. Understand how and where programs store data in memory
+2. Learn how to make programs more efficient
+3. Practice programming in a lower-level language
+4. Learn about garbage collection
+
+## Basics of C
+
+The simplest C program is provided below. It is a function that returns an `int` which often denotes the exit code of the program. In UNIX systems, a return value of 0 indicates that the program ran without errors. Any other return value indicates an error, whether explicit or implicit.
+```C
+int main() {
+  return 0;
+}
+```
+
+The entry point of any C program is the `main` function.
+```C
+#include <stdio.h>
+
+int main() {
+  printf("Hello, world!\n");
+  return 0;
+}
+```
+
+Comments are added by prepending a line with double forward slashes (`//`). Multi-line comments can be added as follows:
+```C
+// this is a comment
+/* This
+is a 
+multi-line
+comment
+*/
+```
