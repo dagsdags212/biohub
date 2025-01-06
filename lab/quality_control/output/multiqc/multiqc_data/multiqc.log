@@ -1,0 +1,21 @@
+[2025-01-07 04:13:29,328] multiqc                                            [DEBUG  ]  This is MultiQC v1.19
+[2025-01-07 04:13:29,328] multiqc                                            [DEBUG  ]  Command used: /home/dagsdags/.micromamba/envs/quality-control/bin/multiqc -o output/multiqc output/fastqc/pe
+[2025-01-07 04:13:31,429] multiqc                                            [WARNING]  MultiQC Version v1.26 now available!
+[2025-01-07 04:13:31,429] multiqc                                            [DEBUG  ]  Working dir : /home/dagsdags/gh-repos/biohub/lab/quality_control
+[2025-01-07 04:13:31,430] multiqc                                            [DEBUG  ]  Template    : default
+[2025-01-07 04:13:31,430] multiqc                                            [DEBUG  ]  Running Python 3.9.15 | packaged by conda-forge | (main, Nov 22 2022, 08:45:29)  [GCC 10.4.0]
+[2025-01-07 04:13:31,430] multiqc                                            [DEBUG  ]  Analysing modules: custom_content, ccs, ngsderive, purple, conpair, lima, peddy, somalier, methylQA, mosdepth, phantompeakqualtools, qualimap, preseq, hifiasm, quast, qorts, rna_seqc, rockhopper, rsem, rseqc, busco, bustools, goleft_indexcov, gffcompare, disambiguate, supernova, deeptools, sargasso, verifybamid, mirtrace, happy, mirtop, sambamba, gopeaks, homer, hops, macs2, theta2, snpeff, gatk, htseq, bcftools, featureCounts, fgbio, dragen, dragen_fastqc, dedup, pbmarkdup, damageprofiler, mapdamage, biobambam2, jcvi, mtnucratio, picard, vep, bakta, prokka, qc3C, nanostat, samblaster, samtools, sexdeterrmine, seqera_cli, eigenstratdatabasetools, bamtools, jellyfish, vcftools, longranger, stacks, varscan2, snippy, umitools, truvari, bbmap, bismark, biscuit, diamond, hicexplorer, hicup, hicpro, salmon, kallisto, slamdunk, star, hisat2, tophat, bowtie2, bowtie1, cellranger, snpsplit, odgi, pangolin, nextclade, freyja, humid, kat, leehom, librarian, adapterRemoval, bbduk, clipandmerge, cutadapt, flexbar, sourmash, kaiju, bracken, kraken, malt, motus, trimmomatic, sickle, skewer, sortmerna, biobloomtools, fastq_screen, afterqc, fastp, fastqc, filtlong, prinseqplusplus, pychopper, porechop, pycoqc, minionqc, anglerfish, multivcfanalyzer, clusterflow, checkqc, bcl2fastq, bclconvert, interop, ivar, flash, seqyclean, optitype, whatshap, xenome, xengsort
+[2025-01-07 04:13:31,430] multiqc                                            [DEBUG  ]  Using temporary directory for creating report: /tmp/tmp02up7x_p
+[2025-01-07 04:13:31,431] multiqc                                            [INFO   ]  Search path : /home/dagsdags/gh-repos/biohub/lab/quality_control/output/fastqc/pe
+[2025-01-07 04:13:31,525] multiqc                                            [DEBUG  ]  Summary of files that were skipped by the search: [skipped_module_specific_max_filesize: 78] // [skipped_no_match: 6]
+[2025-01-07 04:13:31,772] multiqc.plots.bargraph                             [DEBUG  ]  Using matplotlib version 3.9.4
+[2025-01-07 04:13:31,773] multiqc.plots.linegraph                            [DEBUG  ]  Using matplotlib version 3.9.4
+[2025-01-07 04:13:31,773] multiqc                                            [DEBUG  ]  No samples found: custom_content
+[2025-01-07 04:13:31,846] multiqc.modules.fastqc.fastqc                      [INFO   ]  Found 6 reports
+[2025-01-07 04:13:31,861] multiqc.utils.software_versions                    [DEBUG  ]  Reading software versions from config.software_versions
+[2025-01-07 04:13:31,865] multiqc                                            [DEBUG  ]  Compressing plot data
+[2025-01-07 04:13:31,904] multiqc                                            [INFO   ]  Report      : output/multiqc/multiqc_report.html
+[2025-01-07 04:13:31,904] multiqc                                            [INFO   ]  Data        : output/multiqc/multiqc_data
+[2025-01-07 04:13:31,904] multiqc                                            [DEBUG  ]  Moving data file from '/tmp/tmp02up7x_p/multiqc_data' to 'output/multiqc/multiqc_data'
+[2025-01-07 04:13:31,905] multiqc                                            [DEBUG  ]  Full report path: /home/dagsdags/gh-repos/biohub/lab/quality_control/output/multiqc/multiqc_report.html
+[2025-01-07 04:13:31,948] multiqc                                            [INFO   ]  MultiQC complete

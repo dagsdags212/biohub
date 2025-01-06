@@ -1,0 +1,7 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	anc_R1	/home/dagsdags/gh-repos/biohub/lab/quality_control/output/fastqc/pe/anc_R1_fastqc.zip
+FastQC	all_sections	evo2_R1	/home/dagsdags/gh-repos/biohub/lab/quality_control/output/fastqc/pe/evo2_R1_fastqc.zip
+FastQC	all_sections	evo1_R2	/home/dagsdags/gh-repos/biohub/lab/quality_control/output/fastqc/pe/evo1_R2_fastqc.zip
+FastQC	all_sections	anc_R2	/home/dagsdags/gh-repos/biohub/lab/quality_control/output/fastqc/pe/anc_R2_fastqc.zip
+FastQC	all_sections	evo2_R2	/home/dagsdags/gh-repos/biohub/lab/quality_control/output/fastqc/pe/evo2_R2_fastqc.zip
+FastQC	all_sections	evo1_R1	/home/dagsdags/gh-repos/biohub/lab/quality_control/output/fastqc/pe/evo1_R1_fastqc.zip
