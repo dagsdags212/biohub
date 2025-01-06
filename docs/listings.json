@@ -34,6 +34,7 @@
   {
     "listing": "/pages/lab.html",
     "items": [
+      "/lab/c_memory_management/index.html",
       "/lab/sequence_mapping/index.html",
       "/lab/quality_control/index.html",
       "/lab/edirect/index.html",
