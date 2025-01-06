@@ -3,7 +3,7 @@ title: Memory Management in C
 author: Jan Emmanuel Samson
 email: jgsamson@up.edu.ph
 date: 2025/01/03
-last-modified: 2025/01/03
+last-modified: 2025/01/06
 description: "Understand how and where programs store data in memory"
 categories:
   - C
@@ -49,3 +49,370 @@ multi-line
 comment
 */
 ```
+
+### Data Types
+
+Basic data types in C include:
+
+- `int` - an integer
+- `float` - a floating point number
+- `char` - a character
+- `char *` - an array of characters 
+
+Strings do not have a built-in `string` type. Instead, strings are represented as an array of characters stored as a contiguous block in memory. Strings always end with the null terminating character (`\0`) and only a pointer to the first element is stored in the variable.
+
+```C
+char *str = "This is a string type";
+```
+
+---
+
+The size of a type is not guaranteed to be the same on all systems because the size depends on a system's architecture. On a 32-bit system, an `int` is usually 4 bytes. On a 64-bit system, an `int` is 8 bytes. C provides the `sizeof` operator to allow the compiler to determine the size of a type.
+
+The sizes of the basic C types are typically:
+
+- `char` - 1 byte
+- `float` - 4 bytes
+- `double` - 8 bytes
+
+`size_t` is a special types that is guaranteed to represent the size of the largest possible object in the target platform's address space.
+
+### Variables
+
+In C, values are assigned to variables using the assignment operator (=). Being a strictly-typed language, C enforces that the data type of all variables or known at compile time. The type of a variable cannot be changed once decaled, but it can be reassigned to a new value of the same type.
+
+```C
+int myNumber = 32;
+// This is valid
+myNumber = 64;
+// This is invalid
+myNumber = 3.14;
+```
+
+Immutable variables can be initialized using the `const` keyword:
+```C
+const float PI = 3.14;
+```
+
+The function `printf` from the stdio library allow for string interpolation. An ampersand, followed by one or more letters, is used to denote the parts of the string that should be replaced. The letters indicate the data type:
+
+- `%d` - digit (integer)
+- `%c` - character
+- `%f` - floating point number
+- `%s` - string
+
+```C
+char *name = "Rick";
+int age = 38;
+printf("Name is %s and I'm %d years old.\n", name, age);
+```
+
+### Functions
+
+Here is an example of a function in C:
+```C
+float add(int x, int y) {
+  return (float)(x + y);
+}
+```
+
+All functions require the following:
+
+- a return type (`float`)
+- function name (`add`)
+- optional arguments, each with their own type (`int x`, `int y`)
+- body
+
+The body of the function contains the logic on how the arguments are manipulated. It can optionally return a value for later use through the `return` keyword. 
+
+Call a function by specifying its name followed by a pair of parentheses. All arguments are specificied between the parentheses.
+```C
+int main() {
+  float result = add(1, 2);
+  printf("1 + 2 = %d", result);
+  return 0;
+}
+```
+
+Use the `void` return type when you do not intend to return a value from a function.
+```C
+void sayHello() {
+  printf("Hello!");
+}
+```
+
+### Math Operators
+
+- `+` - addition
+- `-` - subtraction
+- `*` - multiplication
+- `/` - division
+- `++` - increment
+- `--` - decrement
+
+### Control Flow
+
+Code chunks can be conditionally executed with the help of keywords such as `if`, `else if`, and `else`. 
+
+If statements are the most basic form of control flow in C. Its syntax is very similar top other languages.
+```C
+if (month < 12) {
+  printf("This is a valid month!");
+}
+// Can also be written this way
+if (month < 12) printf("This is a valid month!");
+```
+
+Simple branching logic can be expressed using the ternary operator:
+```C
+int a = 2;
+int b = 3;
+int max = a > b ? a : b;
+```
+
+Another way to manipulate the control flow of a program is through the use of loops. A `for` loop is used to repeatedly execute a block of code. It consists of three main parts:
+
+1. Initialization
+2. Condition
+3. Final expression
+
+The basic structure of a `for` loop is:
+```C
+for (initialization; condition; final-expression) {
+  // Loop body
+}
+```
+
+A `while` loop allows code to be executed repeatedly **based on a given boolean condition**. It will continue to execute as long as the condition is evaluated to be true.
+```C
+while (condition) {
+  // Loop body
+}
+```
+
+A `do while` loop allows code to be executed repeatedly based on a given condition. Unlike the `while` loop, the `do while` loop checks the condition **after executing the loop body**. This guarantees that the body is executed at least once.
+```C
+do {
+  // Loop body
+} while (condition);
+```
+
+## Structs
+
+`structs` are implemented in C to group logically related data into a single _object_. It is useful for representing things that contain multiple fields of information such as a _person_ or a _coordinate_.
+```C
+struct Biosequence {
+  int id;
+  char *seq;
+  isProtein bool;
+}
+```
+
+Like an array, `struct` fields are stored in a contiguous block of memory meaning that the order in which you declare each field (and data type) matters. CPUs do not like unaligned memory, thus they usually add _padding_ to memory locations. As a general rule, order your fields from biggest to smallest in terms of size.
+```C
+struct Biosequence {
+  char *seq;      // Can be more than 4 bytes
+  int id;         // 4 bytes
+  isProtein bool; // 1 byte
+}
+```
+
+There are mutliple ways to initialize structs. Our `Biosequence` struct can be initialized as follows:
+```C
+// Method 1
+struct Biosequence myDna = {"ACGT", 1, false};
+// Method 2
+struct Biosequence alsoMyDNA = { .seq = "ACGT", .id = 1, .isProtein = false };
+// Method 3
+struct BioSequence anotherDNA;
+anotherDNA.seq = "ACGT";
+anotherDNA.id = 1;
+anotherDNA.isProtein = false;
+```
+
+Use the `typedef` keyword to specify a custom type to your structs:
+```C
+// Simple way to define the struct
+struct Sample {
+  int id;
+  char *label;
+}
+// Using typedef
+typedef struct Sample {
+  int id;
+  char *label;
+} sample_t;
+
+// Create a new instance of a Sample object
+sample_t Sample = { .id = 1, .label = "human_serum" };
+```
+
+## Memory
+
+Memory is simply an array of bytes which are physically arranged in your hardware. The smallest denomination of memory is a byte composed of eight bits and each the position of each byte is tracked with an **address**. We usually visualize memory as _chunks_ of bytes since most types are composed of multiple bytes. Addresses are commonly represented in hexadecimal format and conversion to decimal gives us the _index_ of that variable in memory.
+
+Our code probably does not have direct access to the physical RAM in our system. Instead, the operating system (OS) provides a layer of abstraction called **virual memory** that can be used by our program. When ran, the program becomes a process and is allocated a chunk of virual memory by the OS.
+
+A **pointer** is an address or label that points to a physical location in the memory. In C, the address of a variable can be displayed by prepending the _address-of_ operator (&) to the variable name. Pointers can also be declared with an asterisk (*) after the type.
+```C
+#include <stdio.h>
+
+int main() {
+  int name = "Rick";
+  // %p is used to print the address
+  printf("The name %s is located at memory address %p\n", name, &name);
+  return 0;
+}
+```
+
+Working with pointers is easy. Here is an example:
+```C
+// Create a variable named x
+int x = 1;
+// Create a variable named y
+int y = 2;
+// Update the value stored at variable x
+x = 3;
+// Where is x stored? Check &x and store as a variable
+int *x_ptr = &x;
+// What is the value stored at our pointer x_ptr? Dereference using *x_ptr
+int z = *x_ptr;
+```
+
+We use the dot notation to access a field of a struct. When using pointers to structs, we could dereference and access the field of a struct pointer by using the arrow syntax (struct->field).
+```C
+int getSampleId(sample_t *sample) {
+  return sample_t->id;
+  // Equivalent to the next line:
+  // return (*sample_t).id;
+}
+```
+
+### Arrays
+
+An array is a fixed-size, ordered collection of elements stored in a contiguous block of memory. Each element is labeled with an index and can be accessed using the said index. Unlike python, C do not have iterators. Elements of the array must be looped over and indexed.
+```C
+#include <stdio.h>
+
+int main() {
+  int arr[5] = {1, 2, 3, 4, 5};
+  for (int i = 0; i < 5; i++) {
+    printf("%d\n", arr[i]);
+  }
+  return 0;
+}
+```
+
+Elements in an array can be updated by assigning a new value to the indexed location.
+```C
+arr[0] = 10;
+arr[3] = 20;
+```
+
+When storing arrays in varaibles, only the address of the first element is stored. Directly indexing an array is the same as incrementing the pointer to the array and dereferencing it.
+```C
+int firstVal = arr[0] // regular indexing
+int secondVal = *(arr + 1)// increment and dereference
+
+```
+
+The **size** of an array depends on both the number of elements and the size of each element. Pointers to an array can vary in size because each array type keep tracks of the size of each element and the number of elements.
+
+### Strings
+
+A C `string` is simply a pointer to an array of characters and only the address of the first element in the array is stored. Unlike normal arrays, strings are terminated by a null character ('\0'). String manipulation is done using pointer arithmetic to move arround the array and the null character is a handy way to determine the end of a string. We can implement our own `print` function similar to the built-in function in python:
+```C
+// Print each character in the string and end with a newline
+void print(char *msg) {
+  for (int i = 0; i < strlen(msg); i++) {
+    printf("%c", msg[i]);
+  }
+  printf("\n");
+}
+```
+
+#### String Functions
+
+The `<string.h>` library contains a lot of functions to help in string manipulation. Here are some important functions:
+
+- `strlen`: return the length of a string
+- `strcat`: append the second argument to the first argument
+- `strcpy`: copy a string to another
+- `strcmp`: compares two strings lexicographically
+- `strncpy`: copies a specified number of characters from one string to another
+- `strncat`: concatenate a specified number of characters from one string to another
+- `strchr`: finds the first occurrence of a character in a string
+- `strstr`: finds the first occurrence of a substring in a string
+
+## Enums 
+
+C has explicit support for enumerations using the `enum` keyword. Unlike structs or arrays, an `enum` is not a collection type. It is simply a list of integers which are constrained to a custom typw, where each value is given an explicit name.
+```C
+typedef enum Color {
+  BLUE,
+  RED,
+  YELLOW,
+} color_t;
+```
+
+Each `enum` field is assigned an integer value starting from zero. In our `Color` enum, `BLUE` is assigned a value of 0, `RED` is 1, and `YELLOW` is 2.
+
+Sometimes, you would like to set specific values to your enums. We can do this by assigning each enum field to any arbitrary integer.
+```C
+typedef enum {
+  EXIT_SUCESS = 0,
+  EXIT_FAILURE = 1,
+  EXIT_COMMAND_NOT_FOUND = 127,
+  EXIT_UNDEFINED, // assigned to 128
+} ExitStatus;
+```
+
+`enum`s can be used alongside `switch` statements to handle each case verbosely:
+```C
+switch (exitStatus) {
+  case EXIT_SUCCESS:
+    return "Exit with success!";
+  case EXIT_FAILIRE:
+    return "Exit with failure!";
+  default:
+    return "Exit with unknown status"
+}
+```
+
+## Unions
+
+A `union` is a collection type capable of storing data of different types. You can think if enums as a combination of structs and enums. It can hold one data type or the other, but not both. When given multiple data types, the compiler figures out the field with the largest size and allocates memory to fit it.
+
+
+## Stack and Heap
+
+Memory is divided into two main regions: the **stack** and the **heap**.
+
+### The Stack
+
+The stack is where local variables are stored. Upon calling a function, a new _stack frame_ is created in memory to store the parameters and local variables used within the function scope. After the function returns, the entire stack frame is deallocated. It follows as _LIFO_ (Last In, First Out) structure which can be operated using the `push` and `pop` functions.
+
+Allocating memory on the stack is preferred when possible because it is much faster and simpler than retrieving data from the heap:
+
+- Efficient Pointer Management
+- Cache-friendly Memory Access
+- Automatic Memory Management
+- Inherent Thread Safety
+
+### The Heap
+
+The **heap** is a pool of long-lived memory shared across the entire program. Memory in the heap is allocated and deallocated as needed. In C, memory is allocated using the `malloc` function and deallocated using `free`.
+```C
+int *new_int_array(int size) {
+  int *new_arr = (int *)malloc(size * sizeof(int));
+  if (new_arr) {
+    fprintf(stderr, "Memory allocation failed\n");
+    exit(1);
+  }
+  return new_arr;
+}
+```
+
+`malloc` (memory allocation) can specify the number of bytes of memory to retrieve from the heap and returns a pointers to the allocation. The `calloc` function ensures that the retrieved memory is properly initialized to zero.
+
+The `free` function is used to deallocate memory in the heap. It does not change the value stored in the memory, nor does it change the address stored in the pointer. It simply informs the OS that the chunk of memory can now be used by other programs. Forgetting to call `free` leads to memory leaks which poses a security vulnerability due to other agents having "free" access to possibly sensitive data.
