@@ -7,3 +7,6 @@ _site
 .jupyter_cache
 _extensions
 _freeze
+reads/
+*.fastq
+*.fastq.gz
