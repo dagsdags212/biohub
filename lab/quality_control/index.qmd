@@ -3,7 +3,7 @@ title: Quality Control and Adapter Trimming
 author: Jan Emmanuel Samson
 email: jgsamson@up.edu.ph
 date: 2025/01/02
-last-modified: 2025/01/02
+last-modified: 2025/01/07
 description: "Preprocessing raw sequencing reads for downstream analysis"
 categories:
   - sequence-analysis
