@@ -1,26 +1,12 @@
----
-title: Mapping High-Throughput Sequencing Data
-author: Jan Emmanuel Samson
-email: jgsamson@up.edu.ph
-date: 2025/01/03
-last-modified: 2025/01/07
-description: "Learn the tools used for aligning sequencing reads to a reference genome"
-categories:
-  - sequence-analysis
-  - read-mapping
-  - CLI
-image: assets/cover.png
-toc: true
-title-block-banner: true
-bibliography: ref.bib
-draft: true
----
-
 ## Introduction
 
-Read mapping is the process of aligning individual sequencing reads to a reference, whether it be a genome or transcriptome. The process requires no knowledge of the set of transcribed region or the way in which exons are spliced together. This allows for the discovery of new, unnotated transcripts. 
+Read mapping is the process of aligning individual sequencing reads to a reference, whether it be a genome or transcriptome, as illustrated in @fig-mapping. The process requires no knowledge of the set of transcribed region or the way in which exons are spliced together. This allows for the discovery of new, unnotated transcripts. 
 
-![Alignment of reads to a reference genome (left) or assembled contigs (right). Retrieved from [EMBL-EBI](https://www.ebi.ac.uk/training/online/courses/functional-genomics-ii-common-technologies-and-data-analysis-methods/rna-sequencing/performing-a-rna-seq-experiment/data-analysis/read-mapping-or-alignment/).](assets/mapping_illustration.png)
+![Alignment of reads to a reference genome (left) or assembled contigs (right).](assets/mapping_illustration.png){#fig-mapping}
+
+::: {.column-margin}
+ Retrieved from [EMBL-EBI](https://www.ebi.ac.uk/training/online/courses/functional-genomics-ii-common-technologies-and-data-analysis-methods/rna-sequencing/performing-a-rna-seq-experiment/data-analysis/read-mapping-or-alignment/).
+:::
 
 There are many tools and algorithms that have been implemented for this read mapping and many of these tools tolerate a degree of mismatch to allow a higher proportion of the reads to be heuristically aligned.
 
@@ -127,7 +113,7 @@ tar xvzf data/assembly.tar.gz
 ### Environment Setup
 
 Download the conda environment file [here]() to your current working directory. Install the dependencies by running:
-```
+```bash
 conda create -f env.yml
 ```
 

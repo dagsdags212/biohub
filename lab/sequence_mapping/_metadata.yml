@@ -1,0 +1,18 @@
+title: Mapping High-Throughput Sequencing Data
+author: Jan Emmanuel Samson
+email: jgsamson@up.edu.ph
+date: 2025/01/03
+last-modified: 2025/01/07
+description: "Learn the tools used for aligning sequencing reads to a reference genome"
+categories:
+  - sequence-analysis
+  - read-mapping
+  - CLI
+image: assets/cover.png
+
+toc: true
+title-block-banner: true
+bibliography: ref.bib
+
+# Toggle draft status
+draft: false
