@@ -8,5 +8,9 @@ _site
 _extensions
 _freeze
 reads/
+data/
 *.fastq
 *.fastq.gz
+
+lab/sequence_mapping/output/bwa
+lab/sequence_mapping/output/samtools
