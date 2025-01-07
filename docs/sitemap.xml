@@ -5,20 +5,44 @@
     <lastmod>2024-11-29T12:19:43.709Z</lastmod>
   </url>
   <url>
-    <loc>https://dagsdags212.github.io/biohub/lab/edirect/index.html</loc>
-    <lastmod>2024-11-26T23:47:58.914Z</lastmod>
+    <loc>https://dagsdags212.github.io/biohub/rosalind/gc_content.html</loc>
+    <lastmod>2025-01-07T18:43:41.139Z</lastmod>
   </url>
   <url>
-    <loc>https://dagsdags212.github.io/biohub/lab/edirect/sections/databases.html</loc>
-    <lastmod>2024-11-27T12:02:15.958Z</lastmod>
+    <loc>https://dagsdags212.github.io/biohub/rosalind/consensus_and_profile.html</loc>
+    <lastmod>2025-01-07T18:43:37.936Z</lastmod>
   </url>
   <url>
-    <loc>https://dagsdags212.github.io/biohub/lab/edirect/sections/installation.html</loc>
-    <lastmod>2024-11-26T21:48:50.347Z</lastmod>
+    <loc>https://dagsdags212.github.io/biohub/rosalind/recurrence_relations.html</loc>
+    <lastmod>2025-01-07T18:43:34.794Z</lastmod>
   </url>
   <url>
-    <loc>https://dagsdags212.github.io/biohub/lab/neural_networks/index.html</loc>
-    <lastmod>2024-11-26T23:47:41.762Z</lastmod>
+    <loc>https://dagsdags212.github.io/biohub/rosalind/translation.html</loc>
+    <lastmod>2025-01-07T18:43:31.658Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/rosalind/transcription.html</loc>
+    <lastmod>2025-01-07T18:43:28.481Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/algorithms/z_algorithm/index.html</loc>
+    <lastmod>2024-11-27T00:24:08.879Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/lab/edirect/sections/intro.html</loc>
+    <lastmod>2024-11-26T22:09:01.568Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/lab/edirect/sections/eutils.html</loc>
+    <lastmod>2024-11-29T13:10:29.376Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/lab/edirect/sections/accessory_programs.html</loc>
+    <lastmod>2024-11-26T21:57:48.563Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/lab/quality_control/index.html</loc>
+    <lastmod>2025-01-06T20:37:33.195Z</lastmod>
   </url>
   <url>
     <loc>https://dagsdags212.github.io/biohub/notebook/phylogenetic_analysis/index.html</loc>
@@ -121,23 +145,47 @@
     <lastmod>2024-11-26T23:26:23.167Z</lastmod>
   </url>
   <url>
-    <loc>https://dagsdags212.github.io/biohub/lab/quality_control/index.html</loc>
-    <lastmod>2025-01-06T20:37:33.195Z</lastmod>
+    <loc>https://dagsdags212.github.io/biohub/lab/neural_networks/index.html</loc>
+    <lastmod>2024-11-26T23:47:41.762Z</lastmod>
   </url>
   <url>
-    <loc>https://dagsdags212.github.io/biohub/lab/edirect/sections/accessory_programs.html</loc>
-    <lastmod>2024-11-26T21:57:48.563Z</lastmod>
+    <loc>https://dagsdags212.github.io/biohub/lab/edirect/sections/installation.html</loc>
+    <lastmod>2024-11-26T21:48:50.347Z</lastmod>
   </url>
   <url>
-    <loc>https://dagsdags212.github.io/biohub/lab/edirect/sections/eutils.html</loc>
-    <lastmod>2024-11-29T13:10:29.376Z</lastmod>
+    <loc>https://dagsdags212.github.io/biohub/lab/edirect/sections/databases.html</loc>
+    <lastmod>2024-11-27T12:02:15.958Z</lastmod>
   </url>
   <url>
-    <loc>https://dagsdags212.github.io/biohub/lab/edirect/sections/intro.html</loc>
-    <lastmod>2024-11-26T22:09:01.568Z</lastmod>
+    <loc>https://dagsdags212.github.io/biohub/lab/edirect/index.html</loc>
+    <lastmod>2024-11-26T23:47:58.914Z</lastmod>
   </url>
   <url>
-    <loc>https://dagsdags212.github.io/biohub/algorithms/z_algorithm/index.html</loc>
-    <lastmod>2024-11-27T00:24:08.879Z</lastmod>
+    <loc>https://dagsdags212.github.io/biohub/rosalind/motif_finding.html</loc>
+    <lastmod>2025-01-07T18:43:26.903Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/rosalind/replication.html</loc>
+    <lastmod>2025-01-07T18:43:30.053Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/rosalind/counting_nucleotides.html</loc>
+    <lastmod>2025-01-07T18:43:33.219Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/rosalind/hamming_distance.html</loc>
+    <lastmod>2025-01-07T18:43:36.353Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/rosalind/mendelian_inheritance.html</loc>
+    <lastmod>2025-01-07T18:43:39.520Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/lab/c_memory_management/index.html</loc>
+    <lastmod>2025-01-06T20:46:36.823Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dagsdags212.github.io/biohub/lab/sequence_mapping/index.html</loc>
+    <lastmod>2025-01-07T19:00:42.503Z</lastmod>
   </url>
 </urlset>
