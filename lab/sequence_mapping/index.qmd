@@ -3,13 +3,13 @@ title: Mapping High-Throughput Sequencing Data
 author: Jan Emmanuel Samson
 email: jgsamson@up.edu.ph
 date: 2025/01/03
-last-modified: 2025/01/03
-description: ""
+last-modified: 2025/01/07
+description: "Learn the tools used for aligning sequencing reads to a reference genome"
 categories:
   - sequence-analysis
   - read-mapping
   - CLI
-image: assets/cover.webp
+image: assets/cover.png
 toc: true
 title-block-banner: true
 bibliography: ref.bib
@@ -18,23 +18,25 @@ draft: true
 
 ## Introduction
 
-#### Considerations
+Read mapping is the process of aligning individual sequencing reads to a reference, whether it be a genome or transcriptome. The process requires no knowledge of the set of transcribed region or the way in which exons are spliced together. This allows for the discovery of new, unnotated transcripts. There are many tools and algorithms that have been implemented for this read mapping and many of these tools tolerate a degree of mismatch to allow a higher proportion of the reads to be heuristically aligned.
+
+### Considerations
 
 One consideration when choosing a mapper is the type of data that it was designed for (DNA, RNA, miRNA, bisulpite). Another dimension to consider is the sequencing platform that generated the HTS data. Some mappers are generalizable across data types which allows the alignment of any sequences, hence the source of data is irrelevant as long as the stored data fits the specifications of the tool. Examples include _BLAT_, _SSAHA_, _Exonerate_, and _Mummer_. 
 
 Some mappers were built for handling a subset of sequencing technologies such as _Slider_ which works well for Illumina data and exploits the base call probabilities present in its output files. In contrast, mappers such as _SOCS_, _RNA-MATE_, and _MapReads_ are catered towards aligning SOLiD reads which are encoded in color space. Mappers such as _SOAP_, _Bowtie_, or _Novoalign_ exploit the biases found in Illumina reads and have functionality to trim bases off the 3'-end reads in an attempt to reduce this bias.
 
-#### Mapping RNA Reads
+### Mapping RNA Reads
 
 In eukaryotes, genes can be spliced differentially to generate a wide variety of products from the same gene set. Thus, RNA-seq reads that are mapped to a reference genome can display large gaps in the alignment. This is especially the case when reads span multiple exons. Mappers overcome this issue by detecting splice junction locations by using _de novo_ methods or referring to an exon junction library. 
 
-#### Variation and Errors
+### Variation and Errors
 
 Mappers must allow for the approximate matching between reads and the reference to cope with errors and variation. More errors should be permitted when aligning long reads or reads from a different species. Five mismatches in a read with 36 bases (14%) is quantitatively different from five mismatches in a read with 500 bases (3%). 
 
 The challenge is to distinguish between true genetic variation and sequencing errors. Mappers such as _ELAND_, _VMATCH_, and _WHAM_ permits a small number of mismatches while mappers like _MapReads_, _MicroRazerS_, and _mrsFast_ accounts for an arbitrary number of mismatches. Some tools such as _BWA_ support indels while others impose no constraints on the number of mismatches and indels (e.g., _Bowtie2_, _GNUMAP_, _Mosaik_, _RazerS_, _SSAHA2_, _VMATCH_, _SHRiMP2_).
 
-### A Survey of Tools for Mapping
+## A Survey of Tools for Mapping
 
 
 :::: {.columns}
@@ -43,7 +45,8 @@ The challenge is to distinguish between true genetic variation and sequencing er
 ### Short-Read Mappers
 
 - BWA
-- 
+- Bowtie2
+- Minimap2
 
 :::
 ::: {.column width="50%"}
@@ -76,4 +79,175 @@ The challenge is to distinguish between true genetic variation and sequencing er
 
 ::: {.column-margin}
 *Wrappers that can use a variety of mappers
+:::
+
+### The SAM Format
+
+The SAM (Sequence Alignment/Map) format is a file specification use to store information related to the computed read alignment in tabular form. The format consists of multiple columns which are described in @tbl-samfields:
+
+| Col | Field | Description |
+| -- | ------ | ------------ |
+| 1 | QNAME | Query (pair) NAME |
+| 2 | FLAG | bitwise FLAG |
+| 3 | RNAME | Reference sequence NAME |
+| 4 | POS | 1-based leftmost position/coordinate of clipped sequence |
+| 5 | MAPQ | Mapping quality in Phred scale |
+| 6 | CIGAR | Extended CIGAR string |
+| 7 | MRNM | Mate reference sequece name | 
+| 8 | MPOS | 1-based mate position |
+| 9 | ISIZE | Inferred insert size |
+| 10 | SEQ | Query sequence on the same strand as the reference |
+| 11 | QUAL | Query quality |
+| 12 | OPT | Optional fields in the format TAG:VTYPE:VALUE |
+: SAM file fields. {#tbl-samfields}
+
+## Getting Started
+
+### Downloading Data
+
+For this tutorial, we will be using a set of pair-end reads that has been processed (adapter trimmed and quality filtered). A review on the steps involved in quality control can be found in [this page](https://dagsdags212.github.io/biohub/lab/quality_control/). The filtered reads will then be mapped to a **reference genome**.
+
+Save the sequencing reads and reference genome to a designated directory:
+```bash
+mkdir data/
+
+# Download and decompress reads
+wget -O data/trimmed.tar.gz https://osf.io/m3wpr/download
+tar xvzf data/trimmed.tar.gz
+
+# Download and decompress reference genome
+wget -O data/assembly.tar.gz https://osf.io/t2zpm/download
+tar xvzf data/assembly.tar.gz
+```
+
+### Environment Setup
+
+Download the conda environment file [here]() to your current working directory. Install the dependencies by running:
+```
+conda create -f env.yml
+```
+
+`conda` will install the following programs:
+
+- `bwa`
+- `samtools`
+- `qualimap`
+- R
+
+## Workflow
+
+### Indexing the Reference Genome
+
+Generate an index of the reference genome:
+```bash
+bwa index data/assembly/scaffolds.fasta
+```
+
+### Read Alignment using `bwa`
+
+Align the ancestral pair-end reads to the indexed genome using `bwa`:
+```bash
+# Store path to reference genome
+REF=data/assembly/scaffolds.fasta
+
+# Store paths for each FASTQ in an array
+ANC_READS=(data/trimmed/anc_R1.fastq.gz data/trimmed/anc_R2.fastq.gz)
+
+# Align ancestral reads to reference
+bwa mem ${REF} ${ANC_READS[0]} ${ANC_READS[1]} > output/bwa/anc.aln.sam
+```
+
+Try mapping the two sets of evolutionary reads to the reference genome.
+
+::: {.column-tip title="Solution" collapse="true"}
+
+```bash
+# Path to reference
+REF=data/assembly/scaffolds.fasta
+
+# Align first set of evolutionary reads
+EVOL1_READS=(data/trimmed/evol1_R1.fastq.gz data/trimmed/evol1_R2.fastq.gz)
+bwa mem ${REF} ${EVOL1_READS[0]} ${EVOL1_READS[1]} > output/bwa/evol1.aln.sam
+
+# Align second set of evolutionary reads
+EVOL2_READS=(data/trimmed/evol2_R1.fastq.gz data/trimmed/evol2_R2.fastq.gz)
+bwa mem ${REF} ${EVOL2_READS[0]} ${EVOL2_READS[1]} > output/bwa/evol2.aln.sam
+```
+
+:::
+
+### SAM Post-Processing
+
+We will use `samtools` to manipulate the outputted alignment files.
+
+#### Fix mates and compress
+
+```bash
+samtools sort -n -O sam output/bwa/anc.aln.sam # <1>
+  | samtools fixmate -m -O bam - output/samtools/anc.fixmate.bam # <2>
+```
+1. Sort mapped reads by position
+2. Fix read mates and compress to binary format
+
+The `-m` flag adds the mate score tags and `-O` specifies the output format to be in binary.
+
+#### Sort by Coordinate
+
+```bash
+samtools sort -O bam -o output/samtools/anc.sorted.bam output/samtools/anc.fixmate/bam
+```
+
+#### Remove Duplicates
+
+```bash
+samtools markdup -r -S output/samtools/anc.sorted.bam output/samtools/anc.sorted.dedup.bam
+```
+
+### Computing Mapping Statistics
+
+Get a mapping overview:
+```{python}
+! samtools flagstat output/samtools/anc.sorted.dedup.bam
+```
+
+Compute the read depth for all positions of the reference genome:
+```bash
+samtools depth output/samtools/anc.sorted.dedup.bam | gzip > output/samtools/anc.depth.txt.gz
+```
+
+Extract the depth values for contig 20:
+
+```{python}
+%%bash
+zcat output/samtools/anc.depth.txt.gz |
+  egrep '^NODE_20_' |
+  head -n 20
+```
+
+Below is an R script that plots the read coverage across the reference genome location. The resulting graph is seen in @fig-coverage.
+```r
+# Load in aligned reads from NODE 20
+data <- read.table("output/samtools/NODE20.depth.txt.gz", sep = "\t", header = FALSE, strip.white = TRUE)
+
+# Plot and save as png
+outfile <- "plots/covNODE20.png"
+png(outfile, width = 1300, height = 600)
+plot(data[, 2], data[, 3], col = ifelse(data[, 3] < 20, "red", "black"), pch = 19, xlab = "position", ylab = "coverage")
+dev.off()
+```
+
+![Coverage plot of the ancestral reads for contig 20 of the reference genome.](plots/covNODE20.png){fig-align="center" width=100% #fig-coverage}
+
+### Generating Mapping Statistics with `qualimap`
+
+A more in-depth analysis can be conducted using `qualimap`. Run the tool by invoking the `bamqc` subcommand, passsing in the sorted BAM file as a positional argument:
+```bash
+qualimap bamqc -bam output/samtools/anc.sorted.dedup.bam
+```
+Like FASTQC, `qualimap` produces an HTML report that provides a mapping summary. The output of the tool is provided below:
+
+::: {.column-page}
+
+<embed type="application/pdf" src="output/qualimap/report.pdf" width="100%" height="640" />
+
 :::
