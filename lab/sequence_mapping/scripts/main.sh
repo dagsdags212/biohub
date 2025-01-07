@@ -26,3 +26,7 @@ samtools sort -O bam -o output/samtools/${PREFIX}.sorted.bam output/samtools/${P
 
 # Remove duplicates
 samtools markdup -r -S output/samtools/${PREFIX}.sorted.bam output/samtools/${PREFIX}.sorted.dedup.bam
+
+# Generate mapping statistics
+mkdir -p output/qualimap
+qualimap bamqc -outdir output/qualimap -outformat PDF -bam output/samtools/${PREFIX}.sorted.dedup.bam

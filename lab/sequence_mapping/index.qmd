@@ -18,11 +18,15 @@ draft: true
 
 ## Introduction
 
-Read mapping is the process of aligning individual sequencing reads to a reference, whether it be a genome or transcriptome. The process requires no knowledge of the set of transcribed region or the way in which exons are spliced together. This allows for the discovery of new, unnotated transcripts. There are many tools and algorithms that have been implemented for this read mapping and many of these tools tolerate a degree of mismatch to allow a higher proportion of the reads to be heuristically aligned.
+Read mapping is the process of aligning individual sequencing reads to a reference, whether it be a genome or transcriptome. The process requires no knowledge of the set of transcribed region or the way in which exons are spliced together. This allows for the discovery of new, unnotated transcripts. 
+
+![Alignment of reads to a reference genome (left) or assembled contigs (right). Retrieved from [EMBL-EBI](https://www.ebi.ac.uk/training/online/courses/functional-genomics-ii-common-technologies-and-data-analysis-methods/rna-sequencing/performing-a-rna-seq-experiment/data-analysis/read-mapping-or-alignment/).](assets/mapping_illustration.png)
+
+There are many tools and algorithms that have been implemented for this read mapping and many of these tools tolerate a degree of mismatch to allow a higher proportion of the reads to be heuristically aligned.
 
 ### Considerations
 
-One consideration when choosing a mapper is the type of data that it was designed for (DNA, RNA, miRNA, bisulpite). Another dimension to consider is the sequencing platform that generated the HTS data. Some mappers are generalizable across data types which allows the alignment of any sequences, hence the source of data is irrelevant as long as the stored data fits the specifications of the tool. Examples include _BLAT_, _SSAHA_, _Exonerate_, and _Mummer_. 
+One consideration when choosing a mapper is the type of data that it was designed for (DNA, RNA, miRNA, bisulphite). Another dimension to consider is the sequencing platform that generated the HTS data. Some mappers are generalizable across data types which allows the alignment of any sequences, hence the source of data is irrelevant as long as the stored data fits the specifications of the tool. Examples include _BLAT_, _SSAHA_, _Exonerate_, and _Mummer_. 
 
 Some mappers were built for handling a subset of sequencing technologies such as _Slider_ which works well for Illumina data and exploits the base call probabilities present in its output files. In contrast, mappers such as _SOCS_, _RNA-MATE_, and _MapReads_ are catered towards aligning SOLiD reads which are encoded in color space. Mappers such as _SOAP_, _Bowtie_, or _Novoalign_ exploit the biases found in Illumina reads and have functionality to trim bases off the 3'-end reads in an attempt to reduce this bias.
 
@@ -244,10 +248,61 @@ A more in-depth analysis can be conducted using `qualimap`. Run the tool by invo
 ```bash
 qualimap bamqc -bam output/samtools/anc.sorted.dedup.bam
 ```
-Like FASTQC, `qualimap` produces an HTML report that provides a mapping summary. The output of the tool is provided below:
+Like FASTQC, `qualimap` produces an HTML (or PDF) report that provides a mapping summary. The output of the tool is provided below:
 
 ::: {.column-page}
 
 <embed type="application/pdf" src="output/qualimap/report.pdf" width="100%" height="640" />
 
 :::
+
+### Filtering by Mapping Score
+
+Alignment files in SAM format consists of a column that stores the **MAPQ** score pertaining to the quality of an alignment. MAPQ scores are Phred-scaled and can be computed using the following formula:
+
+$$ \text{MAPQ} = -10 \times \log{10}(p) $$
+
+The variable _p_ is the probability that the read is incorrectly mapped to the reference.
+
+The Bowtie2 documentation defines medium quality mappings as alignments with a MAPQ score of at least 20. We can subset the deduplicated reads based on this criterion as follows:
+```bash
+samtools view -h -b -q 20 output/samtools/anc.sorted.dedup.bam > outout/samtools/anc.sorted.dedup.q20.bam
+```
+
+## Putting It All Together
+
+Save the following code as a bash script and pass in the paths to the pair-end reads, as well as a prefix for keeping track of output files, as the only three positional arguments. The R code for producing the quality graphs were not included for brevity.
+```bash
+#!/usr/bin/env bash
+
+set -eu
+
+# Specify the filenames of the forward and reverse reads
+R1=$1
+R2=$2
+PREFIX=$3
+
+# Path to reference assembly
+REF=data/assembly/scaffolds.fasta
+
+# Generate genome index
+bwa index ${REF}
+
+# Map "anc" reads to reference
+bwa mem ${REF} ${R1} ${R2} >output/bwa/${PREFIX}.aln.sam
+
+# Fix mates and compress
+mkdir -p output/samtools
+samtools sort -n -O sam output/bwa/${PREFIX}.aln.sam |
+  samtools fixmate -m -O bam - output/samtools/${PREFIX}.fixmate.bam
+
+# Sort by genome coordinate
+samtools sort -O bam -o output/samtools/${PREFIX}.sorted.bam output/samtools/${PREFIX}.fixmate.bam
+
+# Remove duplicates
+samtools markdup -r -S output/samtools/${PREFIX}.sorted.bam output/samtools/${PREFIX}.sorted.dedup.bam
+
+# Generate mapping statistics
+mkdir -p output/qualimap
+qualimap bamqc -outdir output/qualimap -outformat PDF -bam output/samtools/${PREFIX}.sorted.dedup.bam
+```
