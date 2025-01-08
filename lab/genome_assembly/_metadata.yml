@@ -1,0 +1,18 @@
+title: Assembling and Evaluating the Genome of African Swine Fever Virus
+author: Jan Emmanuel Samson
+email: jgsamson@up.edu.ph
+date: 2025/01/08
+last-modified: 2025/01/08
+description: "Assemble and compare ASFV genomes sequenced from the Philippines"
+categories:
+  - sequence analysis
+  - sequence assembly
+  - CLI
+image: assets/cover.jpeg
+
+toc: true
+title-block-banner: true
+bibliography: references.bib
+
+# Toggle draft status
+draft: true

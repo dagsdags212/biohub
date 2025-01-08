@@ -298,7 +298,7 @@
     "href": "pages/lab.html",
     "title": "Lab",
     "section": "",
-    "text": "Memory Management in C\n\n\n\n\n\n\nC\n\n\nprogramming\n\n\n\nUnderstand how and where programs store data in memory\n\n\n\n\n\nJan 3, 2025\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\n\n\n\n\n\n\nMapping High-Throughput Sequencing Data\n\n\n\n\n\n\nsequence-analysis\n\n\nread-mapping\n\n\nCLI\n\n\n\nLearn the tools used for aligning sequencing reads to a reference genome\n\n\n\n\n\nJan 3, 2025\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\n\n\n\n\n\n\nQuality Control and Adapter Trimming\n\n\n\n\n\n\nsequence-analysis\n\n\npreprocessing\n\n\nCLI\n\n\n\nPreprocessing raw sequencing reads for downstream analysis\n\n\n\n\n\nJan 2, 2025\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\n\n\n\n\n\n\nEntrez Utilities Quick Start\n\n\n\n\n\n\nCLI\n\n\nAPI\n\n\n\nQuery and programmatically access the various databases hosted at NCBI\n\n\n\n\n\nNov 27, 2024\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\n\n\n\n\n\n\nAn Introduction to Neural Networks\n\n\n\n\n\n\nmachine learning\n\n\nstatistics\n\n\n\nLearning the building blocks of AI and machine learning.\n\n\n\n\n\nOct 16, 2024\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Assembling and Evaluating the Genome of African Swine Fever Virus\n\n\n\n\n\n\nsequence analysis\n\n\nsequence assembly\n\n\nCLI\n\n\n\nAssemble and compare ASFV genomes sequenced from the Philippines\n\n\n\n\n\nJan 8, 2025\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\n\n\n\n\n\n\nMemory Management in C\n\n\n\n\n\n\nC\n\n\nprogramming\n\n\n\nUnderstand how and where programs store data in memory\n\n\n\n\n\nJan 3, 2025\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\n\n\n\n\n\n\nMapping High-Throughput Sequencing Data\n\n\n\n\n\n\nsequence-analysis\n\n\nread-mapping\n\n\nCLI\n\n\n\nLearn the tools used for aligning sequencing reads to a reference genome\n\n\n\n\n\nJan 3, 2025\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\n\n\n\n\n\n\nQuality Control and Adapter Trimming\n\n\n\n\n\n\nsequence-analysis\n\n\npreprocessing\n\n\nCLI\n\n\n\nPreprocessing raw sequencing reads for downstream analysis\n\n\n\n\n\nJan 2, 2025\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\n\n\n\n\n\n\nEntrez Utilities Quick Start\n\n\n\n\n\n\nCLI\n\n\nAPI\n\n\n\nQuery and programmatically access the various databases hosted at NCBI\n\n\n\n\n\nNov 27, 2024\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\n\n\n\n\n\n\nAn Introduction to Neural Networks\n\n\n\n\n\n\nmachine learning\n\n\nstatistics\n\n\n\nLearning the building blocks of AI and machine learning.\n\n\n\n\n\nOct 16, 2024\n\n\nJan Emmanuel Samson\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
     "objectID": "pages/algorithms.html",
@@ -733,5 +733,26 @@
     "title": "Introduction",
     "section": "Putting It All Together",
     "text": "Putting It All Together\nSave the following code as a bash script and pass in the paths to the pair-end reads, as well as a prefix for keeping track of output files, as the only three positional arguments. The R code for producing the quality graphs were not included for brevity.\n#!/usr/bin/env bash\n\nset -eu\n\n# Specify the filenames of the forward and reverse reads\nR1=$1\nR2=$2\nPREFIX=$3\n\n# Path to reference assembly\nREF=data/assembly/scaffolds.fasta\n\n# Generate genome index\nbwa index ${REF}\n\n# Map \"anc\" reads to reference\nbwa mem ${REF} ${R1} ${R2} &gt;output/bwa/${PREFIX}.aln.sam\n\n# Fix mates and compress\nmkdir -p output/samtools\nsamtools sort -n -O sam output/bwa/${PREFIX}.aln.sam |\n  samtools fixmate -m -O bam - output/samtools/${PREFIX}.fixmate.bam\n\n# Sort by genome coordinate\nsamtools sort -O bam -o output/samtools/${PREFIX}.sorted.bam output/samtools/${PREFIX}.fixmate.bam\n\n# Remove duplicates\nsamtools markdup -r -S output/samtools/${PREFIX}.sorted.bam output/samtools/${PREFIX}.sorted.dedup.bam\n\n# Generate mapping statistics\nmkdir -p output/qualimap\nqualimap bamqc -outdir output/qualimap -outformat PDF -bam output/samtools/${PREFIX}.sorted.dedup.bam"
+  },
+  {
+    "objectID": "lab/genome_assembly/index.html",
+    "href": "lab/genome_assembly/index.html",
+    "title": "Assembling and Evaluating the Genome of African Swine Fever Virus",
+    "section": "",
+    "text": "The goal of this tutorial is to develop a pipeline for assembling viral genomes. The pipeline should include the following steps:\n\nRetrieve sequencing data\nGenerate draft assemblies using two or more assemblers\nCompare and assess the resulting contigs\n\n\n\n\nedirect\nfastq-dump\nspades\nmegahit"
+  },
+  {
+    "objectID": "lab/genome_assembly/index.html#background",
+    "href": "lab/genome_assembly/index.html#background",
+    "title": "Assembling and Evaluating the Genome of African Swine Fever Virus",
+    "section": "",
+    "text": "The goal of this tutorial is to develop a pipeline for assembling viral genomes. The pipeline should include the following steps:\n\nRetrieve sequencing data\nGenerate draft assemblies using two or more assemblers\nCompare and assess the resulting contigs\n\n\n\n\nedirect\nfastq-dump\nspades\nmegahit"
+  },
+  {
+    "objectID": "lab/genome_assembly/index.html#retrieving-data",
+    "href": "lab/genome_assembly/index.html#retrieving-data",
+    "title": "Assembling and Evaluating the Genome of African Swine Fever Virus",
+    "section": "Retrieving Data",
+    "text": "Retrieving Data\nThe data was generated from a sequencing experiment by The Pirbright Institute using REPLI-g kits (Qiagen). Five sequencing runs of five samples were conducted and the raw reads are stored under the project ID PRJNA1066786. The accession for each run is as follows:\n\nSRR27644850\nSRR27644851\nSRR27644852\nSRR27644853\nSRR27644854"
   }
 ]

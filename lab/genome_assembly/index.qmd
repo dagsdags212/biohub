@@ -1,0 +1,24 @@
+## Background
+
+The goal of this tutorial is to develop a pipeline for assembling viral genomes. The pipeline should include the following steps:
+
+1. Retrieve sequencing data
+2. Generate draft assemblies using two or more assemblers
+3. Compare and assess the resulting contigs
+
+### Tools and Environment Setup
+
+- `edirect`
+- `fastq-dump`
+- `spades`
+- `megahit`
+
+## Retrieving Data
+
+The data was generated from a sequencing experiment by The Pirbright Institute using REPLI-g kits (Qiagen). Five sequencing runs of five samples were conducted and the raw reads are stored under the project ID [PRJNA1066786](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1066786). The accession for each run is as follows:
+
+- [SRR27644850](https://www.ncbi.nlm.nih.gov/sra/SRX23312849[accn])
+- [SRR27644851](https://www.ncbi.nlm.nih.gov/sra/SRX23312848[accn])
+- [SRR27644852](https://www.ncbi.nlm.nih.gov/sra/SRX23312848[accn])
+- [SRR27644853](https://www.ncbi.nlm.nih.gov/sra/SRX23312848[accn])
+- [SRR27644854](https://www.ncbi.nlm.nih.gov/sra/SRX23312848[accn])

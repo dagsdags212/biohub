@@ -2,6 +2,7 @@
   {
     "listing": "/pages/lab.html",
     "items": [
+      "/lab/genome_assembly/index.html",
       "/lab/c_memory_management/index.html",
       "/lab/sequence_mapping/index.html",
       "/lab/quality_control/index.html",
